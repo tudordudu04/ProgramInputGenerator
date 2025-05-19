@@ -1,0 +1,65 @@
+*,
+*::after,
+*::before{
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html,
+body{
+    height: 100%;
+}
+body{
+    display: flex;
+    flex-direction: column;
+}
+
+.site-header {
+    background: #124559;
+    color: #fff;
+    padding: 1em 0;
+}
+.site-header .container,
+.site-footer .container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; 
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+.container{
+    margin: 0 2rem;
+}
+.site-header .logo {
+    font-size: 1.6em;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+}
+.site-header nav ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    gap: 1.5em;
+}
+.site-header nav a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+.site-header nav a:hover {
+    color: #80d0c7;
+}
+.site-footer {
+    background: #f2f2f2;
+    color: #444;
+    padding: 1.5em 0;
+    text-align: center;
+}   
+.site-main {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
