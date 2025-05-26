@@ -24,7 +24,7 @@ form.addEventListener('submit', function (e) {
         messageDiv.textContent = data.message;
         messageDiv.style.color = data.success ? "green" : "red";
         if (data.success) {
-            window.location.href = 'login.php';
+            window.location.href = 'login.html';
         }
     })
     .catch(() => {

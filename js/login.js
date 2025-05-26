@@ -15,6 +15,7 @@ form.addEventListener('submit', function (e) {
         messageDiv.textContent = data.message;
         messageDiv.style.color = data.success ? "green" : "red";
         if (data.success) {
+            localStorage.setItem('jwt', data.token);
             window.location.href = '../index.php';
         }
     })

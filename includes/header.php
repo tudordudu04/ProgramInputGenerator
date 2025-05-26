@@ -16,7 +16,7 @@
         <nav>
             <ul>
                 <li><a href="<?php echo $_SERVER['PHP_SELF'];?>">Home</a></li>
-                <?php if(isset($_SESSION['userId'])): ?>
+                <?php if(isset($_COOKIE['jwt'])): ?>
                     <li><a href="pages/profile.html">Profile</a></li>
                     <li><a href="auth/logout.php">Logout</a></li>
                 <?php else: ?>
