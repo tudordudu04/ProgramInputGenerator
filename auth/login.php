@@ -34,7 +34,7 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false, 
-                'message' => 'Database error: '.$pg_last_error($conn)]);
+                'message' => 'Database error: '.pg_last_error($conn)]);
             exit;
 
         } else if (pg_num_rows($checkUserResult) == 1) {
@@ -53,6 +53,7 @@
                 setcookie("jwt", $jwt, [
                     "expires" => time() + 3600,
                     "httponly" => true,
+                    "samesite" => "Lax",
                     "path" => "/"
                 ]);
                 echo json_encode([
@@ -62,8 +63,13 @@
                 http_response_code(401);
                 echo json_encode([
                     'success' => false, 
-                    'message' => 'Error: ' . pg_last_error($conn)]);
+                    'message' => 'Invalid username or password.']);
             }
+    } else {
+        http_response_code(401);
+        echo json_encode([
+            'success' => false, 
+            'message' => 'Invalid username or password.']);
     }
     pg_free_result($checkUserResult);
 

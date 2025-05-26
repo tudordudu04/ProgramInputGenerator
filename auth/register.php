@@ -29,7 +29,7 @@
             http_response_code(401);
             echo json_encode([
                 'success' => false,
-                'message' => 'Database error: ' . $pg_last_error($conn)]);
+                'message' => 'Database error: ' . pg_last_error($conn)]);
             exit;
         }
 
