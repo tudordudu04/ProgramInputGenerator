@@ -88,6 +88,7 @@ document.addEventListener('DOMContentLoaded', function(){
             document.getElementById('profileDisplay').style.display = '';
             document.getElementById('profileForm').style.display = 'none';
             document.getElementById('profileDisplayButtons').style.display = '';
+            document.getElementById('formEditProfileButtons').style.display = 'none';
         })
         .catch(() => {
             messageDiv.textContent = "Failed to save profile, please try again.";
