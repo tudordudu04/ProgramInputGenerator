@@ -1,11 +1,5 @@
 <?php
-    require_once "../util/vendor/autoload.php";
-    include '../database/db_connection.php';
-
-    use Firebase\JWT\Key;
-    use Firebase\JWT\JWT;
-
-    $key = "cevacevacevacevacevacevacevacevacevacevacevacevacevacevacevaceva";
+    include "decodeUserId.php";
 
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         echo json_encode([
@@ -14,37 +8,7 @@
         ]);
         exit;
     }
-
-    if (!isset($_COOKIE['jwt'])) {
-        echo json_encode([
-            "success" => false,
-            "message" => "User not authenticated."
-        ]);
-        exit;
-    }
-
-    $key = "cevacevacevacevacevacevacevacevacevacevacevacevacevacevacevaceva";
-    $jwt = $_COOKIE['jwt'];
-
-    try {
-        $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
-        $userId = $decoded->user_id ?? null;
-    } catch (Exception $e) {
-        echo json_encode([
-            "success" => false,
-            "message" => "Invalid authentication token."
-        ]);
-        exit;
-    }
-
-    if (!$userId) {
-        echo json_encode([
-            "success" => false,
-            "message" => "User ID not found in token."
-        ]);
-        exit;
-    }
-
+    // Aici pune validari mai bune
     $username = trim($_POST['username'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $firstName = trim($_POST['firstName'] ?? '');

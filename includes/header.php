@@ -5,6 +5,7 @@
     <title><?php echo $title ?? 'PIG'; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/header-footer.css">
+    <script src="../js/searchUser.js"></script>
     <?php if (!empty($scriptSource)) echo $scriptSource; ?>
     <?php if (!empty($additionalCss)) echo $additionalCss; ?>
 </head>
@@ -13,7 +14,15 @@
     <div class="margin">
         <a href="<?php echo $_SERVER['PHP_SELF'];?>" class="logo">Program Input Generator</a>
         <nav>
-            <ul>
+            <ul class="align">
+                <?php if(isset($_COOKIE['jwt'])): ?>
+                    <li>
+                        <form action="../database/searchUser.php" method="POST" style="display:inline;" class="search" autocomplete="off">
+                            <input type="text" name="query" placeholder="Search..." required autocomplete="off" class="queryBox">
+                            <ul id="results"></ul>
+                        </form>
+                    </li>
+                <?php endif; ?>
                 <li><a href="index.php">Home</a></li>
                 <?php if(isset($_COOKIE['jwt'])): ?>
                     <li><a href="profile.php">Profile</a></li>

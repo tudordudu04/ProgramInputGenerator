@@ -42,7 +42,7 @@ fetch('../database/getProfile.php', {
 document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('editProfileBtn').addEventListener('click', function() {
         document.getElementById('profileDisplay').style.display = 'none';
-        document.getElementById('profileForm').style.display = 'block';
+        document.getElementById('profileForm').style.display = 'flex';
         document.getElementById('profileDisplayButtons').style.display = 'none';
         document.getElementById('formEditProfileButtons').style.display = 'block';
         loadProfileToForm(profileData);

@@ -40,6 +40,7 @@
                     <button class="btn" onclick="generateJSON()">Generate JSON</button>
                     <button class="btn" onclick="clearScope()">Clear</button>
                     <?php if(isset($_COOKIE['jwt'])): ?>
+                        <!-- Aici pune ceva cand dai save sa se vada ca a reusit save-ul -->
                         <button class="btn" onclick="saveQuery()">Save Query In Profile</button>
                     <?php endif;?>
                 </div>

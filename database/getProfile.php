@@ -1,24 +1,7 @@
 <?php
-    require_once "../util/vendor/autoload.php";
-    include '../database/db_connection.php';
-
-    use Firebase\JWT\Key;
-    use Firebase\JWT\JWT;
-    $key = "cevacevacevacevacevacevacevacevacevacevacevacevacevacevacevaceva";
-    header('Content-Type: application/json');
-
-    if (!isset($_COOKIE['jwt'])) {
-        http_response_code(401);
-        echo json_encode(['error' => 'Not authenticated']);
-        exit;
-    }
-
-    $jwt = $_COOKIE['jwt'];
+    include "decodeUserId.php";
 
     try {
-        $decoded = JWT::decode($jwt, new Key($key, 'HS256'));
-        $userId = $decoded->user_id;
-
         $checkUserQuery = "SELECT * FROM users WHERE id = $1";
         $checkUserResult = pg_query_params($conn, $checkUserQuery, array($userId));
 
@@ -49,7 +32,7 @@
         
     } catch (Exception $e) {
         http_response_code(401);
-        echo json_encode(['error' => 'Invalid token']);
+        echo json_encode(['error' => 'Database error: '.pg_last_error($conn)]);
     }
 
 ?>

@@ -8,7 +8,7 @@
             'success' => false, 
             'message' => 'Already logged in.']);
         
-    }else if ($_SERVER["REQUEST_METHOD"] === "POST") {
+    } else if ($_SERVER["REQUEST_METHOD"] === "POST") {
         $username = htmlspecialchars(trim($_POST['username'] ?? ''));
         $email = htmlspecialchars(trim($_POST['email'] ?? ''));
         $password = htmlspecialchars(trim($_POST['password'] ?? ''));
