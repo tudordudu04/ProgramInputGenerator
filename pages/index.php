@@ -38,8 +38,9 @@
             <div class="workspace">
                 <div class="controls">
                     <button class="btn" onclick="generateJSON()">Generate JSON</button>
+                    <button class="btn" onclick="clearScope()">Clear</button>
                     <?php if(isset($_COOKIE['jwt'])): ?>
-                        <button class="btn" onclick="">Save Query In Profile</button>
+                        <button class="btn" onclick="saveQuery()">Save Query In Profile</button>
                     <?php endif;?>
                 </div>
                 

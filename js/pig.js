@@ -358,4 +358,20 @@ function generateJSON() {
     output.style.display = 'block';
 }
 
-document.getElementById('root-scope').innerHTML += '<div class="drop-placeholder"></div>';
+function saveQuery(){
+    updateDataModel();
+    const formData = new FormData();
+    formData.append('jsonData', JSON.stringify(dataModel, null, 2));
+    fetch('../database/queriesAndResults.php', {
+        method: 'POST',
+        body: formData
+    });
+}
+
+function clearScope(){
+    document.getElementById('root-scope').innerHTML = '<div class=\"scope-label\">Test Scope</div><div class=\"drop-placeholder\"></div>';
+    document.getElementById('json-output').innerHTML = '';
+    document.getElementById('json-output').style.display = 'none';
+}
+
+// document.getElementById('root-scope').innerHTML += '<div class="drop-placeholder"></div>'; //nu stiu ce e asta

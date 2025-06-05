@@ -45,7 +45,6 @@
         exit;
     }
 
-    // Retrieve and sanitize user input
     $username = trim($_POST['username'] ?? '');
     $email = trim($_POST['email'] ?? '');
     $firstName = trim($_POST['firstName'] ?? '');
@@ -55,7 +54,6 @@
     $country = trim($_POST['country'] ?? '');
     $city = trim($_POST['city'] ?? '');
 
-    // Update the user profile in the database
     try {
         $sqlQuery = "UPDATE profiles
              SET \"firstName\" = $1,

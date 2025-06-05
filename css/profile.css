@@ -8,6 +8,11 @@
     background: #fff;
 }
 
+#profileForm,
+#formEditProfileButtons{
+    display: none;
+}
+
 .navbar {
     flex: 0 0 20%;
     min-width: 180px;

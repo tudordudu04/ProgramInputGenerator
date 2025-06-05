@@ -29,28 +29,25 @@ function loadProfileToForm(profile) {
     document.getElementById('city').value = profile.city;
 }
 
-document.addEventListener('DOMContentLoaded', function(){
-    let profileData;
-    fetch('../database/getProfile.php', {
-        credentials: 'include'
-        })
-        .then(r => r.json())
-        .then(profile => {
-            profileData = profile;
-            loadProfileToDisplay(profile);
-            document.getElementById('profileForm').style.display = 'none';
-            document.getElementById('formEditProfileButtons').style.display = 'none';
-        });
 
+let profileData;
+fetch('../database/getProfile.php', {
+    credentials: 'include'
+    })
+    .then(r => r.json())
+    .then(profile => {
+        profileData = profile;
+        loadProfileToDisplay(profile);
+    });
+document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('editProfileBtn').addEventListener('click', function() {
         document.getElementById('profileDisplay').style.display = 'none';
-        document.getElementById('profileForm').style.display = '';
+        document.getElementById('profileForm').style.display = 'block';
         document.getElementById('profileDisplayButtons').style.display = 'none';
-        document.getElementById('formEditProfileButtons').style.display = '';
+        document.getElementById('formEditProfileButtons').style.display = 'block';
         loadProfileToForm(profileData);
     });
 
-    // Cancel edit
     document.getElementById('cancelProfileBtn').addEventListener('click', function() {
         document.getElementById('profileDisplay').style.display = '';
         document.getElementById('profileForm').style.display = 'none';
