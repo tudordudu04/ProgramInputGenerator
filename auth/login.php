@@ -36,7 +36,6 @@
                 'success' => false, 
                 'message' => 'Database error: '.pg_last_error($conn)]);
             exit;
-
         } else if (pg_num_rows($checkUserResult) == 1) {
             $row = pg_fetch_assoc($checkUserResult);
             

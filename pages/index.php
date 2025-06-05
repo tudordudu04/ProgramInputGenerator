@@ -1,7 +1,7 @@
 <?php
-    $scriptSource = '<script src="js/pig.js"></script>';
-    $additionalCss = '<link rel="alternative stylesheet" href="css/index.css">';
-    include 'includes/header.php';
+    $scriptSource = '<script src="../js/pig.js"></script>';
+    $additionalCss = '<link rel="alternative stylesheet" href="../css/index.css">';
+    include '../includes/header.php';
 ?>
 
 <div class="container">
@@ -38,6 +38,9 @@
             <div class="workspace">
                 <div class="controls">
                     <button class="btn" onclick="generateJSON()">Generate JSON</button>
+                    <?php if(isset($_COOKIE['jwt'])): ?>
+                        <button class="btn" onclick="">Save Query In Profile</button>
+                    <?php endif;?>
                 </div>
                 
                 <div class="scope" id="root-scope" data-scope="root">
@@ -50,7 +53,7 @@
         </div>
 </div>
 <?php
-    include 'includes/footer.php';
+    include '../includes/footer.php';
 ?>
 
 

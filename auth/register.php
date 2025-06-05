@@ -60,10 +60,11 @@
             $insertQuery = "INSERT INTO users (username, email, password) VALUES ($1, $2, $3)";
             $result = pg_query_params($conn, $insertQuery, array($username, $email, $hashedPassword));
 
+
             if ($result) {
                 echo json_encode([
-                    'success' => true, 
-                    'message' => 'Account created successfully.']);
+                'success' => true, 
+                'message' => 'Account created successfully.']);
                 pg_free_result($result);
             } else {
                 http_response_code(401);
