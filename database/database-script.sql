@@ -354,5 +354,55 @@ END$$;
 ALTER TABLE profiles ENABLE TRIGGER ALL;
 ALTER TABLE queries ENABLE TRIGGER ALL;
 
+CREATE VIEW user_query_stats AS
+SELECT u.id, u.username, COUNT(q.id) as query_count
+FROM users u
+LEFT JOIN queries q ON u.id = q."ownerId"
+GROUP BY u.id, u.username;
 
+CREATE OR REPLACE FUNCTION get_user_queries_cursor(p_user_id bigint)
+RETURNS SETOF queries AS $$
+DECLARE
+    query_cursor CURSOR FOR SELECT * FROM queries WHERE "ownerId" = p_user_id;
+    query_rec queries%ROWTYPE;
+BEGIN
+    OPEN query_cursor;
+    LOOP
+        FETCH query_cursor INTO query_rec;
+        EXIT WHEN NOT FOUND;
+        RETURN NEXT query_rec;
+    END LOOP;
+    CLOSE query_cursor;
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION get_user_friends_array(p_user_id bigint)
+RETURNS bigint[] AS $$
+DECLARE
+    result bigint[];
+BEGIN
+    SELECT array_agg(
+        CASE 
+            WHEN f.id1 = p_user_id THEN f.id2
+            ELSE f.id1
+        END
+    ) INTO result
+    FROM friends f
+    WHERE f.id1 = p_user_id OR f.id2 = p_user_id;
     
+    RETURN COALESCE(result, ARRAY[]::bigint[]);
+END;
+$$ LANGUAGE plpgsql;
+
+CREATE OR REPLACE FUNCTION user_pkg_get_profile_info(p_user_id bigint)
+RETURNS TABLE(username varchar, email varchar, first_name varchar, last_name varchar) AS $$
+BEGIN
+    RETURN QUERY
+    SELECT u.username, u.email, p."firstName", p."lastName"
+    FROM users u
+    JOIN profiles p ON u.id = p."ownerId"
+    WHERE u.id = p_user_id;
+END;
+$$ LANGUAGE plpgsql;
+
+
