@@ -3,7 +3,81 @@ function showPanel(panel) {
     panels.forEach(function(name) {
         document.getElementById(name + '-panel').style.display = (name === panel) ? 'flex' : 'none';
     });
+    if(panel === 'friends'){
+        loadFriendList();
+        loadFriendRequests();
+    } else if(panel === 'queries'){
+        loadQueries();
+    }
 }
+
+
+function loadFriendList() {
+    fetch('../database/getFriends.php')
+        .then(res => res.json())
+        .then(friends => {
+            const ul = document.getElementById('friendList');
+            ul.innerHTML = '';
+            if (friends.length === 0) {
+                ul.innerHTML = '<li>No friends found.</li>';
+                return;
+            }
+            friends.forEach(friend => {
+                const li = document.createElement('li');
+                li.textContent = friend;
+                ul.appendChild(li);
+            });
+        })
+        .catch(err => {
+            document.getElementById('friendList').innerHTML = '<li>Error loading friends.</li>';
+        });
+}
+
+function loadFriendRequests(){
+    const ul = document.getElementById('friendRequests');
+    ul.innerHTML = '<li>No friend requests at the moment.</li>';
+}
+
+function loadQueries(){
+    fetch('../database/getQueries.php')
+        .then(res => res.json())
+        .then(queries => {
+            const ul = document.getElementById('queriesList');
+            ul.innerHTML = '';
+            if (queries.length === 0) {
+                ul.innerHTML = '<li>No queries found.</li>';
+                return;
+            }
+            //Nici nu stiu cum ar trebui sa fac aici sa rezolv ;((
+            queries.forEach(query => {
+                const li = document.createElement('li');
+                const button1 = document.createElement('button');
+                const button2 = document.createElement('button');
+                const id = document.createElement('span');
+                const name = document.createElement('span');
+                id.innerText = query['id'];
+                name.innerText = query['name'];
+                button1.innerText = "Use" //Nu merg butoanele deocamdata
+                button2.innerText = "Rename" 
+                button2.addEventListener('click', () => { addFriendFunction(name); });
+                const div1 = document.createElement('div');
+                div1.className = "queryInfo"
+                div1.appendChild(id);
+                div1.appendChild(name);
+                const div2 = document.createElement('div');
+                div2.className = "queryButtons"
+                div2.appendChild(button1);
+                div2.appendChild(button2);
+                li.appendChild(div1);
+                li.appendChild(div2);
+                ul.appendChild(li);
+            });
+        })
+        .catch(err => {
+            document.getElementById('queriesList').innerHTML = '<li>Error loading queries.</li>';
+        });
+}
+
 function loadProfileToDisplay(profile) {
     document.getElementById('displayUsername').textContent = profile.username;
     document.getElementById('displayEmail').textContent = profile.email;
@@ -38,7 +112,9 @@ fetch('../database/getProfile.php', {
     .then(profile => {
         profileData = profile;
         loadProfileToDisplay(profile);
-    });
+});
+
+
 document.addEventListener('DOMContentLoaded', function(){
     document.getElementById('editProfileBtn').addEventListener('click', function() {
         document.getElementById('profileDisplay').style.display = 'none';

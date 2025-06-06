@@ -13,6 +13,110 @@
     display: none;
 }
 
+#queries-panel{
+    display: flex;
+    flex-direction: column;
+}
+
+#queries-panel,
+#friends-panel {
+    background: #f7fafc;
+    border-radius: 8px;
+    width: 100%;
+    margin: 30px auto;
+    padding: 24px 20px;
+    box-shadow: 0 4px 18px rgba(44, 62, 80, 0.07);
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+#queries-panel h2,
+#friends-panel h2 {
+    font-size: 1.25em;
+    color: #2d3748;
+    margin-bottom: 12px;
+    border-bottom: 1px solid #e2e8f0;
+    padding-bottom: 4px;
+    text-align: center;
+}
+
+.list{
+    flex: 3;
+}
+
+.requests{
+    flex: 2;
+}
+
+.list, .requests {
+    margin-bottom: 28px;
+}
+
+ul#friendList,
+ul#friendRequests,
+ul#queriesList{
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    background: #fff;
+    border-radius: 6px;
+    border: 1px solid #e2e8f0;
+    box-shadow: 0 1px 4px rgba(44, 62, 80, 0.05);
+    min-height: 40px;
+}
+
+ul#friendList li,
+ul#friendRequests li, 
+ul#queriesList li{
+    display: flex;
+    align-items: center;
+    padding: 10px 14px;
+    color: #222;
+    border-bottom: 1px solid #f1f1f1;
+    font-size: 1em;
+}
+
+ul#queriesList li{
+    justify-content: space-between;
+}
+
+.queryInfo{
+    margin-left: 6px;
+    display: flex;
+    gap: 8px;
+}
+
+.queryButtons{
+    display: flex;
+    gap: 14px;
+    margin-right: 6px;
+}
+
+ul#queriesList button{
+    background: linear-gradient(45deg, #4299e1 60%, #3182ce 100%);
+    color: white;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 15px;
+    cursor: pointer;
+    width: 100px;
+    border: 2px solid #4299e1;
+}
+
+ul#friendList li:last-child,
+ul#friendRequests li:last-child, 
+ul#queriesList li:last-child{
+    border-bottom: none;
+}
+
+ul#friendList li:hover,
+ul#friendRequests li:hover,
+ul#queriesList li:hover {
+    background: #f0f4fa;
+}
+
+
+
 .navbar {
     flex: 0 0 20%;
     min-width: 180px;
@@ -174,7 +278,7 @@
     text-align: center;
 }
 
-.right-side button {
+.right-side button{
     background: linear-gradient(45deg, #4299e1 60%, #3182ce 100%);
     color: white;
     border: none;
@@ -183,15 +287,17 @@
     font-weight: 600;
     font-size: 15px;
     cursor: pointer;
-    margin-bottom: 8px;
     width: 100%;
+    margin-bottom: 8px;
 }
+
 
 .right-side button:last-of-type {
     background: linear-gradient(45deg, #f56565 60%, #c53030 100%);
 }
 
-.right-side button:hover {
+.right-side button:hover,
+ul#queriesList button{
     box-shadow: 0 4px 12px rgba(66, 153, 225, 0.23);
     transform: translateY(-1px) scale(1.03);
 }

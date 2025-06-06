@@ -22,7 +22,7 @@
         http_response_code(401);
         echo json_encode([
             'success' => false,
-             'message' => 'Failed to save query.'
+             'message' => 'Failed to save query.'.$userId
         ]);
     }
 

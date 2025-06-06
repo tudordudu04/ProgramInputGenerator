@@ -11,10 +11,11 @@
             <button onclick="showPanel('profile')">Profile</button>
             <button onclick="showPanel('friends')">Friend List</button>
             <button onclick="showPanel('queries')">Saved Queries</button>
-            <button onclick="showPanel('results')">Saved Results</button>
+            <button onclick="showPanel('results')">Saved Results</button> <!--- Nu este implementat inca --->
         </div>
         <div class="workspace" id="workspace">
             <div class="panel" id="profile-panel">
+                <!-- Adauga ceva ca sa faci sa nu fie vizibil profilul sau ceva de genul -->
                 <div class="left-side">
                     <div id="profileDisplay">
                         <h2>Profile</h2>
@@ -90,11 +91,24 @@
             </div>
 
             <div class="panel" id="friends-panel" style="display:none;">
-                
+                <div class="list">
+                    <h2>Friend List</h2>
+                    <ul id="friendList">
+
+                    </ul>
+                </div>
+                <div class="requests">
+                    <h2>Friend Requests</h2>
+                    <ul id="friendRequests">
+
+                    </ul>
+                </div>
             </div>
         
             <div class="panel" id="queries-panel" style="display:none;">
-
+                <h2>Saved Queries</h2>
+                <ul id="queriesList">
+                </ul>
             </div>
 
             <div class="panel" id="results-panel" style="display:none;">
