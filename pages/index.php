@@ -42,6 +42,7 @@
                     <?php if(isset($_COOKIE['jwt'])): ?>
                         <!-- Aici pune ceva cand dai save sa se vada ca a reusit save-ul -->
                         <button class="btn" onclick="saveQuery()">Save Query In Profile</button>
+                        <div id="response"></div>
                     <?php endif;?>
                 </div>
                 

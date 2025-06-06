@@ -1,5 +1,5 @@
 function showPanel(panel) {
-    const panels = ['profile', 'friends', 'queries', 'results'];
+    const panels = ['profile', 'friends', 'queries', 'results', 'button'];
     panels.forEach(function(name) {
         document.getElementById(name + '-panel').style.display = (name === panel) ? 'flex' : 'none';
     });
@@ -11,6 +11,9 @@ function showPanel(panel) {
     }
 }
 
+// function deleteAccount(){
+
+// }
 
 function loadFriendList() {
     fetch('../database/getFriends.php')
@@ -48,6 +51,7 @@ function loadQueries(){
                 ul.innerHTML = '<li>No queries found.</li>';
                 return;
             }
+            //Top 10 cele mai proaste coduri de le-am scris
             //Nici nu stiu cum ar trebui sa fac aici sa rezolv ;((
             queries.forEach(query => {
                 const li = document.createElement('li');
@@ -123,6 +127,8 @@ document.addEventListener('DOMContentLoaded', function(){
         document.getElementById('formEditProfileButtons').style.display = 'block';
         loadProfileToForm(profileData);
     });
+
+    // document.getElementById('deleteAccountBtn').addEventListener('click', deleteAccount());
 
     document.getElementById('cancelProfileBtn').addEventListener('click', function() {
         document.getElementById('profileDisplay').style.display = '';

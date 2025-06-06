@@ -1,4 +1,8 @@
 
+#response{
+    margin-top: 10px;
+}
+
 .main {
     display: flex;
     min-height: 600px;

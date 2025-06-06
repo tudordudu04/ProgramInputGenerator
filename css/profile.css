@@ -1,4 +1,37 @@
 
+
+#button-panel{
+  display: flex;
+  flex-direction: column;
+  padding: 50px 180px;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1.05rem;
+  max-height: 650px;
+  overflow-y: scroll;
+}
+
+#button-panel button{
+    padding: 6px;
+    margin: 6px;
+    cursor: pointer;
+}
+
+#result {
+  margin-top: 10px;
+  border-radius: 8px;
+  padding: 12px;
+  min-height: 32px;
+  font-size: 1rem;
+  color: #222;
+  word-break: break-word;
+  white-space: pre-wrap;
+}
+
+
+
+
 .main {
     display: flex;
     min-height: 650px;
@@ -84,7 +117,6 @@ ul#queriesList li{
     display: flex;
     gap: 8px;
 }
-
 .queryButtons{
     display: flex;
     gap: 14px;

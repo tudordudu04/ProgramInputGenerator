@@ -2,8 +2,6 @@
     $additionalCss = '<link rel="alternative stylesheet" href="../css/profile.css">';
     $scriptSource = '<script src="../js/profile.js"></script>';
     include '../includes/header.php';
-
-
 ?>
 <div class="container">
     <div class="main">
@@ -12,6 +10,7 @@
             <button onclick="showPanel('friends')">Friend List</button>
             <button onclick="showPanel('queries')">Saved Queries</button>
             <button onclick="showPanel('results')">Saved Results</button> <!--- Nu este implementat inca --->
+            <button onclick="showPanel('button')">Run Script</button>
         </div>
         <div class="workspace" id="workspace">
             <div class="panel" id="profile-panel">
@@ -79,7 +78,7 @@
                     </div>
                     <div id="profileDisplayButtons">
                         <button type="button" id="editProfileBtn">Edit</button>
-                        <button type="button" id="deleteProfileBtn">Delete Profile</button>
+                        <button type="button" id="deleteAccountBtn">Delete Account</button>
                         <div id="messageProfileDelete"></div>
                     </div>
                     <div id="formEditProfileButtons">
@@ -113,6 +112,10 @@
 
             <div class="panel" id="results-panel" style="display:none;">
 
+            </div>
+            <div class="panel", id="button-panel", style="display:none;">
+                <button onclick="runScript()" style="padding: 6px;">Run Script</button>
+                <div id="result"></div>
             </div>
         </div>
     </div>

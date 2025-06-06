@@ -359,13 +359,24 @@ function generateJSON() {
 }
 
 function saveQuery(){
+    const messageDiv = document.getElementById('response');
     updateDataModel();
     const formData = new FormData();
     formData.append('jsonData', JSON.stringify(dataModel, null, 2));
     fetch('../database/queriesAndResults.php', {
         method: 'POST',
         body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+        messageDiv.textContent = data.message;
+        messageDiv.style.color = data.success ? "green" : "red";
+    })
+    .catch(error => {
+        messageDiv.textContent = "Error: " + error;
+        messageDiv.style.color = "red";
     });
+
 }
 
 function clearScope(){
