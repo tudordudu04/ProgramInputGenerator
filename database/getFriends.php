@@ -39,5 +39,5 @@
     
     if(sizeof($people) === 0)
         echo json_encode('');
-    else echo json_encode([$people]);
+    else echo json_encode($people);
 ?>

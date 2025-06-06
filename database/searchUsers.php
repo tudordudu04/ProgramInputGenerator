@@ -2,15 +2,15 @@
 
     include "decodeUserId.php";
 
-    if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         echo json_encode([]);
         exit;
     }
 
     header('Content-Type: application/json');
 
-    $sqlQuery = "SELECT username FROM users";
-    $result = pg_query($conn, $sqlQuery);
+    $sqlQuery = "SELECT username FROM users WHERE id != $1" ;
+    $result = pg_query_params($conn, $sqlQuery, array($userId));
 
     if(!$result){
         echo json_encode([]);
