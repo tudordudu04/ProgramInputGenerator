@@ -12,7 +12,7 @@
 <body>
 <header class="site-header">
     <div class="margin">
-        <a href="<?php echo $_SERVER['PHP_SELF'];?>" class="logo">Program Input Generator</a>
+        <a href="../pages/index.php" class="logo">Program Input Generator</a>
         <nav>
             <ul class="align">
                 <?php if(isset($_COOKIE['jwt'])): ?>
