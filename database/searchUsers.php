@@ -1,5 +1,4 @@
 <?php
-
     include "decodeUserId.php";
 
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -9,7 +8,7 @@
 
     header('Content-Type: application/json');
 
-    $sqlQuery = "SELECT username FROM users WHERE id != $1" ;
+    $sqlQuery = "SELECT username FROM users s JOIN profiles p ON s.id = p.\"ownerId\" WHERE s.id != $1 AND p.hidden = FALSE";
     $result = pg_query_params($conn, $sqlQuery, array($userId));
 
     if(!$result){

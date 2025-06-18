@@ -363,7 +363,7 @@ function saveQuery(){
     updateDataModel();
     const formData = new FormData();
     formData.append('jsonData', JSON.stringify(dataModel, null, 2));
-    fetch('../database/queriesAndResults.php', {
+    fetch('../database/saveQuery.php', {
         method: 'POST',
         body: formData
     })

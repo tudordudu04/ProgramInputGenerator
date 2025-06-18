@@ -2,6 +2,7 @@ function addFriendFunction(name){
     const messageDiv = document.getElementById('responseToAdd');
     const formData = new FormData();
         formData.append('username', name);
+        formData.append('request', "true");
     fetch('../database/addFriend.php', {
             method: 'POST',
             body: formData
@@ -33,6 +34,12 @@ function runScript() {
 document.addEventListener('DOMContentLoaded', function() {
     const input = document.querySelector('.search input[type="text"]');
     const resultsList = document.getElementById('results');
+
+    input.addEventListener('keydown', function(event){
+        if (event.key === 'Enter') {
+            event.preventDefault();
+        }
+    });
 
     input.addEventListener('input', function() {
         const query = input.value.trim();
@@ -79,7 +86,7 @@ document.addEventListener('DOMContentLoaded', function() {
             }
         })
         .catch(err => {
-            resultsList.innerHTML = '<li>Error loading results</li>';
+            resultsList.innerHTML = '<li>Error loading results</li>' + err;
         });
     });
 

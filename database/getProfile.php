@@ -19,14 +19,17 @@
         $rowUser = pg_fetch_assoc($checkUserResult);
         $rowProfile = pg_fetch_assoc($checkProfileResult);
         $profile = [
-            'username'   => $rowUser['username'],
-            'email'      => $rowUser['email'],
-            'firstName'  => $rowProfile['firstName'],
-            'lastName'   => $rowProfile['lastName'],
-            'phoneNumber'=> $rowProfile['phoneNumber'],
-            'address'    => $rowProfile['address'],
-            'country'    => $rowProfile['country'],
-            'city'       => $rowProfile['city']
+            'username'        => $rowUser['username'],
+            'email'           => $rowUser['email'],
+            'hidden'          => $rowProfile['hidden'] === 't' ? true : false,
+            'profilePhotoUrl' => $rowProfile['profilePhotoUrl'],
+            'firstName'       => $rowProfile['firstName'],
+            'lastName'        => $rowProfile['lastName'],
+            'phoneNumber'     => $rowProfile['phoneNumber'],
+            'address'         => $rowProfile['address'],
+            'country'         => $rowProfile['country'],
+            'city'            => $rowProfile['city'],
+            'isAdmin'         => $rowProfile['isAdmin'] === 't' ? true : false,
         ];
         echo json_encode($profile);
         

@@ -4,8 +4,7 @@ function showPanel(panel) {
         document.getElementById(name + '-panel').style.display = (name === panel) ? 'flex' : 'none';
     });
     if(panel === 'friends'){
-        loadFriendList();
-        loadFriendRequests();
+        loadFriendLists();
     } else if(panel === 'queries'){
         loadQueries();
     }
@@ -15,31 +14,42 @@ function showPanel(panel) {
 
 // }
 
-function loadFriendList() {
+function loadFriendLists() {
     fetch('../database/getFriends.php')
         .then(res => res.json())
-        .then(friends => {
-            const ul = document.getElementById('friendList');
-            ul.innerHTML = '';
-            if (friends.length === 0) {
-                ul.innerHTML = '<li>No friends found.</li>';
-                return;
+        .then(res => {
+            const ul1 = document.getElementById('friendList');
+            ul1.innerHTML = '';
+            const ul2 = document.getElementById('friendRequests');
+            ul2.innerHTML = '';
+            if(res.friends.length === 0){
+                ul1.innerHTML = '<li>No friends found.</li>';
+                if(res.friend_requests.length === 0){
+                    ul2.innerHTML = '<li>No friend requests found.</li>';
+                    return;
+                }
             }
-            friends.forEach(friend => {
+            res.friends.forEach(friend => {
                 const li = document.createElement('li');
                 li.textContent = friend;
-                ul.appendChild(li);
+                ul1.appendChild(li);
+            });
+            if(res.friend_requests.length === 0){
+                    ul2.innerHTML = '<li>No friend requests found.</li>';
+                    return;
+            }
+            res.friend_requests.forEach(friend_request => {
+                const li = document.createElement('li');
+                li.textContent = friend_request;
+                ul2.appendChild(li);
             });
         })
         .catch(err => {
             document.getElementById('friendList').innerHTML = '<li>Error loading friends.</li>';
+            document.getElementById('friendRequests').innerHTML = '<li>Error loading friend requests.</li>';
         });
 }
-
-function loadFriendRequests(){
-    const ul = document.getElementById('friendRequests');
-    ul.innerHTML = '<li>No friend requests at the moment.</li>';
-}
+//update this
 
 function loadQueries(){
     fetch('../database/getQueries.php')
@@ -85,6 +95,7 @@ function loadQueries(){
 function loadProfileToDisplay(profile) {
     document.getElementById('displayUsername').textContent = profile.username;
     document.getElementById('displayEmail').textContent = profile.email;
+    document.getElementById('displayHidden').textContent = profile.hidden ? "Yes " : "No";
     document.getElementById('displayFirstName').textContent = profile.firstName;
     document.getElementById('displayLastName').textContent = profile.lastName;
     document.getElementById('displayPhoneNumber').textContent = profile.phoneNumber;
@@ -93,10 +104,11 @@ function loadProfileToDisplay(profile) {
     document.getElementById('displayCity').textContent = profile.city;
     document.getElementById('profileName').textContent = profile.firstName + " " + profile.lastName;
     document.getElementById('profileEmail').textContent = profile.email;
-    // document.getElementById('profileImage').src = ...;
+    document.getElementById('profilePhoto').src = profile.profilePhotoUrl;
 }
 
 function loadProfileToForm(profile) {
+    document.getElementById('hidden').checked = profile.hidden === true;
     document.getElementById('username').value = profile.username;
     document.getElementById('email').value = profile.email;
     document.getElementById('firstName').value = profile.firstName;
@@ -105,6 +117,7 @@ function loadProfileToForm(profile) {
     document.getElementById('address').value = profile.address;
     document.getElementById('country').value = profile.country;
     document.getElementById('city').value = profile.city;
+    document.getElementById('profilePhoto').src = profile.profilePhotoUrl;
 }
 
 
@@ -125,10 +138,32 @@ document.addEventListener('DOMContentLoaded', function(){
         document.getElementById('profileForm').style.display = 'flex';
         document.getElementById('profileDisplayButtons').style.display = 'none';
         document.getElementById('formEditProfileButtons').style.display = 'block';
-        loadProfileToForm(profileData);
+        loadProfileToDisplay(profileData);
     });
 
     // document.getElementById('deleteAccountBtn').addEventListener('click', deleteAccount());
+
+    document.getElementById('fileInput').addEventListener('change', function(event) {
+    const file = event.target.files[0];
+    if (file) {
+        const formData = new FormData();
+        formData.append('profilePhoto', file);
+
+        fetch('../database/saveProfilePhoto.php', {
+            method: 'POST',
+            body: formData
+        })
+        .then(r => r.json())
+        .then(data => {
+        if(data.success){
+            document.getElementById('profilePhoto').src = data.url;
+            profileData.profilePhotoUrl = data.url;
+        } else {
+            alert('Upload failed: ' + data.message);
+        }
+        });
+    }
+    });
 
     document.getElementById('cancelProfileBtn').addEventListener('click', function() {
         document.getElementById('profileDisplay').style.display = '';
@@ -145,7 +180,6 @@ document.addEventListener('DOMContentLoaded', function(){
         e.preventDefault();
 
         const formData = new FormData(form);
-
         fetch('../database/saveProfile.php', {
             method: 'POST',
             body: formData
@@ -154,7 +188,7 @@ document.addEventListener('DOMContentLoaded', function(){
         .then(data => {
             messageDiv.textContent = data.message;
             messageDiv.style.color = data.success ? "green" : "red";
-
+            profileData.hidden = document.getElementById('hidden').checked;
             profileData.username = document.getElementById('username').value;
             profileData.email = document.getElementById('email').value;
             profileData.firstName = document.getElementById('firstName').value;
@@ -169,8 +203,8 @@ document.addEventListener('DOMContentLoaded', function(){
             document.getElementById('profileDisplayButtons').style.display = '';
             document.getElementById('formEditProfileButtons').style.display = 'none';
         })
-        .catch(() => {
-            messageDiv.textContent = "Failed to save profile, please try again.";
+        .catch((error) => {
+            messageDiv.textContent = "Failed to save profile, please try again: " + error;
             messageDiv.style.color = "red";
         });
     });

@@ -17,6 +17,7 @@
             <ul class="align">
                 <?php if(isset($_COOKIE['jwt'])): ?>
                     <li>
+                        <!-- N-ar trebui sa ma lase sa apas space -->
                         <form action="../database/searchUser.php" method="POST" style="display:inline;" class="search" autocomplete="off">
                             <input type="text" name="query" placeholder="Search..." required autocomplete="off" class="queryBox">
                             <ul id="results"></ul>

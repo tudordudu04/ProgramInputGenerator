@@ -19,6 +19,7 @@
                     <div id="profileDisplay">
                         <h2>Profile</h2>
                         <ul class="settings">
+                            <li><strong>Hidden:</strong> <span id="displayHidden"></span></li>
                             <li><strong>Username:</strong> <span id="displayUsername"></span></li>
                             <li><strong>Email:</strong> <span id="displayEmail"></span></li>
                             <li><strong>First Name:</strong> <span id="displayFirstName"></span></li>
@@ -31,6 +32,10 @@
                     </div>
                     <form class="settings" id="profileForm">
                         <h2>Edit Profile</h2>
+                        <div>
+                            <label for="hidden">Hidden</label>
+                            <input type="checkbox" id="hidden" name="hidden">
+                        </div>
                         <span>
                             <label for="username">Username</label>
                             <input type="text" name="username" id="username" placeholder="enter username">
@@ -72,8 +77,12 @@
                 </div>
                 <div class="right-side">
                     <div class="card">
-                        <img src="../profil.jpg" class="image">
-                        <p id="profileName">FirstName + LastName</p>
+                        <div class="image-container">
+                        <img class="image" id="profilePhoto" alt="Profile Photo">
+                        <div class="overlay">Change Photo</div>
+                        <input type="file" accept="image/*" class="file-input" id="fileInput">
+                        </div>
+                        <p id="profileName">FirstName LastName</p>
                         <p id="profileEmail">Email</p>
                     </div>
                     <div id="profileDisplayButtons">

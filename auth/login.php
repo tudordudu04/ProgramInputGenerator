@@ -44,13 +44,13 @@
                 $payload = [
                     "iss" => "http://www.ProgramInputGenerator.com",
                     "iat" => $iss_time,
-                    "exp" => $iss_time + 3600,
+                    "exp" => $iss_time + 3600*24*7,
                     "user_id" => $row["id"]
                 ];
                 $jwt = JWT::encode($payload, $key, 'HS256');
                 
                 setcookie("jwt", $jwt, [
-                    "expires" => time() + 3600,
+                    "expires" => time() + 3600*24*7,
                     "httponly" => true,
                     "samesite" => "Lax",
                     "path" => "/"
