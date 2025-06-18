@@ -138,7 +138,7 @@ document.addEventListener('DOMContentLoaded', function(){
         document.getElementById('profileForm').style.display = 'flex';
         document.getElementById('profileDisplayButtons').style.display = 'none';
         document.getElementById('formEditProfileButtons').style.display = 'block';
-        loadProfileToDisplay(profileData);
+        loadProfileToForm(profileData);
     });
 
     // document.getElementById('deleteAccountBtn').addEventListener('click', deleteAccount());
