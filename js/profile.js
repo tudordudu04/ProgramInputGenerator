@@ -1,3 +1,17 @@
+let profileData;
+
+fetch('../database/getProfile.php', {
+    credentials: 'include'
+    })
+    .then(r => r.json())
+    .then(profile => {
+        profileData = profile;
+        if(profileData.isAdmin === true)
+            document.getElementById('adminTools').style.display = 'flex';
+        loadProfileToDisplay(profile);
+});
+
+
 function showPanel(panel) {
     const panels = ['profile', 'friends', 'queries', 'results', 'button'];
     panels.forEach(function(name) {
@@ -10,15 +24,6 @@ function showPanel(panel) {
     }
 }
 
-let profileData;
-fetch('../database/getProfile.php', {
-    credentials: 'include'
-    })
-    .then(r => r.json())
-    .then(profile => {
-        profileData = profile;
-        loadProfileToDisplay(profile);
-});
 
 function deleteAccount(){
     fetch('../database/deleteAccount.php')
@@ -33,6 +38,7 @@ function deleteAccount(){
             const intervalId = setInterval(() => {
                 countdown--;
                 if (countdown > 0) {
+                    document.getElementById('messageProfileSave').textContent = '';
                     messageDiv.textContent = data.message + " Redirecting to index page in: " + countdown;
                 } else {
                     clearInterval(intervalId);
@@ -155,19 +161,67 @@ function loadProfileToForm(profile) {
     document.getElementById('profilePhoto').src = profile.profilePhotoUrl;
 }
 
+function cancelEdit(){
+    document.getElementById('profileDisplay').style.display = '';
+    document.getElementById('profileForm').style.display = 'none';
+    document.getElementById('profileDisplayButtons').style.display = '';
+    document.getElementById('formEditProfileButtons').style.display = 'none';
+    document.getElementById('messageProfileSave').textContent = '';
+    loadProfileToDisplay(profileData);
+}
 
+function editProfile(){
+    document.getElementById('profileDisplay').style.display = 'none';
+    document.getElementById('profileForm').style.display = 'flex';
+    document.getElementById('profileDisplayButtons').style.display = 'none';
+    document.getElementById('formEditProfileButtons').style.display = 'block';
+    document.getElementById('profileSaveError').textContent = '';
+    loadProfileToForm(profileData);
+}
 
+//ar trebui sa verific daca chiar se schimba ceva fata de cum era inainte
+//de update ca sa nu mai bag mesaj de updated succesfully la fiecare save 
+function saveProfile(event){
+    const messageDiv = document.getElementById('messageProfileSave');
+    const errorDiv = document.getElementById('profileSaveError');
+    event.preventDefault();
 
-document.addEventListener('DOMContentLoaded', function(){
-    document.getElementById('editProfileBtn').addEventListener('click', function() {
-        document.getElementById('profileDisplay').style.display = 'none';
-        document.getElementById('profileForm').style.display = 'flex';
-        document.getElementById('profileDisplayButtons').style.display = 'none';
-        document.getElementById('formEditProfileButtons').style.display = 'block';
-        loadProfileToForm(profileData);
+    const formData = new FormData(document.getElementById('profileForm'));
+    fetch('../database/saveProfile.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(data => {
+        if (!data.ok) {
+            throw new Error(data.status);
+        }
+        return data.json();
+    })
+    .then(data => {
+        messageDiv.textContent = data.message;
+        messageDiv.style.color = data.success ? "green" : "red";
+        profileData.hidden = document.getElementById('hidden').checked;
+        profileData.username = document.getElementById('username').value;
+        profileData.email = document.getElementById('email').value;
+        profileData.firstName = document.getElementById('firstName').value;
+        profileData.lastName = document.getElementById('lastName').value;
+        profileData.phoneNumber = document.getElementById('phoneNumber').value;
+        profileData.address = document.getElementById('address').value;
+        profileData.country = document.getElementById('country').value;
+        profileData.city = document.getElementById('city').value;
+        loadProfileToDisplay(profileData);
+        document.getElementById('profileDisplay').style.display = '';
+        document.getElementById('profileForm').style.display = 'none';
+        document.getElementById('profileDisplayButtons').style.display = '';
+        document.getElementById('formEditProfileButtons').style.display = 'none';
+    })
+    .catch((error) => {
+        errorDiv.textContent = "Failed to save profile, please try again: " + error;
+        errorDiv.style.color = "red";
     });
+}
 
-    document.getElementById('fileInput').addEventListener('change', function(event) {
+function saveProfilePhoto(event){
     const file = event.target.files[0];
     if (file) {
         const formData = new FormData();
@@ -187,54 +241,8 @@ document.addEventListener('DOMContentLoaded', function(){
         }
         });
     }
-    });
+}
 
-    document.getElementById('cancelProfileBtn').addEventListener('click', function() {
-        document.getElementById('profileDisplay').style.display = '';
-        document.getElementById('profileForm').style.display = 'none';
-        document.getElementById('profileDisplayButtons').style.display = '';
-        document.getElementById('formEditProfileButtons').style.display = 'none';
-        loadProfileToDisplay(profileData);
-    });
-
-
-    document.getElementById('profileForm').addEventListener('submit', function (e) {
-        const messageDiv = document.getElementById('messageProfileSave');
-        const errorDiv = document.getElementById('profileSaveError');
-        e.preventDefault();
-
-        const formData = new FormData(document.getElementById('profileForm'));
-        fetch('../database/saveProfile.php', {
-            method: 'POST',
-            body: formData
-        })
-        .then(data => {
-            if (!data.success) {
-                throw new Error("Error: " + data.status);
-            }
-            return data.json();
-        })
-        .then(data => {
-            messageDiv.textContent = data.message;
-            messageDiv.style.color = data.success ? "green" : "red";
-            profileData.hidden = document.getElementById('hidden').checked;
-            profileData.username = document.getElementById('username').value;
-            profileData.email = document.getElementById('email').value;
-            profileData.firstName = document.getElementById('firstName').value;
-            profileData.lastName = document.getElementById('lastName').value;
-            profileData.phoneNumber = document.getElementById('phoneNumber').value;
-            profileData.address = document.getElementById('address').value;
-            profileData.country = document.getElementById('country').value;
-            profileData.city = document.getElementById('city').value;
-            loadProfileToDisplay(profileData);
-            document.getElementById('profileDisplay').style.display = '';
-            document.getElementById('profileForm').style.display = 'none';
-            document.getElementById('profileDisplayButtons').style.display = '';
-            document.getElementById('formEditProfileButtons').style.display = 'none';
-        })
-        .catch((error) => {
-            errorDiv.textContent = "Failed to save profile, please try again: " + error;
-            errorDiv.style.color = "red";
-        });
-    });
+document.addEventListener('DOMContentLoaded', function(){
+    
 });

@@ -1,22 +1,22 @@
-function addFriendFunction(name){
-    const messageDiv = document.getElementById('responseToAdd');
+function addFriendFunction(name, button, div3){
     const formData = new FormData();
-        formData.append('username', name);
-        formData.append('request', "true");
+    formData.append('username', name);
+    formData.append('request', "true");
     fetch('../database/addFriend.php', {
             method: 'POST',
             body: formData
         })
     .then(r => r.json())
     .then(data => {
-        messageDiv.textContent = data.message;
-        messageDiv.style.color = data.success ? "green" : "red";
-        messageDiv.style.display = 'block';
+        button.style.display = 'none';
+        div3.textContent = data.message;
+        div3.style.color = data.success ? "green" : "red";
+        div3.style.display = 'block';
     })
     .catch(error => {
-        messageDiv.textContent = "Error: " + error;
-        messageDiv.style.color = "red";
-        messageDiv.style.display = 'block';
+        div3.textContent = "Error: " + error;
+        div3.style.color = "red";
+        div3.style.display = 'block';
     });
 }
 
@@ -51,12 +51,11 @@ function createSearchItem(name) {
     const div3 = document.createElement('div');
     div2.style.display = 'flex';
     div2.style.alignItems = 'center';
-    div3.id = 'responseToAdd';
     div3.style.display = 'none';
     button.textContent = 'Add Friend';
     button.addEventListener('click', (e) => {
         e.preventDefault();
-        addFriendFunction(name);
+        addFriendFunction(name, button, div3);
     });
     div2.appendChild(button);
     div2.appendChild(div3);
@@ -64,6 +63,7 @@ function createSearchItem(name) {
     div.appendChild(div2);
     return div;
 }
+
 document.addEventListener('DOMContentLoaded', function() {
     const input = document.getElementById('queryBox');
     const resultsList = document.getElementById('results');

@@ -68,7 +68,8 @@ CREATE TABLE friend_requests
     id1 bigint NOT NULL,
     id2 bigint NOT NULL,
     CONSTRAINT fk_friend1 FOREIGN KEY (id1) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT fk_friend2 FOREIGN KEY (id2) REFERENCES users(id) ON DELETE CASCADE
+    CONSTRAINT fk_friend2 FOREIGN KEY (id2) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT unique_friendRequestPair UNIQUE (id1, id2)
 );
 
 CREATE TABLE friends
@@ -77,7 +78,8 @@ CREATE TABLE friends
     id1 bigint NOT NULL,
     id2 bigint NOT NULL,
     CONSTRAINT fk_friend1 FOREIGN KEY (id1) REFERENCES users(id) ON DELETE CASCADE,
-    CONSTRAINT fk_friend2 FOREIGN KEY (id2) REFERENCES users(id) ON DELETE CASCADE
+    CONSTRAINT fk_friend2 FOREIGN KEY (id2) REFERENCES users(id) ON DELETE CASCADE,
+    CONSTRAINT unique_friendPair UNIQUE (id1, id2)
 );
 
 CREATE OR REPLACE FUNCTION create_profile_on_user_insert()
@@ -94,11 +96,13 @@ CREATE OR REPLACE TRIGGER trg_create_profile
     EXECUTE FUNCTION create_profile_on_user_insert();
     
 INSERT INTO users (username, password, email) VALUES
+('dudu', '$2y$10$G7cLYmgdQ7xCc.HbBUmW6.lCd8ZZfrKRdfgyUFGnZQyAk674qwqYm', 'dudu@mail.com'),
 ('user0', '$2y$10$G7cLYmgdQ7xCc.HbBUmW6.lCd8ZZfrKRdfgyUFGnZQyAk674qwqYm', 'user0@mail.com'),
 ('user1', '$2y$10$G7cLYmgdQ7xCc.HbBUmW6.lCd8ZZfrKRdfgyUFGnZQyAk674qwqYm', 'user1@mail.com');
 
-UPDATE profiles SET "firstName" = 'Alice', "isAdmin" = TRUE, "lastName" = 'Popescu', "phoneNumber" = '0700000001', address = 'Str. Lalelelor 1', country = 'Romania', city = 'Bucharest' WHERE "ownerId" = 1;
-UPDATE profiles SET "firstName" = 'Bob', "isAdmin" = FALSE,"lastName" = 'Ionescu', "phoneNumber" = '0700000002', address = 'Str. Lalelelor 2', country = 'Romania', city = 'Cluj' WHERE "ownerId" = 2;
+UPDATE profiles SET "firstName" = 'Alice', "isAdmin" = FALSE, "lastName" = 'Popescu', "phoneNumber" = '0700000001', address = 'Str. Lalelelor 1', country = 'Romania', city = 'Bucharest' WHERE "ownerId" = 2;
+UPDATE profiles SET "firstName" = 'Bob', "isAdmin" = FALSE,"lastName" = 'Ionescu', "phoneNumber" = '0700000002', address = 'Str. Lalelelor 2', country = 'Romania', city = 'Cluj' WHERE "ownerId" = 3;
+UPDATE profiles SET "isAdmin" = TRUE WHERE "ownerId" = 1;
 
 ALTER TABLE profiles ENABLE TRIGGER ALL;
 ALTER TABLE queries ENABLE TRIGGER ALL;

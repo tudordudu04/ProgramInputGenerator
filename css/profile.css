@@ -282,6 +282,10 @@ ul#queriesList li:hover {
     justify-content: center;
     padding-top: 18px;
 }
+#adminTools{
+    display: none;
+    flex-direction: column;
+}
 /* schimba aici css-ul */
 .card {
       width: 250px;
