@@ -90,34 +90,110 @@ function loadFriendLists() {
             document.getElementById('friendRequests').innerHTML = '<li>Error loading friend requests.</li>';
         });
 }
-
+function renameQuery(id, name, message){
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('name', name);
+    fetch('../database/renameQuery.php', {
+        method: 'POST',
+        body: formData 
+    })
+    .then(r => r.json())
+    .then(data =>{
+        if(data.success)
+            loadQueries();
+        else {
+            message.style.color = 'red';
+            message.textContent = data.message;
+        }
+    })
+    .catch(err=>{
+        message.style.color = 'red';
+        message.textContent = "Error: " + err;
+    })
+}
+function deleteQuery(id, message){
+    const formData = new FormData();
+    formData.append('id', id);
+    fetch('../database/deleteQuery.php', {
+        method: 'POST',
+        body: formData 
+    })
+    .then(r => r.json())
+    .then(data =>{
+        if(data.success)
+            loadQueries();
+        else {
+            message.style.color = 'red';
+            message.textContent = data.message;
+        }
+    })
+    .catch(err=>{
+        message.style.color = 'red';
+        message.textContent = "Error: " + err;
+    })
+}
 function createQueryItem(query) {
+    const { id: queryId, name: queryName } = query;
     const li = document.createElement('li');
 
-    const div1 = document.createElement('div');
-    div1.className = "queryInfo";
-    const id = document.createElement('span');
-    id.innerText = query['id'];
-    const name = document.createElement('span');
-    name.innerText = query['name'];
-    div1.appendChild(id);
-    div1.appendChild(name);
+    const divInfo = document.createElement('div');
+    divInfo.className = "queryInfo";
+    const spanId = document.createElement('span');
+    spanId.innerText = queryId;
+    const spanName = document.createElement('span');
+    spanName.innerText = queryName;
+    divInfo.append(spanId, spanName);
 
-    const div2 = document.createElement('div');
-    div2.className = "queryButtons";
-    const button1 = document.createElement('button');
-    button1.innerText = "Use"; //aici iti da redirect la main page cu query-ul loaded
-    const button2 = document.createElement('button');
-    button2.innerText = "Rename"; //rename la query
-    button2.addEventListener('click', () => { addFriendFunction(name); });
-    const button3 = document.createElement('button');
-    button3.innerText = "Delete"; //sterge query-ul
-    div2.appendChild(button1);
-    div2.appendChild(button2);
-    div2.appendChild(button3);
+    //butoane + mesaj rezultat
+    const divButtons = document.createElement('div');
+    divButtons.className = "queryButtons";
+    const message = document.createElement('div');
+    message.textContent = '';
 
-    li.appendChild(div1);
-    li.appendChild(div2);
+    const makeButton = (label, handler) => {
+        const btn = document.createElement('button');
+        btn.type = "button";
+        btn.innerText = label;
+        btn.addEventListener('click', handler);
+        return btn;
+    };
+
+    const btnUse = makeButton('Use', () => useQuery(queryId, message));
+
+    const dropdownRename = document.createElement('div');
+    const input = document.createElement('input');
+    input.type = 'text';
+    input.style.display = 'none';
+    input.placeholder = 'Name...';
+    input.autocomplete = 'off';
+
+    input.addEventListener('keydown', function(event){
+        if (event.key === 'Enter') {
+            event.preventDefault();
+            const newName = input.value.trim();
+            if (newName.length === 0) return;
+            renameQuery(queryId, newName, message);
+        }
+    });
+
+    const btnRename = makeButton('Rename', () => {
+        if (btnRename.textContent === "Rename") {
+            input.style.display = 'block';
+            btnRename.innerText = "Cancel";
+            input.focus();
+        } else {
+            input.style.display = 'none';
+            btnRename.innerText = "Rename";
+        }
+    });
+
+    dropdownRename.append(btnRename, input);
+
+    const btnDelete = makeButton('Delete', () => deleteQuery(queryId, message));
+
+    divButtons.append(btnUse, dropdownRename, btnDelete);
+    li.append(divInfo, divButtons);
 
     return li;
 }
