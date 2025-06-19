@@ -1,5 +1,4 @@
 let profileData;
-
 const url = new URL(window.location.href);
 const friendId = url.searchParams.get('id');
 
@@ -8,6 +7,8 @@ fetch('../database/getProfile.php?id=' + friendId, {
     })
     .then(r => r.json())
     .then(profile => {
+        if(!profile.success)
+            window.location.href = "index.php";
         profileData = profile;
         loadProfileToDisplay(profile);
 });
@@ -31,6 +32,7 @@ function createFriendItem(friend){
     li.textContent = friend.username;
     return li;
 }
+
 function renderList(container, items, createItem, emptyMessage) {
     container.innerHTML = '';
     if (!items || items.length === 0) {
@@ -41,6 +43,7 @@ function renderList(container, items, createItem, emptyMessage) {
     items.forEach(item => fragment.appendChild(createItem(item)));
     container.appendChild(fragment);
 }
+
 function loadFriendLists() {
     fetch('../database/getFriends.php?id=' + friendId,
     )
@@ -53,6 +56,7 @@ function loadFriendLists() {
             document.getElementById('friendList').innerHTML = `<li>Error loading friends.</li>`;
         });
 }
+
 function saveQuerytoProfile(id, message){
     const formData = new FormData();
     formData.append('id', id);
@@ -76,6 +80,7 @@ function saveQuerytoProfile(id, message){
         message.textContent = "Error: " + err;
     })
 }
+
 function makeButton(label, handler){
     const btn = document.createElement('button');
     btn.type = "button";
@@ -83,13 +88,16 @@ function makeButton(label, handler){
     btn.addEventListener('click', handler);
     return btn;
 };
+
 //to be implemented
 // function useQuery(){
 
 // }
+
 function goBack(){
     window.location.href = "profile.php";
 }
+
 function createQueryItem(query) {
     const { id: queryId, name: queryName } = query;
     const li = document.createElement('li');
@@ -118,6 +126,7 @@ function createQueryItem(query) {
 
     return li;
 }
+
 function loadQueries(){
     fetch('../database/getQueries.php?id=' + friendId)
         .then(res => res.json())
@@ -143,9 +152,3 @@ function loadProfileToDisplay(profile) {
     document.getElementById('profileEmail').textContent = profile.email;
     document.getElementById('profilePhoto').src = profile.profilePhotoUrl;
 }
-
-//ar trebui sa verific daca chiar se schimba ceva fata de cum era inainte
-
-document.addEventListener('DOMContentLoaded', function(){
-    
-});

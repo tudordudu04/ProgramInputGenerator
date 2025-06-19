@@ -54,12 +54,15 @@ function deleteAccount(){
         document.getElementById('messageProfileDelete').style.color = "red";
     });
 }
+
 // function blockUser(id, message){
 
 // }
+
 function viewProfile(id, message){
     window.location.href = `friendProfile.php?id=${encodeURIComponent(id)}`;
 }
+
 function createFriendItem(friend){
     const li = document.createElement('li');
     const divUsername = document.createElement('div');
@@ -81,10 +84,11 @@ function createFriendItem(friend){
     li.append(divButtons);
     return li;
 }
+
 function friendListActions(id, action, message){
     const formData = new FormData();
     formData.append('id', id);
-    formData.append('action', action); // "accept" or "deny" or "delete"
+    formData.append('action', action); 
     fetch('../database/friendListActions.php', {
         method: 'POST',
         body: formData
@@ -103,6 +107,7 @@ function friendListActions(id, action, message){
         message.textContent = "Error: " + err;
     });
 }
+
 function createFriendRequestItem(friendRequest){
     const li = document.createElement('li');
     const divUsername = document.createElement('div');
@@ -122,6 +127,7 @@ function createFriendRequestItem(friendRequest){
     li.append(divButtons);
     return li;
 }
+
 function renderList(container, items, createItem, emptyMessage) {
     container.innerHTML = '';
     if (!items || items.length === 0) {
@@ -132,6 +138,7 @@ function renderList(container, items, createItem, emptyMessage) {
     items.forEach(item => fragment.appendChild(createItem(item)));
     container.appendChild(fragment);
 }
+
 function loadFriendLists() {
     fetch('../database/getFriends.php',
     )
@@ -148,6 +155,7 @@ function loadFriendLists() {
             document.getElementById('friendRequests').innerHTML = '<li>Error loading friend requests.</li>';
         });
 }
+
 function renameQuery(id, name, message){
     const formData = new FormData();
     formData.append('id', id);
@@ -191,6 +199,7 @@ function deleteQuery(id, message){
         message.textContent = "Error: " + err;
     })
 }
+
 function makeButton(label, handler){
     const btn = document.createElement('button');
     btn.type = "button";
@@ -198,6 +207,7 @@ function makeButton(label, handler){
     btn.addEventListener('click', handler);
     return btn;
 };
+
 function createQueryItem(query) {
     const { id: queryId, name: queryName } = query;
     const li = document.createElement('li');
@@ -255,6 +265,7 @@ function createQueryItem(query) {
 
     return li;
 }
+
 function loadQueries(){
     fetch('../database/getQueries.php')
         .then(res => res.json())
@@ -376,7 +387,3 @@ function saveProfilePhoto(event){
         });
     }
 }
-
-document.addEventListener('DOMContentLoaded', function(){
-    
-});

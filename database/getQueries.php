@@ -35,7 +35,5 @@
         ];
     }
 
-    // if(sizeof($queries) === 0)
-    //     echo json_encode('');
     echo json_encode($queries);
 ?>
