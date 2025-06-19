@@ -10,85 +10,120 @@ function showPanel(panel) {
     }
 }
 
-// function deleteAccount(){
+let profileData;
+fetch('../database/getProfile.php', {
+    credentials: 'include'
+    })
+    .then(r => r.json())
+    .then(profile => {
+        profileData = profile;
+        loadProfileToDisplay(profile);
+});
 
-// }
+function deleteAccount(){
+    fetch('../database/deleteAccount.php')
+    .then(r => r.json())
+    .then(data => {
+        const messageDiv = document.getElementById('messageProfileDelete');
+        messageDiv.textContent = data.message;
+        if(data.success){
+            messageDiv.style.color = "green";
+            let countdown = 3;
+            messageDiv.textContent = data.message + " Redirecting to index page in: " + countdown;
+            const intervalId = setInterval(() => {
+                countdown--;
+                if (countdown > 0) {
+                    messageDiv.textContent = data.message + " Redirecting to index page in: " + countdown;
+                } else {
+                    clearInterval(intervalId);
+                    window.location.href = "index.php";
+                }
+            }, 1000);
+        } else {
+            messageDiv.style.color = "red";
+        }
+    })
+    .catch(err => {
+        document.getElementById('messageProfileDelete').textContent = 'Error trying to delete account';
+        document.getElementById('messageProfileDelete').style.color = "red";
+    });
+}
 
+function createFriendItem(friend){
+    const li = document.createElement('li');
+    li.textContent = friend;
+    return li;
+}
+function createFriendRequestItem(friendRequest){
+    const li = document.createElement('li');
+    li.textContent = friendRequest;
+    return li;
+}
+function renderList(container, items, createItem, emptyMessage) {
+    container.innerHTML = '';
+    if (!items || items.length === 0) {
+        container.innerHTML = `<li>${emptyMessage}</li>`;
+        return;
+    }
+    const fragment = document.createDocumentFragment();
+    items.forEach(item => fragment.appendChild(createItem(item)));
+    container.appendChild(fragment);
+}
 function loadFriendLists() {
     fetch('../database/getFriends.php')
         .then(res => res.json())
         .then(res => {
-            const ul1 = document.getElementById('friendList');
-            ul1.innerHTML = '';
-            const ul2 = document.getElementById('friendRequests');
-            ul2.innerHTML = '';
-            if(res.friends.length === 0){
-                ul1.innerHTML = '<li>No friends found.</li>';
-                if(res.friend_requests.length === 0){
-                    ul2.innerHTML = '<li>No friend requests found.</li>';
-                    return;
-                }
-            }
-            res.friends.forEach(friend => {
-                const li = document.createElement('li');
-                li.textContent = friend;
-                ul1.appendChild(li);
-            });
-            if(res.friend_requests.length === 0){
-                    ul2.innerHTML = '<li>No friend requests found.</li>';
-                    return;
-            }
-            res.friend_requests.forEach(friend_request => {
-                const li = document.createElement('li');
-                li.textContent = friend_request;
-                ul2.appendChild(li);
-            });
+            const friendList = document.getElementById('friendList');
+            const friendRequests = document.getElementById('friendRequests');
+
+            renderList(friendList, res.friends, createFriendItem, 'No friends found.');
+            renderList(friendRequests, res.friend_requests, createFriendRequestItem, 'No friend requests found.');
         })
         .catch(err => {
-            document.getElementById('friendList').innerHTML = '<li>Error loading friends.</li>';
+            document.getElementById('friendList').innerHTML = `<li>Error loading friends.</li>`;
             document.getElementById('friendRequests').innerHTML = '<li>Error loading friend requests.</li>';
         });
 }
-//update this
 
+function createQueryItem(query) {
+    const li = document.createElement('li');
+
+    const div1 = document.createElement('div');
+    div1.className = "queryInfo";
+    const id = document.createElement('span');
+    id.innerText = query['id'];
+    const name = document.createElement('span');
+    name.innerText = query['name'];
+    div1.appendChild(id);
+    div1.appendChild(name);
+
+    const div2 = document.createElement('div');
+    div2.className = "queryButtons";
+    const button1 = document.createElement('button');
+    button1.innerText = "Use"; //aici iti da redirect la main page cu query-ul loaded
+    const button2 = document.createElement('button');
+    button2.innerText = "Rename"; //rename la query
+    button2.addEventListener('click', () => { addFriendFunction(name); });
+    const button3 = document.createElement('button');
+    button3.innerText = "Delete"; //sterge query-ul
+    div2.appendChild(button1);
+    div2.appendChild(button2);
+    div2.appendChild(button3);
+
+    li.appendChild(div1);
+    li.appendChild(div2);
+
+    return li;
+}
 function loadQueries(){
     fetch('../database/getQueries.php')
         .then(res => res.json())
         .then(queries => {
-            const ul = document.getElementById('queriesList');
-            ul.innerHTML = '';
-            if (queries.length === 0) {
-                ul.innerHTML = '<li>No queries found.</li>';
-                return;
-            }
-            //Top 10 cele mai proaste coduri de le-am scris
-            //Nici nu stiu cum ar trebui sa fac aici sa rezolv ;((
-            queries.forEach(query => {
-                const li = document.createElement('li');
-                const button1 = document.createElement('button');
-                const button2 = document.createElement('button');
-                const id = document.createElement('span');
-                const name = document.createElement('span');
-                id.innerText = query['id'];
-                name.innerText = query['name'];
-                button1.innerText = "Use" //Nu merg butoanele deocamdata
-                button2.innerText = "Rename" 
-                button2.addEventListener('click', () => { addFriendFunction(name); });
-                const div1 = document.createElement('div');
-                div1.className = "queryInfo"
-                div1.appendChild(id);
-                div1.appendChild(name);
-                const div2 = document.createElement('div');
-                div2.className = "queryButtons"
-                div2.appendChild(button1);
-                div2.appendChild(button2);
-                li.appendChild(div1);
-                li.appendChild(div2);
-                ul.appendChild(li);
-            });
+            const queryList = document.getElementById('queriesList');
+            renderList(queryList, queries, createQueryItem, 'No queries found.');
         })
         .catch(err => {
-            document.getElementById('queriesList').innerHTML = '<li>Error loading queries.</li>';
+            document.getElementById('queriesList').innerHTML = '<li>Error loading queries.</li>'
         });
 }
 
@@ -121,15 +156,6 @@ function loadProfileToForm(profile) {
 }
 
 
-let profileData;
-fetch('../database/getProfile.php', {
-    credentials: 'include'
-    })
-    .then(r => r.json())
-    .then(profile => {
-        profileData = profile;
-        loadProfileToDisplay(profile);
-});
 
 
 document.addEventListener('DOMContentLoaded', function(){
@@ -140,8 +166,6 @@ document.addEventListener('DOMContentLoaded', function(){
         document.getElementById('formEditProfileButtons').style.display = 'block';
         loadProfileToForm(profileData);
     });
-
-    // document.getElementById('deleteAccountBtn').addEventListener('click', deleteAccount());
 
     document.getElementById('fileInput').addEventListener('change', function(event) {
     const file = event.target.files[0];
@@ -174,17 +198,22 @@ document.addEventListener('DOMContentLoaded', function(){
     });
 
 
-    const form = document.getElementById('profileForm');
-    const messageDiv = document.getElementById('messageProfileSave');
-    form.addEventListener('submit', function (e) {
+    document.getElementById('profileForm').addEventListener('submit', function (e) {
+        const messageDiv = document.getElementById('messageProfileSave');
+        const errorDiv = document.getElementById('profileSaveError');
         e.preventDefault();
 
-        const formData = new FormData(form);
+        const formData = new FormData(document.getElementById('profileForm'));
         fetch('../database/saveProfile.php', {
             method: 'POST',
             body: formData
         })
-        .then(r => r.json())
+        .then(data => {
+            if (!data.success) {
+                throw new Error("Error: " + data.status);
+            }
+            return data.json();
+        })
         .then(data => {
             messageDiv.textContent = data.message;
             messageDiv.style.color = data.success ? "green" : "red";
@@ -204,8 +233,8 @@ document.addEventListener('DOMContentLoaded', function(){
             document.getElementById('formEditProfileButtons').style.display = 'none';
         })
         .catch((error) => {
-            messageDiv.textContent = "Failed to save profile, please try again: " + error;
-            messageDiv.style.color = "red";
+            errorDiv.textContent = "Failed to save profile, please try again: " + error;
+            errorDiv.style.color = "red";
         });
     });
 });

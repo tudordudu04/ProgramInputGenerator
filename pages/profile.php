@@ -87,13 +87,14 @@
                     </div>
                     <div id="profileDisplayButtons">
                         <button type="button" id="editProfileBtn">Edit</button>
-                        <button type="button" id="deleteAccountBtn">Delete Account</button>
+                        <button type="button" id="deleteAccountBtn" onclick="deleteAccount()" >Delete Account</button>
+                        <div id="messageProfileSave"></div>
                         <div id="messageProfileDelete"></div>
                     </div>
                     <div id="formEditProfileButtons">
                         <button type="submit" form="profileForm">Save Profile</button>
-                        <div id="messageProfileSave"></div>
                         <button type="button" id="cancelProfileBtn">Cancel Edit</button>
+                        <div id="profileSaveError"></div>
                     </div>
                 </div>
             </div>

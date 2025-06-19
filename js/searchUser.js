@@ -31,8 +31,41 @@ function runScript() {
     });
 }
 
+function renderList(container, items, createItem, emptyMessage) {
+    container.innerHTML = '';
+    if (!items || items.length === 0) {
+        container.innerHTML = `<li>${emptyMessage}</li>`;
+        return;
+    }
+    const fragment = document.createDocumentFragment();
+    items.forEach(item => fragment.appendChild(createItem(item)));
+    container.appendChild(fragment);
+}
+
+function createSearchItem(name) {
+    const div = document.createElement('div');
+    const li = document.createElement('li');
+    li.textContent = name;
+    const div2 = document.createElement('div');
+    const button = document.createElement('button')
+    const div3 = document.createElement('div');
+    div2.style.display = 'flex';
+    div2.style.alignItems = 'center';
+    div3.id = 'responseToAdd';
+    div3.style.display = 'none';
+    button.textContent = 'Add Friend';
+    button.addEventListener('click', (e) => {
+        e.preventDefault();
+        addFriendFunction(name);
+    });
+    div2.appendChild(button);
+    div2.appendChild(div3);
+    div.appendChild(li);
+    div.appendChild(div2);
+    return div;
+}
 document.addEventListener('DOMContentLoaded', function() {
-    const input = document.querySelector('.search input[type="text"]');
+    const input = document.getElementById('queryBox');
     const resultsList = document.getElementById('results');
 
     input.addEventListener('keydown', function(event){
@@ -57,33 +90,7 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(res => res.json())
         .then(results => {
-            resultsList.innerHTML = '';
-            if (results.length === 0) {
-                resultsList.innerHTML = '<li>No results</li>';
-            } else {
-                results.forEach(name => {
-                    const div = document.createElement('div');
-                    const li = document.createElement('li');
-                    li.textContent = name;
-                    const div2 = document.createElement('div');
-                    const button = document.createElement('button')
-                    const div3 = document.createElement('div');
-                    div2.style.display = 'flex';
-                    div2.style.alignItems = 'center';
-                    div3.id = 'responseToAdd';
-                    div3.style.display = 'none';
-                    button.textContent = 'Add Friend';
-                    button.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        addFriendFunction(name);
-                    });
-                    div2.appendChild(button);
-                    div2.appendChild(div3);
-                    div.appendChild(li);
-                    div.appendChild(div2);
-                    resultsList.appendChild(div);
-                });
-            }
+            renderList(resultsList, results, createSearchItem, 'No users found.');
         })
         .catch(err => {
             resultsList.innerHTML = '<li>Error loading results</li>' + err;
