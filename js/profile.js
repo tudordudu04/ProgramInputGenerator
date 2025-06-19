@@ -54,15 +54,72 @@ function deleteAccount(){
         document.getElementById('messageProfileDelete').style.color = "red";
     });
 }
+// function blockUser(id, message){
 
+// }
+function viewProfile(id, message){
+    window.location.href = `friendProfile.php?id=${encodeURIComponent(id)}`;
+}
 function createFriendItem(friend){
     const li = document.createElement('li');
-    li.textContent = friend;
+    const divUsername = document.createElement('div');
+    divUsername.className = "username";
+    divUsername.textContent = friend.username;
+
+    const divButtons = document.createElement('div');
+    divButtons.className = "friendButtons";
+    const message = document.createElement('div');
+    message.textContent = '';
+
+    const btnViewProfile = makeButton('View Profile', () => viewProfile(friend.id, message));
+    const btnRemoveFriend = makeButton('Remove', () => friendListActions(friend.id, 'remove', message));
+    // const btnBlockUser = makeButton('Block User', () => blockUser(friend.id, message)); //vedem daca mai implementez si asta :PP
+    divButtons.append(message, btnViewProfile, btnRemoveFriend);
+    // divButtons.append(btnBlockUser);
+    
+    li.append(divUsername);
+    li.append(divButtons);
     return li;
+}
+function friendListActions(id, action, message){
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('action', action); // "accept" or "deny" or "delete"
+    fetch('../database/friendListActions.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+        if(data.success)
+            loadFriendLists();
+        else {
+            message.style.color = 'red';
+            message.textContent = data.message;
+        }
+    })
+    .catch(err=>{
+        message.style.color = 'red';
+        message.textContent = "Error: " + err;
+    });
 }
 function createFriendRequestItem(friendRequest){
     const li = document.createElement('li');
-    li.textContent = friendRequest;
+    const divUsername = document.createElement('div');
+    divUsername.className = "username";
+    divUsername.textContent = friendRequest.username;
+
+    const divButtons = document.createElement('div');
+    divButtons.className = "friendRequestButtons";
+    const message = document.createElement('div');
+    message.textContent = '';
+
+    const btnAcceptProfile = makeButton('Accept', () => friendListActions(friendRequest.id, 'accept', message));
+    const btnDenyFriend = makeButton('Deny', () => friendListActions(friendRequest.id, 'deny', message));
+    divButtons.append(message, btnAcceptProfile, btnDenyFriend);
+    
+    li.append(divUsername);
+    li.append(divButtons);
     return li;
 }
 function renderList(container, items, createItem, emptyMessage) {
@@ -76,7 +133,8 @@ function renderList(container, items, createItem, emptyMessage) {
     container.appendChild(fragment);
 }
 function loadFriendLists() {
-    fetch('../database/getFriends.php')
+    fetch('../database/getFriends.php',
+    )
         .then(res => res.json())
         .then(res => {
             const friendList = document.getElementById('friendList');
@@ -133,6 +191,13 @@ function deleteQuery(id, message){
         message.textContent = "Error: " + err;
     })
 }
+function makeButton(label, handler){
+    const btn = document.createElement('button');
+    btn.type = "button";
+    btn.innerText = label;
+    btn.addEventListener('click', handler);
+    return btn;
+};
 function createQueryItem(query) {
     const { id: queryId, name: queryName } = query;
     const li = document.createElement('li');
@@ -146,18 +211,11 @@ function createQueryItem(query) {
     divInfo.append(spanId, spanName);
 
     //butoane + mesaj rezultat
+    //de adaugat clase pentru css
     const divButtons = document.createElement('div');
     divButtons.className = "queryButtons";
     const message = document.createElement('div');
     message.textContent = '';
-
-    const makeButton = (label, handler) => {
-        const btn = document.createElement('button');
-        btn.type = "button";
-        btn.innerText = label;
-        btn.addEventListener('click', handler);
-        return btn;
-    };
 
     const btnUse = makeButton('Use', () => useQuery(queryId, message));
 

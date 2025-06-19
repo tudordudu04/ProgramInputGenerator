@@ -13,8 +13,8 @@
     header('Content-Type: application/json');
 
     $sqlQuery = "SELECT id, name FROM queries WHERE \"ownerId\" = $1";
-    if(isset($_GET['forUserId'])) 
-        $result = pg_query_params($conn, $sqlQuery, array($_GET['forUserId']));
+    if(isset($_GET['id']))
+        $result = pg_query_params($conn, $sqlQuery, array($_GET['id']));
     else 
         $result = pg_query_params($conn, $sqlQuery, array($userId));
 

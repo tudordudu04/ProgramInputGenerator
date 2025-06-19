@@ -2,11 +2,26 @@
     include "decodeUserId.php";
 
     try {
+        if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+            http_response_code(401);
+            echo json_encode([
+                "success" => false,
+                "message" => "Database error: ".pg_last_error($conn)
+            ]);
+            exit;
+        }
+        
         $checkUserQuery = "SELECT * FROM users WHERE id = $1";
-        $checkUserResult = pg_query_params($conn, $checkUserQuery, array($userId));
+        if(isset($_GET['id']))
+            $checkUserResult = pg_query_params($conn, $checkUserQuery, array($_GET['id']));
+        else
+            $checkUserResult = pg_query_params($conn, $checkUserQuery, array($userId));
 
         $checkProfileQuery = "SELECT * FROM profiles WHERE \"ownerId\" = $1";
-        $checkProfileResult = pg_query_params($conn, $checkProfileQuery, array($userId));
+        if(isset($_GET['id']))
+            $checkProfileResult = pg_query_params($conn, $checkProfileQuery, array($_GET['id']));
+        else
+            $checkProfileResult = pg_query_params($conn, $checkProfileQuery, array($userId));
 
         if($checkUserResult === false || $checkProfileResult === false){
             http_response_code(401);
