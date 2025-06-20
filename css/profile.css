@@ -41,17 +41,24 @@
     background: #fff;
 }
 
+#profileDisplayButtons{
+    width: 100%;
+}
+
 #profileForm,
 #formEditProfileButtons{
     display: none;
 }
 
+#friendQueries-panel,
 #queries-panel{
     display: flex;
     flex-direction: column;
 }
 
 #queries-panel,
+#friendQueries-panel,
+#friendFriends-panel,
 #friends-panel {
     background: #f7fafc;
     border-radius: 8px;
@@ -62,6 +69,8 @@
     font-family: 'Segoe UI', Arial, sans-serif;
 }
 
+#friendFriends-panel h2,
+#friendQueries-panel h2,
 #queries-panel h2,
 #friends-panel h2 {
     font-size: 1.25em;
@@ -108,6 +117,8 @@ ul#queriesList li{
     font-size: 1em;
 }
 
+ul#friendList li,
+ul#friendRequestList li,
 ul#queriesList li{
     justify-content: space-between;
 }
@@ -117,12 +128,17 @@ ul#queriesList li{
     display: flex;
     gap: 8px;
 }
+
+.friendRequestButtons,
+.friendButtons,
 .queryButtons{
     display: flex;
     gap: 14px;
     margin-right: 6px;
 }
 
+ul#friendList button,
+ul#friendRequestList button,
 ul#queriesList button{
     background: linear-gradient(45deg, #4299e1 60%, #3182ce 100%);
     color: white;
@@ -274,7 +290,8 @@ ul#queriesList li:hover {
 }
 
 .right-side {
-    flex: 1;
+    /* flex: 1; */
+    width: 360px;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -282,33 +299,76 @@ ul#queriesList li:hover {
     justify-content: center;
     padding-top: 18px;
 }
-
+#adminTools{
+    display: none;
+    flex-direction: column;
+}
+/* schimba aici css-ul */
 .card {
-    background: linear-gradient(120deg, #edf2f7 60%, #e2e8f0 100%);
-    border-radius: 12px;
-    box-shadow: 0 4px 16px rgba(66, 153, 225, 0.08);
-    padding: 24px 18px 16px 18px;
+    /* width: 370px; */
+    padding: 16px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    text-align: center;
+    position: relative;
+    background: #fff;
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 8px;
-    width: 100%;
 }
 
-.image {
+.card .image-container {
+    width: 100%;
+    /* height: 340px; */
+    display: flex;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card .image {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.card .file-input {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%;
+    opacity: 0;
+    cursor: pointer;
+}
+
+.card .overlay {
+    position: absolute;
+    width: 89%;
+    height: 79%;
+    background: rgba(0,0,0,0.4);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 50%;
+    opacity: 0;
+    transition: opacity 0.2s;
+    pointer-events: none;
+    font-size: 16px;
+}
+
+.card .image-container:hover .overlay {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* .image {
     width: 90%;
     border-radius: 50%;
     object-fit: cover;
     margin-bottom: 10px;
-}
+} */
 
-.card p {
-    margin: 0;
-    color: #2d3748;
-    font-size: 15px;
-    font-weight: 500;
-    text-align: center;
-}
 
 .right-side button{
     background: linear-gradient(45deg, #4299e1 60%, #3182ce 100%);

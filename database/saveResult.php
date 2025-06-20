@@ -1,3 +1,4 @@
+<!-- Placeholder until we actually make the inputs :PP -->
 <?php
     include "decodeUserId.php";
     
@@ -10,19 +11,19 @@
         exit;
     }
     
-    $sqlQuery = "INSERT INTO queries (\"ownerId\", \"jsonData\") VALUES ($1, $2)";
-    $result = pg_query_params($conn, $sqlQuery, array($userId, $_POST['jsonData']));
+    $sqlQuery = "INSERT INTO results (\"ownerId\", body) VALUES ($1, $2)";
+    $result = pg_query_params($conn, $sqlQuery, array($userId, $_POST['inputs']));
 
     if ($result) {
         echo json_encode([
             'success' => true,
-             'message' => 'Query saved successfully.'
+             'message' => 'Inputs saved successfully.'
         ]);
     } else {
         http_response_code(401);
         echo json_encode([
             'success' => false,
-             'message' => 'Failed to save query.'.$userId
+             'message' => 'Failed to save inputs.'.$userId
         ]);
     }
 

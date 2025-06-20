@@ -1,10 +1,4 @@
 <?php
-    // Temporary until I implement a friend_request table
-    //  to te able to see who friended you and be able 
-    //  to accept or deny their friend request 
-    // Needs more error handling 
-
-
     include "decodeUserId.php";
 
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -17,7 +11,6 @@
     }
 
     header('Content-Type: application/json');
-
 
     $sqlQuery = "SELECT id FROM users WHERE username = $1";
     $result = pg_query_params($conn, $sqlQuery, array($_POST['username']));
@@ -33,7 +26,11 @@
 
     $row = pg_fetch_assoc($result);
 
-    $sqlQuery = "INSERT INTO friends (id1, id2) VALUES ($1, $2)";
+    if($_POST['request'] === 'true')
+        $sqlQuery = "INSERT INTO friend_requests (id1, id2) VALUES ($1, $2)";
+    else
+        $sqlQuery = "INSERT INTO friends (id1, id2) VALUES ($1, $2)";
+     
     $result = pg_query_params($conn, $sqlQuery, array($userId, $row['id']));
 
     if(!$result){
@@ -48,7 +45,7 @@
     else {
         echo json_encode([
             "success" => true,
-            "message" => "Friendship established"
+            "message" => "Friend request sent!"
         ]);
         exit;
     }

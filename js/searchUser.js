@@ -1,21 +1,22 @@
-function addFriendFunction(name){
-    const messageDiv = document.getElementById('responseToAdd');
+function addFriendFunction(name, button, div3){
     const formData = new FormData();
-        formData.append('username', name);
+    formData.append('username', name);
+    formData.append('request', "true");
     fetch('../database/addFriend.php', {
             method: 'POST',
             body: formData
         })
     .then(r => r.json())
     .then(data => {
-        messageDiv.textContent = data.message;
-        messageDiv.style.color = data.success ? "green" : "red";
-        messageDiv.style.display = 'block';
+        button.style.display = 'none';
+        div3.textContent = data.message;
+        div3.style.color = data.success ? "green" : "red";
+        div3.style.display = 'block';
     })
     .catch(error => {
-        messageDiv.textContent = "Error: " + error;
-        messageDiv.style.color = "red";
-        messageDiv.style.display = 'block';
+        div3.textContent = "Error: " + error;
+        div3.style.color = "red";
+        div3.style.display = 'block';
     });
 }
 
@@ -30,9 +31,48 @@ function runScript() {
     });
 }
 
+function renderList(container, items, createItem, emptyMessage) {
+    container.innerHTML = '';
+    if (!items || items.length === 0) {
+        container.innerHTML = `<li>${emptyMessage}</li>`;
+        return;
+    }
+    const fragment = document.createDocumentFragment();
+    items.forEach(item => fragment.appendChild(createItem(item)));
+    container.appendChild(fragment);
+}
+
+function createSearchItem(name) {
+    const div = document.createElement('div');
+    const li = document.createElement('li');
+    li.textContent = name;
+    const div2 = document.createElement('div');
+    const button = document.createElement('button')
+    const div3 = document.createElement('div');
+    div2.style.display = 'flex';
+    div2.style.alignItems = 'center';
+    div3.style.display = 'none';
+    button.textContent = 'Add Friend';
+    button.addEventListener('click', (e) => {
+        e.preventDefault();
+        addFriendFunction(name, button, div3);
+    });
+    div2.appendChild(button);
+    div2.appendChild(div3);
+    div.appendChild(li);
+    div.appendChild(div2);
+    return div;
+}
+
 document.addEventListener('DOMContentLoaded', function() {
-    const input = document.querySelector('.search input[type="text"]');
+    const input = document.getElementById('queryBox');
     const resultsList = document.getElementById('results');
+
+    input.addEventListener('keydown', function(event){
+        if (event.key === 'Enter') {
+            event.preventDefault();
+        }
+    });
 
     input.addEventListener('input', function() {
         const query = input.value.trim();
@@ -50,36 +90,10 @@ document.addEventListener('DOMContentLoaded', function() {
         })
         .then(res => res.json())
         .then(results => {
-            resultsList.innerHTML = '';
-            if (results.length === 0) {
-                resultsList.innerHTML = '<li>No results</li>';
-            } else {
-                results.forEach(name => {
-                    const div = document.createElement('div');
-                    const li = document.createElement('li');
-                    li.textContent = name;
-                    const div2 = document.createElement('div');
-                    const button = document.createElement('button')
-                    const div3 = document.createElement('div');
-                    div2.style.display = 'flex';
-                    div2.style.alignItems = 'center';
-                    div3.id = 'responseToAdd';
-                    div3.style.display = 'none';
-                    button.textContent = 'Add Friend';
-                    button.addEventListener('click', (e) => {
-                        e.preventDefault();
-                        addFriendFunction(name);
-                    });
-                    div2.appendChild(button);
-                    div2.appendChild(div3);
-                    div.appendChild(li);
-                    div.appendChild(div2);
-                    resultsList.appendChild(div);
-                });
-            }
+            renderList(resultsList, results, createSearchItem, 'No users found.');
         })
         .catch(err => {
-            resultsList.innerHTML = '<li>Error loading results</li>';
+            resultsList.innerHTML = '<li>Error loading results</li>' + err;
         });
     });
 

@@ -12,9 +12,11 @@
 
     header('Content-Type: application/json');
 
-
     $sqlQuery = "SELECT id, name FROM queries WHERE \"ownerId\" = $1";
-    $result = pg_query_params($conn, $sqlQuery, array($userId));
+    if(isset($_GET['id']))
+        $result = pg_query_params($conn, $sqlQuery, array($_GET['id']));
+    else 
+        $result = pg_query_params($conn, $sqlQuery, array($userId));
 
     if(!$result){
         http_response_code(401);
@@ -33,7 +35,5 @@
         ];
     }
 
-    // if(sizeof($queries) === 0)
-    //     echo json_encode('');
     echo json_encode($queries);
 ?>

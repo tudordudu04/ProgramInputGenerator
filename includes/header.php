@@ -5,7 +5,7 @@
     <title><?php echo $title ?? 'PIG'; ?></title>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="../css/header-footer.css">
-    <script src="../js/searchUser.js"></script>
+    <?php if(isset($_COOKIE['jwt'])): ?> <script src="../js/searchUser.js"></script> <?php endif; ?>
     <?php if (!empty($scriptSource)) echo $scriptSource; ?>
     <?php if (!empty($additionalCss)) echo $additionalCss; ?>
 </head>
@@ -18,7 +18,7 @@
                 <?php if(isset($_COOKIE['jwt'])): ?>
                     <li>
                         <form action="../database/searchUser.php" method="POST" style="display:inline;" class="search" autocomplete="off">
-                            <input type="text" name="query" placeholder="Search..." required autocomplete="off" class="queryBox">
+                            <input type="text" name="query" placeholder="Search..." required autocomplete="off" class="queryBox" id="queryBox">
                             <ul id="results"></ul>
                         </form>
                     </li>

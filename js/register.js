@@ -23,8 +23,23 @@ form.addEventListener('submit', function (e) {
     .then(data => {
         messageDiv.textContent = data.message;
         messageDiv.style.color = data.success ? "green" : "red";
-        if (data.success) {
-            window.location.href = 'login.html';
+        if(data.success){
+            messageDiv.style.color = "green";
+            let countdown = 3;
+            messageDiv.textContent = data.message + " Redirecting to login page in: " + countdown;
+            const intervalId = setInterval(() => {
+                countdown--;
+                if (countdown > 0) {
+                    messageDiv.textContent = data.message + " Redirecting to login page in: " + countdown;
+                } else {
+                    messageDiv.textContent = '';
+                    form.reset();
+                    clearInterval(intervalId);
+                    window.location.href = "login.html";
+                }
+            }, 1000);
+        } else {
+            messageDiv.style.color = "red";
         }
     })
     .catch(() => {

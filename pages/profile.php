@@ -11,14 +11,18 @@
             <button onclick="showPanel('queries')">Saved Queries</button>
             <button onclick="showPanel('results')">Saved Results</button> <!--- Nu este implementat inca --->
             <button onclick="showPanel('button')">Run Script</button>
+            <div id="adminTools">
+                <button onclick="showPanel('tickets')">Tickets</button> <!-- Aici pot da review la tickete la useri -->
+                <button onclick="showPanel('users')">User List</button> <!-- Aici sa am o lista cu toti useri si sa am optiuni gen shadowBan, delete account si IP ban-->
+            </div>
         </div>
         <div class="workspace" id="workspace">
             <div class="panel" id="profile-panel">
-                <!-- Adauga ceva ca sa faci sa nu fie vizibil profilul sau ceva de genul -->
                 <div class="left-side">
                     <div id="profileDisplay">
                         <h2>Profile</h2>
                         <ul class="settings">
+                            <li><strong>Hidden:</strong> <span id="displayHidden"></span></li>
                             <li><strong>Username:</strong> <span id="displayUsername"></span></li>
                             <li><strong>Email:</strong> <span id="displayEmail"></span></li>
                             <li><strong>First Name:</strong> <span id="displayFirstName"></span></li>
@@ -29,8 +33,12 @@
                             <li><strong>City:</strong> <span id="displayCity"></span></li>
                         </ul>
                     </div>
-                    <form class="settings" id="profileForm">
+                    <form class="settings" id="profileForm" onsubmit="saveProfile(event)" >
                         <h2>Edit Profile</h2>
+                        <div>
+                            <label for="hidden">Hidden</label>
+                            <input type="checkbox" id="hidden" name="hidden">
+                        </div>
                         <span>
                             <label for="username">Username</label>
                             <input type="text" name="username" id="username" placeholder="enter username">
@@ -72,19 +80,25 @@
                 </div>
                 <div class="right-side">
                     <div class="card">
-                        <img src="../profil.jpg" class="image">
-                        <p id="profileName">FirstName + LastName</p>
+                        <div class="image-container">
+                        <img class="image" id="profilePhoto" alt="Profile Photo">
+                        <div class="overlay">Change Photo</div>
+                        <input type="file" accept="image/*" class="file-input" onchange="saveProfilePhoto(event)">
+                        </div>
+                        <p id="profileName">FirstName LastName</p>
                         <p id="profileEmail">Email</p>
                     </div>
                     <div id="profileDisplayButtons">
-                        <button type="button" id="editProfileBtn">Edit</button>
-                        <button type="button" id="deleteAccountBtn">Delete Account</button>
+                        <button type="button" onclick="editProfile()">Edit</button>
+                        <!-- adauga ceva aici ca sa nu apesi din greseala pe delete :PPP -->
+                        <button type="button" onclick="deleteAccount()" >Delete Account</button>
+                        <div id="messageProfileSave"></div>
                         <div id="messageProfileDelete"></div>
                     </div>
                     <div id="formEditProfileButtons">
                         <button type="submit" form="profileForm">Save Profile</button>
-                        <div id="messageProfileSave"></div>
-                        <button type="button" id="cancelProfileBtn">Cancel Edit</button>
+                        <button type="button" onclick="cancelEdit()">Cancel Edit</button>
+                        <div id="profileSaveError"></div>
                     </div>
                 </div>
             </div>
@@ -93,13 +107,11 @@
                 <div class="list">
                     <h2>Friend List</h2>
                     <ul id="friendList">
-
                     </ul>
                 </div>
                 <div class="requests">
                     <h2>Friend Requests</h2>
                     <ul id="friendRequests">
-
                     </ul>
                 </div>
             </div>
@@ -111,11 +123,27 @@
             </div>
 
             <div class="panel" id="results-panel" style="display:none;">
-
+                <h2>Saved Results</h2>
+                <ul id="resultList">
+                </ul>
             </div>
             <div class="panel", id="button-panel", style="display:none;">
                 <button onclick="runScript()" style="padding: 6px;">Run Script</button>
                 <div id="result"></div>
+            </div>
+            <div class="panel" id="ticket-panel" style="display:none;">
+                <div class="list">
+                    <h2>Ticket List</h2>
+                    <ul id="ticketsList">
+                    </ul>
+                </div>
+            </div>
+            <div class="panel" id="users-panel" style="display:none;">
+                <div class="list">
+                    <h2>User List</h2>
+                    <ul id="usersList">
+                    </ul>
+                </div>
             </div>
         </div>
     </div>
