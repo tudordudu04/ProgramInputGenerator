@@ -6,21 +6,28 @@ fetch('../database/getProfile.php', {
     .then(r => r.json())
     .then(profile => {
         profileData = profile;
-        if(profileData.isAdmin === true)
-            document.getElementById('adminTools').style.display = 'flex';
         loadProfileToDisplay(profile);
 });
 
 
+
 function showPanel(panel) {
-    const panels = ['profile', 'friends', 'queries', 'results', 'button'];
+    const panels = ['profile', 'friends', 'queries', 'results', 'button', 'createTicket', 'reviewTicket', 'users'];
     panels.forEach(function(name) {
-        document.getElementById(name + '-panel').style.display = (name === panel) ? 'flex' : 'none';
+        aux = document.getElementById(name + '-panel');
+        if(aux)
+            aux.style.display = (name === panel) ? 'flex' : 'none';
     });
     if(panel === 'friends'){
         loadFriendLists();
     } else if(panel === 'queries'){
         loadQueries();
+    } else if(panel === 'createTicket'){
+        loadTickets();
+    } else if(panel === 'reviewTicket'){
+        loadTickets('others');
+    } else if(panel === 'users'){
+        loadUsers();
     }
 }
 
@@ -58,6 +65,34 @@ function deleteAccount(){
 // function blockUser(id, message){
 
 // }
+
+function submitTicket(event){
+    const form = document.getElementById('supportTicketForm');
+    const messageDiv = document.getElementById('messageSubmitTicket');
+    event.preventDefault();
+
+    const formData = new FormData(form);
+    fetch('../database/submitTicket.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+        if(data.success){
+            form.reset();
+            loadTickets();
+            messageDiv.textContent = 'Ticket submitted succesfully';
+            messageDiv.style.color = 'green';
+        } else {
+            messageDiv.textContent = 'Couldn\'t submit ticket: ' + data.message;
+            messageDiv.style.color = 'red';
+        }
+    })
+    .catch(err => {
+        messageDiv.textContent = 'Error: ' + err;
+        messageDiv.style.color = 'red';
+    })
+}
 
 function viewProfile(id, message){
     window.location.href = `friendProfile.php?id=${encodeURIComponent(id)}`;
@@ -127,7 +162,102 @@ function createFriendRequestItem(friendRequest){
     li.append(divButtons);
     return li;
 }
+function ticketListActions(id, action, message){
+    const formData = new FormData();
+    formData.append('id', id);
+    formData.append('action', action); 
+    fetch('../database/ticketListActions.php', {
+        method: 'POST',
+        body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+        if(data.success)
+            loadTickets('others');
+        else {
+            message.style.color = 'red';
+            message.textContent = data.message;
+        }
+    })
+    .catch(err=>{
+        message.style.color = 'red';
+        message.textContent = "Error: " + err;
+    });
+}
+function viewTicket(ticket) {
+    const oldViewer = document.getElementById('ticketViewer');
+    if (oldViewer) oldViewer.remove();
 
+    const viewer = document.createElement('div');
+    viewer.id = "ticketViewer";
+
+    const box = document.createElement('div');
+    box.className = "ticketInnerBox";
+
+    box.innerHTML = `
+        <h2>Ticket #${ticket.id}</h2>
+        <p><strong>Title:</strong> ${escapeHTML(ticket.title)}</p>
+        <p><strong>Type:</strong> ${escapeHTML(ticket.type)}</p>
+        <p><strong>Status:</strong> ${escapeHTML(ticket.status)}</p>
+        <p><strong>Description:</strong><br>${escapeHTML(ticket.body).replace(/\n/g, '<br>')}</p>
+        <button style="margin-top: 1rem;" onclick="document.getElementById('ticketViewer').remove()">Close</button>
+    `;
+
+    viewer.onclick = function(e) {
+        if (e.target === viewer) viewer.remove();
+    }
+
+    viewer.appendChild(box);
+    document.body.appendChild(viewer);
+}
+function escapeHTML(str) {
+    return String(str)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
+function createTicketItem(ticket){
+    const li = document.createElement('li');
+    const divInfo = document.createElement('div');
+    divInfo.className = "ticketInfo";
+
+    const ticketName = document.createElement('div');
+    ticketName.textContent = ticket.title;
+    divInfo.append(ticketName);
+
+    const ticketType = document.createElement('div');
+    ticketType.textContent = ticket.type;
+    divInfo.append(ticketType);
+
+    const status = document.createElement('div');
+    status.textContent = ticket.status;
+    divInfo.append(status);
+
+    const divButtons = document.createElement('div');
+    divButtons.className = "ticketButtons";
+    const message = document.createElement('div');
+    message.textContent = '';
+
+    const btnViewTicket = makeButton('View Ticket', () => viewTicket(ticket));
+    divButtons.append(message);
+    divButtons.append(btnViewTicket);
+
+    if(ticket.isAdmin === true){
+        const ticketUser = document.createElement('div');
+        ticketUser.textContent = "From: " + ticket.username;
+        divInfo.append(ticketUser);
+
+        const btnResolveTicket = makeButton('Solved', () => ticketListActions(ticket.id, 'resolved', message));
+        const btnCloseTicket = makeButton('Close', () => ticketListActions(ticket.id, 'closed', message));
+        divButtons.append(btnResolveTicket, btnCloseTicket);
+    }
+    
+    li.append(divInfo);
+    li.append(divButtons);
+    return li;
+}
 function renderList(container, items, createItem, emptyMessage) {
     container.innerHTML = '';
     if (!items || items.length === 0) {
@@ -139,21 +269,42 @@ function renderList(container, items, createItem, emptyMessage) {
     container.appendChild(fragment);
 }
 
-function loadFriendLists() {
-    fetch('../database/getFriends.php',
-    )
-        .then(res => res.json())
-        .then(res => {
-            const friendList = document.getElementById('friendList');
-            const friendRequests = document.getElementById('friendRequests');
+function loadTickets(forWhom = 'myself'){
+    const formAux = new FormData();
+    formAux.append('forWhom', forWhom)
+    fetch('../database/getTickets.php',{
+        method: 'POST',
+        body: formAux
+    })
+    .then(r => r.json())
+    .then(data => {
+        let ticketList;
+        if(forWhom !== "myself")
+            ticketList = document.getElementById('reviewTicketList');
+        else   
+            ticketList = document.getElementById('submittedTicketList');
+        renderList(ticketList, data, createTicketItem, 'No tickets found.');
+    })
+    .catch(err => {
+        document.getElementById('reviewTicketList').innerHTML = '<li>Error loading tickets.</li>';
+        document.getElementById('submittedTicketList').innerHTML = '<li>Error loading tickets.</li>';
+    })
+}
 
-            renderList(friendList, res.friends, createFriendItem, 'No friends found.');
-            renderList(friendRequests, res.friend_requests, createFriendRequestItem, 'No friend requests found.');
-        })
-        .catch(err => {
-            document.getElementById('friendList').innerHTML = `<li>Error loading friends.</li>`;
-            document.getElementById('friendRequests').innerHTML = '<li>Error loading friend requests.</li>';
-        });
+function loadFriendLists() {
+    fetch('../database/getFriends.php')
+    .then(res => res.json())
+    .then(res => {
+        const friendList = document.getElementById('friendList');
+        const friendRequests = document.getElementById('friendRequests');
+
+        renderList(friendList, res.friends, createFriendItem, 'No friends found.');
+        renderList(friendRequests, res.friend_requests, createFriendRequestItem, 'No friend requests found.');
+    })
+    .catch(err => {
+        document.getElementById('friendList').innerHTML = `<li>Error loading friends.</li>`;
+        document.getElementById('friendRequests').innerHTML = '<li>Error loading friend requests.</li>';
+    });
 }
 
 function renameQuery(id, name, message){

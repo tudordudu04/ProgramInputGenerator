@@ -51,7 +51,10 @@
 }
 
 #friendQueries-panel,
-#queries-panel{
+#queries-panel,
+#createTicket-panel,
+#reviewTicket-panel,
+#users-panel{
     display: flex;
     flex-direction: column;
 }
@@ -59,7 +62,10 @@
 #queries-panel,
 #friendQueries-panel,
 #friendFriends-panel,
-#friends-panel {
+#friends-panel,
+#createTicket-panel,
+#reviewTicket-panel,
+#users-panel{
     background: #f7fafc;
     border-radius: 8px;
     width: 100%;
@@ -72,7 +78,10 @@
 #friendFriends-panel h2,
 #friendQueries-panel h2,
 #queries-panel h2,
-#friends-panel h2 {
+#friends-panel h2,
+#createTicket-panel h2,
+#reviewTicket-panel h2,
+#users-panel h2{
     font-size: 1.25em;
     color: #2d3748;
     margin-bottom: 12px;
@@ -89,13 +98,47 @@
     flex: 2;
 }
 
-.list, .requests {
+.list, .requests{
     margin-bottom: 28px;
+}
+
+#ticketViewer{
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+
+}
+
+.ticketInnerBox{
+    background: white;
+    padding: 2rem;
+    border-radius: 8px;
+    min-width: 320px;
+    box-shadow: 0 2px 32px rgba(0,0,0,0.2);
+    position: relative;
+    max-width: 90vw;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+.ticketButtons{
+    display: flex;
+    gap: 6px;
 }
 
 ul#friendList,
 ul#friendRequests,
-ul#queriesList{
+ul#queriesList,
+ul#submittedTicketList,
+ul#reviewTicketList,
+ul#usersList{
     list-style: none;
     padding: 0;
     margin: 0;
@@ -108,7 +151,10 @@ ul#queriesList{
 
 ul#friendList li,
 ul#friendRequests li, 
-ul#queriesList li{
+ul#queriesList li,
+ul#submittedTicketList li,
+ul#reviewTicketList li,
+ul#usersList li{
     display: flex;
     align-items: center;
     padding: 10px 14px;
@@ -119,7 +165,10 @@ ul#queriesList li{
 
 ul#friendList li,
 ul#friendRequestList li,
-ul#queriesList li{
+ul#queriesList li,
+ul#submittedTicketList li,
+ul#reviewTicketList li,
+ul#usersList li{
     justify-content: space-between;
 }
 
@@ -139,7 +188,10 @@ ul#queriesList li{
 
 ul#friendList button,
 ul#friendRequestList button,
-ul#queriesList button{
+ul#queriesList button,
+ul#submittedTicketList button,
+ul#reviewTicketList button,
+ul#usersList button{
     background: linear-gradient(45deg, #4299e1 60%, #3182ce 100%);
     color: white;
     padding: 6px 14px;
@@ -153,13 +205,19 @@ ul#queriesList button{
 
 ul#friendList li:last-child,
 ul#friendRequests li:last-child, 
-ul#queriesList li:last-child{
+ul#queriesList li:last-child,
+ul#submittedTicketList li:last-child,
+ul#reviewTicketList li:last-child,
+ul#usersList li:last-child{
     border-bottom: none;
 }
 
 ul#friendList li:hover,
 ul#friendRequests li:hover,
-ul#queriesList li:hover {
+ul#queriesList li:hover,
+ul#submittedTicketList li:hover,
+ul#reviewTicketList li:hover,
+ul#usersList li:hover{
     background: #f0f4fa;
 }
 
@@ -389,13 +447,93 @@ ul#queriesList li:hover {
 }
 
 .right-side button:hover,
-ul#queriesList button{
+ul#queriesList button,
+ul#submittedTicketList button,
+ul#reviewTicketList button,
+ul#usersList button{
     box-shadow: 0 4px 12px rgba(66, 153, 225, 0.23);
     transform: translateY(-1px) scale(1.03);
 }
 
 .right-side button:last-of-type:hover {
     box-shadow: 0 4px 14px rgba(245, 101, 101, 0.16);
+}
+
+#supportTicketForm {
+    border-radius: 4px;
+    border: 2px solid #686868;
+    padding: 28px 20px 20px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+    width: 80%;
+    margin: 0 auto 30px auto;
+    font-family: 'Segoe UI', Arial, sans-serif;
+}
+
+#supportTicketForm label {
+    font-size: 1rem;
+    color: #2d3748;
+    font-weight: 500;
+    margin-bottom: 2px;
+    margin-top: 6px;
+}
+
+#supportTicketForm input,
+#supportTicketForm select,
+#supportTicketForm textarea {
+    border: 1px solid rgb(0, 0, 0);
+    border-radius: 6px;
+    padding: 10px 13px;
+    font-size: 1rem;
+    background: #f7fafc;
+    transition: border 0.2s, box-shadow 0.2s;
+    margin-bottom: 4px;
+    margin-top: 2px;
+    /* resize: vertical; */
+}
+
+
+#supportTicketForm select {
+    cursor: pointer;
+    appearance: none;
+}
+
+#supportTicketForm button[type="submit"] {
+    background: linear-gradient(45deg, #4299e1 60%, #3182ce 100%);
+    color: white;
+    border: none;
+    padding: 12px 0;
+    border-radius: 7px;
+    font-weight: 600;
+    font-size: 1.08rem;
+    cursor: pointer;
+    margin-top: 10px;
+    width: 100%;
+    transition: box-shadow 0.2s, transform 0.1s;
+    box-shadow: 0 2px 8px rgba(66, 153, 225, 0.1);
+}
+
+#supportTicketForm button[type="submit"]:hover,
+#supportTicketForm button[type="submit"]:focus {
+    background: linear-gradient(45deg, #3182ce 60%, #4299e1 100%);
+    box-shadow: 0 4px 16px rgba(66, 153, 225, 0.18);
+    transform: translateY(-1px) scale(1.03);
+}
+
+#messageSubmitTicket {
+    min-height: 22px;
+    font-size: 1rem;
+    color: #3182ce;
+    margin-top: 4px;
+    padding-left: 6px;
+}
+
+@media (max-width: 800px) {
+    #supportTicketForm {
+        max-width: 100%;
+        padding: 16px 6vw 12px 6vw;
+    }
 }
 
 @media (max-width: 1000px) {

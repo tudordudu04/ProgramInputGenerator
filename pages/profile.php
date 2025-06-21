@@ -2,6 +2,7 @@
     $additionalCss = '<link rel="alternative stylesheet" href="../css/profile.css">';
     $scriptSource = '<script src="../js/profile.js"></script>';
     include '../includes/header.php';
+    include '../database/isAdmin.php';
 ?>
 <div class="container">
     <div class="main">
@@ -10,11 +11,12 @@
             <button onclick="showPanel('friends')">Friend List</button>
             <button onclick="showPanel('queries')">Saved Queries</button>
             <button onclick="showPanel('results')">Saved Results</button> <!--- Nu este implementat inca --->
-            <button onclick="showPanel('button')">Run Script</button>
-            <div id="adminTools">
-                <button onclick="showPanel('tickets')">Tickets</button> <!-- Aici pot da review la tickete la useri -->
-                <button onclick="showPanel('users')">User List</button> <!-- Aici sa am o lista cu toti useri si sa am optiuni gen shadowBan, delete account si IP ban-->
-            </div>
+            <button onclick="showPanel('createTicket')">Create Support Ticket</button>
+            <?php if($isAdmin):?>
+                <button onclick="showPanel('button')">Run Script</button>
+                <button onclick="showPanel('reviewTicket')">Tickets</button> <!-- Aici pot da review la tickete la useri -->
+                <button onclick="showPanel('users')">User List</button> <!-- Aici sa am o lista cu toti useri si sa am optiuni gen shadowBan, delete account si IP ban -->
+            <?php endif; ?>
         </div>
         <div class="workspace" id="workspace">
             <div class="panel" id="profile-panel">
@@ -127,24 +129,53 @@
                 <ul id="resultList">
                 </ul>
             </div>
-            <div class="panel", id="button-panel", style="display:none;">
-                <button onclick="runScript()" style="padding: 6px;">Run Script</button>
-                <div id="result"></div>
+            <div class="panel", id="createTicket-panel", style="display:none;">
+                <h2>Create Support Ticket</h2>
+                <form id="supportTicketForm" onsubmit="submitTicket(event)">
+                    <label for="ticketTitle">Title:</label>
+                    <input type="text" id="ticketTitle" name="ticketTitle" required />
+
+                    <label for="ticketReason">Reason:</label>
+                    <select id="ticketReason" name="ticketReason" required>
+                        <option value="" disabled selected>Select a reason</option>
+                        <option value="bug">Bug Report</option>
+                        <option value="account">Account Issue</option>
+                        <option value="suggestion">Suggestion</option>
+                    </select>
+
+                    <label for="ticketBody">Complaint:</label>
+                    <textarea id="ticketBody" name="ticketBody" rows="6" required></textarea>
+
+                    <button type="submit">Submit Ticket</button>
+                    <div id="messageSubmitTicket"></div>
+                </form>
+                <h2>Your Tickets</h2>
+                <ul id="submittedTicketList">
+                        
+                </ul>   
             </div>
-            <div class="panel" id="ticket-panel" style="display:none;">
-                <div class="list">
-                    <h2>Ticket List</h2>
-                    <ul id="ticketsList">
-                    </ul>
+            <?php if($isAdmin):?>
+                <div class="panel", id="button-panel", style="display:none;">
+                    <button onclick="runScript()" style="padding: 6px;">Run Script</button>
+                    <div id="result"></div>
                 </div>
-            </div>
-            <div class="panel" id="users-panel" style="display:none;">
-                <div class="list">
-                    <h2>User List</h2>
-                    <ul id="usersList">
-                    </ul>
+                <div class="panel" id="reviewTicket-panel" style="display:none;">
+                    <div class="list">
+                        <h2>Ticket List</h2>
+                        <ul id="reviewTicketList">
+                        
+                        </ul>
+                    </div>
                 </div>
-            </div>
+                <div class="panel" id="users-panel" style="display:none;">
+                    <div class="list">
+                        <h2>User List</h2>
+                        <ul id="usersList">
+
+                        </ul>
+                    </div>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </div>
