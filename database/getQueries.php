@@ -1,5 +1,6 @@
 <?php
     include "decodeUserId.php";
+    header('Content-Type: application/json');
 
     if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
         http_response_code(401);
@@ -10,7 +11,6 @@
         exit;
     }
 
-    header('Content-Type: application/json');
 
     $sqlQuery = "SELECT id, name FROM queries WHERE \"ownerId\" = $1";
     if(isset($_GET['id']))

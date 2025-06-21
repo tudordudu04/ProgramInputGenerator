@@ -1,4 +1,4 @@
 <?php
     setcookie('jwt', '', -1, '/');
-    header('Location: ../pages/index.php');
+    header('Location: ../index.php');
 ?>
