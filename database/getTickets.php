@@ -11,6 +11,8 @@
         exit;
     }
 
+    $isAdmin = false;
+
     if($_POST['forWhom'] !== "myself"){
         $sqlQuery = "SELECT t.id AS \"ticketId\", t.title, t.type, t.body, t.status,
         s.id AS \"userId\", s.username FROM tickets t JOIN users s ON s.id = t.\"ownerId\"";
@@ -31,8 +33,8 @@
     }
     
     $tickets = [];
-    while($row = pg_fetch_assoc($result)){
-        if($isAdmin)
+    if($isAdmin)
+        while($row = pg_fetch_assoc($result)){
             $tickets[] = [
                 'id' => $row['ticketId'],
                 'title' => $row['title'],
@@ -42,15 +44,16 @@
                 'isAdmin' => true, 
                 'username' => $row['username']
             ];
-        else
+        }
+    else
+        while($row = pg_fetch_assoc($result)){
             $tickets[] = [
-            'id' => $row['ticketId'],
-            'title' => $row['title'],
-            'type' => $row['type'],
-            'body' => $row['body'],
-            'status' => $row['status'],
-        ];
-    }
-
+                'id' => $row['ticketId'],
+                'title' => $row['title'],
+                'type' => $row['type'],
+                'body' => $row['body'],
+                'status' => $row['status'],
+            ];
+        }
     echo json_encode($tickets);
 ?>

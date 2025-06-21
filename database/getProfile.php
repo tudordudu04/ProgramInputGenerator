@@ -1,5 +1,5 @@
 <?php
-    include "decodeUserId.php";
+    include "isAdmin.php";
 
     if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
         http_response_code(401);
@@ -14,7 +14,7 @@
         $friendId = $_GET['id'];
         $sql = "SELECT 1 FROM friends WHERE (id1 = $1 AND id2 = $2) OR (id1 = $2 AND id2 = $1) LIMIT 1";
         $result = pg_query_params($conn, $sql, array($userId, $friendId));
-        if (pg_num_rows($result) === 0) {
+        if (pg_num_rows($result) === 0 && !$isAdmin) {
             http_response_code(401);
             echo json_encode([
                 "success" => false,

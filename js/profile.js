@@ -65,6 +65,39 @@ function deleteAccount(){
 // function blockUser(id, message){
 
 // }
+function createUserItem(user){
+    const li = document.createElement('li');
+    const divUsername = document.createElement('div');
+    divUsername.className = "username";
+    divUsername.textContent = user.username;
+
+    const divButtons = document.createElement('div');
+    divButtons.className = "userButtons";
+    const message = document.createElement('div');
+    message.textContent = '';
+
+    const btnViewProfile = makeButton('View Profile', () => viewProfile(user.id, message));
+    const btnDeleteUser = makeButton('Delete', () => userListActions(user.id, 'remove', message));
+    // const btnBanUser = makeButton('Block User', () => ban(user.id, message)); //vedem daca mai implementez si asta :PP
+    divButtons.append(message, btnViewProfile, btnDeleteUser);
+    // divButtons.append(btnBanUser);
+    
+    li.append(divUsername);
+    li.append(divButtons);
+    return li;
+}
+
+function loadUsers(){
+    fetch('../database/getUsers.php')
+    .then(r => r.json())
+    .then(data => {
+        const userList = document.getElementById('usersList');
+        renderList(userList, data, createUserItem, 'No users found.');
+    })
+    .catch(err => {
+        document.getElementById('usersList').innerHTML = '<li>Error loading users.</li>'
+    })
+}
 
 function submitTicket(event){
     const form = document.getElementById('supportTicketForm');
@@ -184,6 +217,7 @@ function ticketListActions(id, action, message){
         message.textContent = "Error: " + err;
     });
 }
+//aici trebuie revizuit sa nu dea atacuri xss and stuff
 function viewTicket(ticket) {
     const oldViewer = document.getElementById('ticketViewer');
     if (oldViewer) oldViewer.remove();

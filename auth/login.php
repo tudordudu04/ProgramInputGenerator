@@ -42,7 +42,7 @@
             if (password_verify($password, $row['password'])) {
                 $iss_time = time();
                 $payload = [
-                    "iss" => "http://www.ProgramInputGenerator.com",
+                    "iss" => "https://www.frankenpig.online",
                     "iat" => $iss_time,
                     "exp" => $iss_time + 3600*24*7,
                     "user_id" => $row["id"]
