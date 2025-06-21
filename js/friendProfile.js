@@ -18,6 +18,34 @@ fetch('../database/getProfile.php?id=' + friendId, {
         alert(err);
 });
 
+function reportProfile(){
+    const formData = new FormData();
+    formData.append('ticketTitle', 'Report for ' + profileData.username);
+    formData.append('ticketReason', 'report');
+    formData.append('ticketBody', 'User:' + profileData.username + " was reported on: " + Math.floor(Date.now() / 1000));
+    const message = document.getElementById('messageProfileReport');
+    message.textContent = '';
+
+    fetch('../database/submitTicket.php',{
+        method: 'POST',
+        body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+        if(data.success){
+            message.style.color = 'green';
+            message.textContent = 'Report submitted succesfully.';
+        }
+        else {
+            message.style.color = 'red';
+            message.textContent = 'Report couldn\'t be submitted.'; 
+        }
+    })
+    .catch(err=>{
+        message.style.color = 'red';
+        message.textContent = "Error: " + err;
+    })
+}
 
 function showPanel(panel) {
     const panels = ['friendProfile', 'friendFriends', 'friendQueries', 'friendResults'];
