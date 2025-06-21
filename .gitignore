@@ -1,3 +1,4 @@
 ./profilePhotos
 profilePhotos/*
-
+.env
+.htaccess

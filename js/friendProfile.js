@@ -5,12 +5,17 @@ const friendId = url.searchParams.get('id');
 fetch('../database/getProfile.php?id=' + friendId, {
     credentials: 'include'
     })
-    .then(r => r.json())
-    .then(profile => {
-        if(!profile.success)
+    .then(r => {
+        if(!r.ok)
             window.location.href = "index.php";
+        return r.json();
+    })
+    .then(profile => {
         profileData = profile;
         loadProfileToDisplay(profile);
+    })
+    .catch(err => {
+        alert(err);
 });
 
 
