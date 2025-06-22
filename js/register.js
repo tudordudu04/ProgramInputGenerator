@@ -11,7 +11,7 @@ form.addEventListener('submit', function (e) {
         messageDiv.textContent = "Passwords do not match!";
         messageDiv.style.color = "red";
         return;
-    }
+    } 
 
     const formData = new FormData(form);
 

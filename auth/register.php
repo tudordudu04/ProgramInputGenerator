@@ -14,9 +14,39 @@
         $password = htmlspecialchars(trim($_POST['password'] ?? ''));
 
         if (!$username || !$email || !$password) {
+            http_response_code(401);
             echo json_encode([
                 'success' => false, 
                 'message' => 'Please fill in all fields.']);
+            exit;
+        }
+
+        if (strlen($password) < 8) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'message' => 'Password must be at least 8 characters long.']);
+            exit;
+        }
+        if (!preg_match('/[A-Z]/', $password)) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'message' => 'Password must contain at least one uppercase letter.']);
+            exit;
+        }
+        if (!preg_match('/[a-z]/', $password)) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'message' => 'Password must contain at least one lowercase letter.']);
+            exit;
+        }
+        if (!preg_match('/[^A-Za-z0-9]/', $password)) {
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'message' => 'Password must contain at least one special character.']);
             exit;
         }
 
