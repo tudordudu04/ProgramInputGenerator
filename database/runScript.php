@@ -1,11 +1,11 @@
 <?php
+    include '../database/db_connection.php';
+
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         http_response_code(405);
         echo "Method not allowed";
         exit;
     }
-
-    include '../database/db_connection.php';
 
     $cmd = 'sudo -u postgres psql -U postgres -d WebProject -f database-script.sql 2>&1';
     $output = shell_exec($cmd);

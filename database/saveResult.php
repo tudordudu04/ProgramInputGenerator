@@ -1,6 +1,7 @@
 <!-- Placeholder until we actually make the inputs :PP -->
 <?php
     include "decodeUserId.php";
+    header('Content-Type: application/json');
     
     if ($_SERVER["REQUEST_METHOD"] !== "POST"){
         http_response_code(401);

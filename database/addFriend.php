@@ -1,5 +1,6 @@
 <?php
     include "decodeUserId.php";
+    header('Content-Type: application/json');
 
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         http_response_code(401);
@@ -10,7 +11,6 @@
         exit;
     }
 
-    header('Content-Type: application/json');
 
     $sqlQuery = "SELECT id FROM users WHERE username = $1";
     $result = pg_query_params($conn, $sqlQuery, array($_POST['username']));

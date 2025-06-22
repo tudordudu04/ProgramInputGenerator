@@ -1,6 +1,7 @@
 <?php
     include "isAdmin.php";
-
+    header('Content-Type: application/json');
+    
     if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
         http_response_code(401);
         echo json_encode([

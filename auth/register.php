@@ -1,7 +1,7 @@
 <?php
     include '../database/db_connection.php';
-
     header('Content-Type: application/json');
+
     if(isset($_COOKIE['jwt'])) {
         http_response_code(401);
         echo json_encode([

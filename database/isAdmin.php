@@ -1,6 +1,7 @@
 <?php
     require_once "../util/vendor/autoload.php";
     include '../database/db_connection.php';
+    header('Content-Type: application/json');
 
     use Firebase\JWT\Key;
     use Firebase\JWT\JWT;
