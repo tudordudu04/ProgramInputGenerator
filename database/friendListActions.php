@@ -1,5 +1,6 @@
 <?php
     include "decodeUserId.php";
+    header('Content-Type: application/json');
 
     if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
         http_response_code(401);
@@ -9,9 +10,7 @@
         ]);
         exit;
     }
-
-    header('Content-Type: application/json');
-
+    
     if (!isset($_POST['id'], $_POST['action'])) {
         http_response_code(401);
         echo json_encode([

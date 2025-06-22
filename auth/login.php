@@ -1,5 +1,6 @@
 <?php
     require_once "../util/vendor/autoload.php";
+    header('Content-Type: application/json');
 
     use Firebase\JWT\Key;
     use Firebase\JWT\JWT;
@@ -7,7 +8,6 @@
     $key = "cevacevacevacevacevacevacevacevacevacevacevacevacevacevacevaceva";
 
     include '../database/db_connection.php';
-    header('Content-Type: application/json');
 
     if(isset($_COOKIE['jwt'])) {
         http_response_code(401);
@@ -42,7 +42,7 @@
             if (password_verify($password, $row['password'])) {
                 $iss_time = time();
                 $payload = [
-                    "iss" => "http://www.ProgramInputGenerator.com",
+                    "iss" => "https://www.frankenpig.online",
                     "iat" => $iss_time,
                     "exp" => $iss_time + 3600*24*7,
                     "user_id" => $row["id"]

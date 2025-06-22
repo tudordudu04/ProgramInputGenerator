@@ -1,5 +1,5 @@
 <?php
-    include 'decodeUserId.php';
+    include 'isAdmin.php';
     header('Content-Type: application/json');
 
     if($_SERVER['REQUEST_METHOD'] !== 'POST'){
@@ -11,14 +11,25 @@
         exit;
     }
 
+
     if($_POST['forWhom'] !== "myself"){
-        $sqlQuery = "SELECT t.id AS \"ticketId\", t.title, t.type, t.body, t.status,
-        s.id AS \"userId\", s.username FROM tickets t JOIN users s ON s.id = t.\"ownerId\"";
-        $isAdmin = true;
+        if($isAdmin)
+            $sqlQuery = "SELECT t.id AS \"ticketId\", t.title, t.type, t.body, t.status,
+            s.id AS \"userId\", s.username FROM tickets t JOIN users s ON s.id = t.\"ownerId\"";
+        else {
+            http_response_code(401);
+            echo json_encode([
+                "success" => false,
+                "message" => "User not admin."
+            ]);
+            exit;
+        }
+
     }
     else 
         $sqlQuery = "SELECT t.id AS \"ticketId\", t.title, t.type, t.body, t.status,
         s.id AS \"userId\", s.username FROM tickets t JOIN users s ON s.id = t.\"ownerId\" WHERE t.\"ownerId\" = $userId";
+
     $result = pg_query($conn, $sqlQuery);
 
     if(!$result){
@@ -31,8 +42,8 @@
     }
     
     $tickets = [];
-    while($row = pg_fetch_assoc($result)){
-        if($isAdmin)
+    if($isAdmin)
+        while($row = pg_fetch_assoc($result)){
             $tickets[] = [
                 'id' => $row['ticketId'],
                 'title' => $row['title'],
@@ -42,15 +53,17 @@
                 'isAdmin' => true, 
                 'username' => $row['username']
             ];
-        else
+        }
+    else
+        while($row = pg_fetch_assoc($result)){
             $tickets[] = [
-            'id' => $row['ticketId'],
-            'title' => $row['title'],
-            'type' => $row['type'],
-            'body' => $row['body'],
-            'status' => $row['status'],
-        ];
-    }
-
+                'id' => $row['ticketId'],
+                'title' => $row['title'],
+                'type' => $row['type'],
+                'body' => $row['body'],
+                'status' => $row['status'],
+            ];
+        }
+    
     echo json_encode($tickets);
 ?>

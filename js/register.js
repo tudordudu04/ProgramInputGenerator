@@ -11,7 +11,7 @@ form.addEventListener('submit', function (e) {
         messageDiv.textContent = "Passwords do not match!";
         messageDiv.style.color = "red";
         return;
-    }
+    } 
 
     const formData = new FormData(form);
 
@@ -37,7 +37,7 @@ form.addEventListener('submit', function (e) {
                     clearInterval(intervalId);
                     window.location.href = "login.html";
                 }
-            }, 1000);
+            }, 800);
         } else {
             messageDiv.style.color = "red";
         }

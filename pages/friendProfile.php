@@ -9,8 +9,7 @@
             <button onclick="showPanel('friendProfile')">Profile</button>
             <button onclick="showPanel('friendFriends')">Friend List</button>
             <button onclick="showPanel('friendQueries')">Saved Queries</button>
-            <button onclick="showPanel('friendResults')">Saved Results</button> <!--- Nu este implementat inca --->
-            <button onclick="goBack()">Go Back <--</button>
+            <button onclick="goBack()">Go Back</button>
         </div>
         <div class="workspace" id="workspace">
             <div class="panel" id="friendProfile-panel">
@@ -32,7 +31,7 @@
                 <div class="right-side">
                     <div class="card">
                         <div class="image-container">
-                            <img class="image" id="profilePhoto" alt="Profile Photo">
+                            <img src="" class="image" id="profilePhoto" alt="Profile Photo">
                         </div>
                         <p id="profileName">FirstName LastName</p>
                         <p id="profileEmail">Email</p>
@@ -55,12 +54,6 @@
             <div class="panel" id="friendQueries-panel" style="display:none;">
                 <h2>Saved Queries</h2>
                 <ul id="queriesList">
-                </ul>
-            </div>
-
-            <div class="panel" id="friendResults-panel" style="display:none;">
-                <h2>Saved Results</h2>
-                <ul id="resultList">
                 </ul>
             </div>
         </div>

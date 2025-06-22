@@ -1,4 +1,6 @@
 ./profilePhotos
 profilePhotos/*
-.env
 .htaccess
+# database/db_connection.php
+# ./database/db_connection.php
+# database/db*

@@ -10,12 +10,11 @@
             <button onclick="showPanel('profile')">Profile</button>
             <button onclick="showPanel('friends')">Friend List</button>
             <button onclick="showPanel('queries')">Saved Queries</button>
-            <button onclick="showPanel('results')">Saved Results</button> <!--- Nu este implementat inca --->
             <button onclick="showPanel('createTicket')">Create Support Ticket</button>
             <?php if($isAdmin):?>
                 <button onclick="showPanel('button')">Run Script</button>
-                <button onclick="showPanel('reviewTicket')">Tickets</button> <!-- Aici pot da review la tickete la useri -->
-                <button onclick="showPanel('users')">User List</button> <!-- Aici sa am o lista cu toti useri si sa am optiuni gen shadowBan, delete account si IP ban -->
+                <button onclick="showPanel('reviewTicket')">Tickets</button>
+                <button onclick="showPanel('users')">User List</button> 
             <?php endif; ?>
         </div>
         <div class="workspace" id="workspace">
@@ -83,7 +82,7 @@
                 <div class="right-side">
                     <div class="card">
                         <div class="image-container">
-                        <img class="image" id="profilePhoto" alt="Profile Photo">
+                        <img src="" class="image" id="profilePhoto" alt="Profile Photo">
                         <div class="overlay">Change Photo</div>
                         <input type="file" accept="image/*" class="file-input" onchange="saveProfilePhoto(event)">
                         </div>
@@ -123,13 +122,7 @@
                 <ul id="queriesList">
                 </ul>
             </div>
-
-            <div class="panel" id="results-panel" style="display:none;">
-                <h2>Saved Results</h2>
-                <ul id="resultList">
-                </ul>
-            </div>
-            <div class="panel", id="createTicket-panel", style="display:none;">
+            <div class="panel" id="createTicket-panel" style="display:none;">
                 <h2>Create Support Ticket</h2>
                 <form id="supportTicketForm" onsubmit="submitTicket(event)">
                     <label for="ticketTitle">Title:</label>
@@ -155,7 +148,7 @@
                 </ul>   
             </div>
             <?php if($isAdmin):?>
-                <div class="panel", id="button-panel", style="display:none;">
+                <div class="panel" id="button-panel" style="display:none;">
                     <button onclick="runScript()" style="padding: 6px;">Run Script</button>
                     <div id="result"></div>
                 </div>

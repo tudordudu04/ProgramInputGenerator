@@ -1,11 +1,11 @@
 <?php
     require_once "../util/vendor/autoload.php";
     include '../database/db_connection.php';
+    header('Content-Type: application/json');
 
     use Firebase\JWT\Key;
     use Firebase\JWT\JWT;
 
-    header('Content-Type: application/json');
 
     if (!isset($_COOKIE['jwt'])) {
         http_response_code(401);

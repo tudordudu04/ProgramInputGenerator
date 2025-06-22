@@ -18,9 +18,37 @@ fetch('../database/getProfile.php?id=' + friendId, {
         alert(err);
 });
 
+function reportProfile(){
+    const formData = new FormData();
+    formData.append('ticketTitle', 'Report for ' + profileData.username);
+    formData.append('ticketReason', 'report');
+    formData.append('ticketBody', 'User:' + profileData.username + " was reported on: " + Math.floor(Date.now() / 1000));
+    const message = document.getElementById('messageProfileReport');
+    message.textContent = '';
+
+    fetch('../database/submitTicket.php',{
+        method: 'POST',
+        body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+        if(data.success){
+            message.style.color = 'green';
+            message.textContent = 'Report submitted succesfully.';
+        }
+        else {
+            message.style.color = 'red';
+            message.textContent = 'Report couldn\'t be submitted.'; 
+        }
+    })
+    .catch(err=>{
+        message.style.color = 'red';
+        message.textContent = "Error: " + err;
+    })
+}
 
 function showPanel(panel) {
-    const panels = ['friendProfile', 'friendFriends', 'friendQueries', 'friendResults'];
+    const panels = ['friendProfile', 'friendFriends', 'friendQueries'];
     panels.forEach(function(name) {
         document.getElementById(name + '-panel').style.display = (name === panel) ? 'flex' : 'none';
     });
@@ -89,7 +117,7 @@ function saveQuerytoProfile(id, message){
 function makeButton(label, handler){
     const btn = document.createElement('button');
     btn.type = "button";
-    btn.innerText = label;
+    btn.textContent = label;
     btn.addEventListener('click', handler);
     return btn;
 };
@@ -110,13 +138,11 @@ function createQueryItem(query) {
     const divInfo = document.createElement('div');
     divInfo.className = "queryInfo";
     const spanId = document.createElement('span');
-    spanId.innerText = queryId;
+    spanId.textContent = queryId;
     const spanName = document.createElement('span');
-    spanName.innerText = queryName;
+    spanName.textContent = queryName;
     divInfo.append(spanId, spanName);
-
-    //butoane + mesaj rezultat
-    //de adaugat clase pentru css
+    
     const divButtons = document.createElement('div');
     divButtons.className = "queryButtons";
     const message = document.createElement('div');
