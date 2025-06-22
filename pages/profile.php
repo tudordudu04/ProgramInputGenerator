@@ -14,8 +14,8 @@
             <button onclick="showPanel('createTicket')">Create Support Ticket</button>
             <?php if($isAdmin):?>
                 <button onclick="showPanel('button')">Run Script</button>
-                <button onclick="showPanel('reviewTicket')">Tickets</button> <!-- Aici pot da review la tickete la useri -->
-                <button onclick="showPanel('users')">User List</button> <!-- Aici sa am o lista cu toti useri si sa am optiuni gen shadowBan, delete account si IP ban -->
+                <button onclick="showPanel('reviewTicket')">Tickets</button>
+                <button onclick="showPanel('users')">User List</button> 
             <?php endif; ?>
         </div>
         <div class="workspace" id="workspace">

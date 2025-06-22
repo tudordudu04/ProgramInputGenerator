@@ -51,7 +51,7 @@ function deleteAccount(){
                     clearInterval(intervalId);
                     window.location.href = "index.php";
                 }
-            }, 1000);
+            }, 800);
         } else {
             messageDiv.style.color = "red";
         }
@@ -65,6 +65,7 @@ function deleteAccount(){
 // function blockUser(id, message){
 
 // }
+
 function createUserItem(user){
     const li = document.createElement('li');
     const divUsername = document.createElement('div');
@@ -217,7 +218,7 @@ function ticketListActions(id, action, message){
         message.textContent = "Error: " + err;
     });
 }
-//aici trebuie revizuit sa nu dea atacuri xss and stuff
+
 function viewTicket(ticket) {
     const oldViewer = document.getElementById('ticketViewer');
     if (oldViewer) oldViewer.remove();
@@ -228,14 +229,24 @@ function viewTicket(ticket) {
     const box = document.createElement('div');
     box.className = "ticketInnerBox";
 
-    box.innerHTML = `
-        <h2>Ticket #${ticket.id}</h2>
-        <p><strong>Title:</strong> ${escapeHTML(ticket.title)}</p>
-        <p><strong>Type:</strong> ${escapeHTML(ticket.type)}</p>
-        <p><strong>Status:</strong> ${escapeHTML(ticket.status)}</p>
-        <p><strong>Description:</strong><br>${escapeHTML(ticket.body).replace(/\n/g, '<br>')}</p>
-        <button style="margin-top: 1rem;" onclick="document.getElementById('ticketViewer').remove()">Close</button>
-    `;
+    const ticketNr = document.createElement('h2');
+    const ticketTitle = document.createElement('p');
+    const ticketType = document.createElement('p');
+    const ticketStatus = document.createElement('p');
+    const ticketBody = document.createElement('p');
+    const closeButton = document.createElement('button');
+
+    ticketNr.textContent = "Ticket Nr. #" + ticket.id;
+    ticketTitle.textContent = "Title: " + ticket.title;
+    ticketType.textContent = "Title: " + ticket.type;
+    ticketStatus.textContent = "Title: " + ticket.status;
+    ticketBody.textContent = "Title: " + ticket.body;
+    closeButton.textContent = "Close";
+
+    closeButton.addEventListener("click", () => {
+        document.getElementById('ticketViewer').remove();
+    });
+    box.append(ticketNr, ticketTitle, ticketType, ticketStatus, ticketBody, closeButton)
 
     viewer.onclick = function(e) {
         if (e.target === viewer) viewer.remove();
@@ -244,14 +255,7 @@ function viewTicket(ticket) {
     viewer.appendChild(box);
     document.body.appendChild(viewer);
 }
-function escapeHTML(str) {
-    return String(str)
-        .replace(/&/g, "&amp;")
-        .replace(/</g, "&lt;")
-        .replace(/>/g, "&gt;")
-        .replace(/"/g, "&quot;")
-        .replace(/'/g, "&#39;");
-}
+
 function createTicketItem(ticket){
     const li = document.createElement('li');
     const divInfo = document.createElement('div');
@@ -292,8 +296,9 @@ function createTicketItem(ticket){
     li.append(divButtons);
     return li;
 }
+
 function renderList(container, items, createItem, emptyMessage) {
-    container.innerHTML = '';
+    container.textContent = '';
     if (!items || items.length === 0) {
         container.innerHTML = `<li>${emptyMessage}</li>`;
         return;
@@ -388,7 +393,7 @@ function deleteQuery(id, message){
 function makeButton(label, handler){
     const btn = document.createElement('button');
     btn.type = "button";
-    btn.innerText = label;
+    btn.textContent = label;
     btn.addEventListener('click', handler);
     return btn;
 };
@@ -400,13 +405,11 @@ function createQueryItem(query) {
     const divInfo = document.createElement('div');
     divInfo.className = "queryInfo";
     const spanId = document.createElement('span');
-    spanId.innerText = queryId;
+    spanId.textContent = queryId;
     const spanName = document.createElement('span');
-    spanName.innerText = queryName;
+    spanName.textContent = queryName;
     divInfo.append(spanId, spanName);
 
-    //butoane + mesaj rezultat
-    //de adaugat clase pentru css
     const divButtons = document.createElement('div');
     divButtons.className = "queryButtons";
     const message = document.createElement('div');
@@ -433,11 +436,11 @@ function createQueryItem(query) {
     const btnRename = makeButton('Rename', () => {
         if (btnRename.textContent === "Rename") {
             input.style.display = 'block';
-            btnRename.innerText = "Cancel";
+            btnRename.textContent = "Cancel";
             input.focus();
         } else {
             input.style.display = 'none';
-            btnRename.innerText = "Rename";
+            btnRename.textContent = "Rename";
         }
     });
 

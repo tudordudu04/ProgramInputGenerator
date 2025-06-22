@@ -37,7 +37,7 @@ form.addEventListener('submit', function (e) {
                     clearInterval(intervalId);
                     window.location.href = "login.html";
                 }
-            }, 1000);
+            }, 800);
         } else {
             messageDiv.style.color = "red";
         }

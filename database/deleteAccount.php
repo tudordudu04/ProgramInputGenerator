@@ -1,5 +1,5 @@
 <?php
-    include "decodeUserId.php";
+    include 'isAdmin.php';
     header('Content-Type: application/json');
 
     if ($_SERVER['REQUEST_METHOD'] !== 'POST' || $_SERVER['REQUEST_METHOD'] !== 'GET') {
@@ -12,7 +12,15 @@
 
     $sqlQuery = "DELETE FROM users WHERE id = $1";
     if ($_SERVER['REQUEST_METHOD'] === 'POST')
-        $result = pg_query_params($conn, $sqlQuery, array($_POST['userId']));
+        if($isAdmin)
+            $result = pg_query_params($conn, $sqlQuery, array($_POST['userId']));
+        else{
+            http_response_code(401);
+            echo json_encode([
+                'success' => false,
+                'message' => 'User isnt an admin.'
+            ]);
+        }
     else 
         $result = pg_query_params($conn, $sqlQuery, array($userId));
 
@@ -29,7 +37,7 @@
         http_response_code(401);
         echo json_encode([
             'success' => false,
-             'message' => 'Failed to delete account.'.$userId
+             'message' => 'Failed to delete account: '.$userId
         ]);
     }
 ?>

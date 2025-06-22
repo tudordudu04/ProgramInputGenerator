@@ -10,7 +10,7 @@
             <button onclick="showPanel('friendFriends')">Friend List</button>
             <button onclick="showPanel('friendQueries')">Saved Queries</button>
             <button onclick="showPanel('friendResults')">Saved Results</button> <!--- Nu este implementat inca --->
-            <button onclick="goBack()">Go Back <--</button>
+            <button onclick="goBack()">Go Back</button>
         </div>
         <div class="workspace" id="workspace">
             <div class="panel" id="friendProfile-panel">

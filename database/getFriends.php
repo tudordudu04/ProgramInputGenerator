@@ -10,7 +10,7 @@
         ]);
         exit;
     }
-
+    $ok = false;
     $friends = [];
     $sqlQuery = "SELECT s.id, s.username FROM users s JOIN friends f ON s.id = f.id2 WHERE f.id1 = $1";
     if(isset($_GET['id']) && $_GET['id'] !== '')
@@ -18,6 +18,8 @@
     else 
         $result = pg_query_params($conn, $sqlQuery, array($userId));
     while($row = pg_fetch_assoc($result)){
+        if($row['id'] === $userId)
+            $ok = true;
         $friends[] = [
             'id' => $row['id'],
             'username' => $row['username']
@@ -30,6 +32,8 @@
     else 
         $result = pg_query_params($conn, $sqlQuery, array($userId));
     while($row = pg_fetch_assoc($result)){
+        if($row['id'] === $userId)
+            $ok = true;
         $friends[] = [
             'id' => $row['id'],
             'username' => $row['username']
@@ -37,8 +41,17 @@
     }
 
     if(isset($_GET['id']) && $_GET['id'] !== ''){
+        if($ok){
         echo json_encode($friends);
         exit;
+        } else {
+            http_response_code(401);
+            echo json_encode([
+                "success" => false,
+                "message" => "Not friends with user."
+            ]);
+            exit;
+        }
     }
 
     $friend_requests = [];

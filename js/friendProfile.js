@@ -117,7 +117,7 @@ function saveQuerytoProfile(id, message){
 function makeButton(label, handler){
     const btn = document.createElement('button');
     btn.type = "button";
-    btn.innerText = label;
+    btn.textContent = label;
     btn.addEventListener('click', handler);
     return btn;
 };
@@ -138,13 +138,11 @@ function createQueryItem(query) {
     const divInfo = document.createElement('div');
     divInfo.className = "queryInfo";
     const spanId = document.createElement('span');
-    spanId.innerText = queryId;
+    spanId.textContent = queryId;
     const spanName = document.createElement('span');
-    spanName.innerText = queryName;
+    spanName.textContent = queryName;
     divInfo.append(spanId, spanName);
-
-    //butoane + mesaj rezultat
-    //de adaugat clase pentru css
+    
     const divButtons = document.createElement('div');
     divButtons.className = "queryButtons";
     const message = document.createElement('div');

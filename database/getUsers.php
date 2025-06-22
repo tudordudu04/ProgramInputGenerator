@@ -1,5 +1,5 @@
 <?php
-    include 'decodeUserId.php';
+    include 'isAdmin.php';
     header('Content-Type: application/json');
 
     if($_SERVER['REQUEST_METHOD'] !== 'GET'){
@@ -7,6 +7,15 @@
         echo json_encode([
             'success' => false,
             'message' => 'Invalid request method.'
+        ]);
+        exit;
+    }
+
+    if(!$isAdmin){
+        http_response_code(401);
+        echo json_encode([
+            "success" => false,
+            "message" => "User isn't admin."
         ]);
         exit;
     }

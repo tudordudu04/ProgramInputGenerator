@@ -7,8 +7,6 @@
         exit;
     }
 
-    header('Content-Type: application/json');
-
     $sqlQuery = "SELECT s.username FROM users s
                  JOIN profiles p ON s.id = p.\"ownerId\"
                  WHERE s.id != $1
@@ -20,8 +18,8 @@
                  AND NOT EXISTS (
                      SELECT 1 FROM friend_requests fr
                      WHERE (fr.id1 = $1 AND fr.id2 = s.id) OR (fr.id2 = $1 AND fr.id1 = s.id)
-                 )
-                 ";
+                 )";
+                
     $result = pg_query_params($conn, $sqlQuery, array($userId));
 
     if(!$result){

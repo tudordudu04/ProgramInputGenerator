@@ -11,8 +11,8 @@
         exit;
     }
 
-    $sqlQuery = "UPDATE queries SET name = $1 WHERE id = $2";
-    $result = pg_query_params($conn, $sqlQuery, array($_POST['name'],$_POST['id']));
+    $sqlQuery = "UPDATE queries SET name = $1 WHERE id = $2 AND \"ownerId\" = $3";
+    $result = pg_query_params($conn, $sqlQuery, array($_POST['name'], $_POST['id'], $userId));
 
     if($result && pg_affected_rows($result) > 0){
         echo json_encode([
