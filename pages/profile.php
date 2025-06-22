@@ -123,12 +123,6 @@
                 <ul id="queriesList">
                 </ul>
             </div>
-
-            <div class="panel" id="results-panel" style="display:none;">
-                <h2>Saved Results</h2>
-                <ul id="resultList">
-                </ul>
-            </div>
             <div class="panel" id="createTicket-panel" style="display:none;">
                 <h2>Create Support Ticket</h2>
                 <form id="supportTicketForm" onsubmit="submitTicket(event)">

@@ -57,12 +57,6 @@
                 <ul id="queriesList">
                 </ul>
             </div>
-
-            <div class="panel" id="friendResults-panel" style="display:none;">
-                <h2>Saved Results</h2>
-                <ul id="resultList">
-                </ul>
-            </div>
         </div>
     </div>
 </div>
