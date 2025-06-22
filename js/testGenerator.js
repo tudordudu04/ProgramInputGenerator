@@ -771,14 +771,12 @@ const generateTestFromModel = (dataModel, seed = Date.now()) => {
             } else { 
                 let code = `
                     const n = vars['${nodes}'];
+                    if (n < 1) throw new Error('DirectedAcyclicGraph: need at least 1 node');
                     const edges = [];
-                    
-                    for (let i = 0; i < n; i++) {
-                        for (let j = i + 1; j < n; j++) {
-                            if (rng() < 0.2) {
-                                edges.push([i, j${mod.weighted === 'w' ? ', 0' : ''}]);
-                            }
-                        }
+                     
+                    for (let i = 1; i < n; i++) {
+                        const parent = Math.floor(rng() * i);
+                        edges.push([parent, i${mod.weighted === 'w' ? ', 0' : ''}]);
                     }
                 `;
                 
@@ -811,6 +809,7 @@ const generateTestFromModel = (dataModel, seed = Date.now()) => {
         },
         
         Repeat: mod => {
+            // nested repeats should be handled by the main compileModule function 
             return '';
         }
     };
@@ -833,11 +832,25 @@ const generateTestFromModel = (dataModel, seed = Date.now()) => {
                 if (m.type === 'FixedVariable' || m.type === 'RandomVariable') {
                     // For variables inside repeats, only generate the assignment, not the output
                     return compileFunctions[m.type](m);
+                } else if (m.type === 'Repeat') {
+                    // Recursively compile the nested repeat - this handles any depth automatically
+                    return compileModule(m, idx, visibleModules.length).replace(/outputs\.push\(/g, 'iterResults.push(');
                 } else {
+                    const resultVar = `result_${sanitizeName(m.name)}_${idx}`;
+                    const functionCode = compileFunctions[m.type](m);
+                     
+                    let modifiedCode;
+                    if (functionCode.includes('return ')) {
+                        // replace the last return statement
+                        modifiedCode = functionCode.replace(/return\s+([^;]+);?\s*$/, `let ${resultVar} = $1;`);
+                    } else {
+                        // probably variable if no return
+                        modifiedCode = functionCode + `\nlet ${resultVar} = undefined;`;
+                    }
+                    
                     return `
-                        iterResults.push((()=> {
-                            ${compileFunctions[m.type](m)}
-                        })());
+                        ${modifiedCode}
+                        iterResults.push(${resultVar});
                     `;
                 }
             }).filter(code => code).join('\n');
