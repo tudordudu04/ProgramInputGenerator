@@ -235,6 +235,7 @@ function viewTicket(ticket) {
     const ticketStatus = document.createElement('p');
     const ticketBody = document.createElement('p');
     const closeButton = document.createElement('button');
+    
 
     ticketNr.textContent = "Ticket Nr. #" + ticket.id;
     ticketTitle.textContent = "Title: " + ticket.title;

@@ -1,6 +1,6 @@
 <?php
-    $additionalCss = '<link rel="alternative stylesheet" href="../css/profile.css">';
-    $scriptSource = '<script src="../js/friendProfile.js"></script>';
+    $additionalCss = '<link rel="alternative stylesheet" href="css/profile.css">';
+    $scriptSource = '<script src="js/friendProfile.js"></script>';
     include '../includes/header.php';
 ?>
 <div class="container">

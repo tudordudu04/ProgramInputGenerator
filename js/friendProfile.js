@@ -2,7 +2,7 @@ let profileData;
 const url = new URL(window.location.href);
 const friendId = url.searchParams.get('id');
 
-fetch('../database/getProfile.php?id=' + friendId, {
+fetch('database/getProfile.php?id=' + friendId, {
     credentials: 'include'
     })
     .then(r => {
@@ -26,7 +26,7 @@ function reportProfile(){
     const message = document.getElementById('messageProfileReport');
     message.textContent = '';
 
-    fetch('../database/submitTicket.php',{
+    fetch('database/submitTicket.php',{
         method: 'POST',
         body: formData
     })
@@ -78,7 +78,7 @@ function renderList(container, items, createItem, emptyMessage) {
 }
 
 function loadFriendLists() {
-    fetch('../database/getFriends.php?id=' + friendId,
+    fetch('database/getFriends.php?id=' + friendId,
     )
         .then(res => res.json())
         .then(res => {
@@ -93,7 +93,7 @@ function loadFriendLists() {
 function saveQuerytoProfile(id, message){
     const formData = new FormData();
     formData.append('id', id);
-    fetch('../database/saveQuery.php?id=' + friendId, {
+    fetch('database/saveQuery.php?id=' + friendId, {
         method: 'POST',
         body: formData 
     })
@@ -159,7 +159,7 @@ function createQueryItem(query) {
 }
 
 function loadQueries(){
-    fetch('../database/getQueries.php?id=' + friendId)
+    fetch('database/getQueries.php?id=' + friendId)
         .then(res => res.json())
         .then(queries => {
             const queryList = document.getElementById('queriesList');

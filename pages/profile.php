@@ -1,6 +1,6 @@
 <?php
-    $additionalCss = '<link rel="alternative stylesheet" href="../css/profile.css">';
-    $scriptSource = '<script src="../js/profile.js"></script>';
+    $additionalCss = '<link rel="alternative stylesheet" href="css/profile.css">';
+    $scriptSource = '<script src="js/profile.js"></script>';
     include '../includes/header.php';
     include '../database/isAdmin.php';
 ?>

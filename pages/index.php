@@ -1,6 +1,6 @@
 <?php
-    $scriptSource = '<script src="../js/generator.js"></script>';
-    $additionalCss = '<link rel="alternative stylesheet" href="../css/index.css">';
+    $scriptSource = '<script src="js/generator.js"></script>';
+    $additionalCss = '<link rel="alternative stylesheet" href="css/index.css">';
     include '../includes/header.php';
 ?>
 

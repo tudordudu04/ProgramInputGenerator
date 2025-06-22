@@ -1596,7 +1596,7 @@ function saveQuery(){
     updateDataModel();
     const formData = new FormData();
     formData.append('jsonData', JSON.stringify(dataModel, null, 2));
-    fetch('../database/saveQuery.php', {
+    fetch('database/saveQuery.php', {
         method: 'POST',
         body: formData
     })
@@ -1617,7 +1617,7 @@ function generateTest(returnSource = false) {
     
     if (!window.generateTestFromModel) {
         const script = document.createElement('script');
-        script.src = '../js/testGenerator.js?=' + Date(); // Add timestamp to prevent caching
+        script.src = 'js/testGenerator.js?=' + Date(); // Add timestamp to prevent caching
         script.onload = () => {
             console.log('testGenerator.js loaded successfully');
             executeTestGeneration(returnSource);
