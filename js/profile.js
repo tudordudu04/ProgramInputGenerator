@@ -235,6 +235,7 @@ function viewTicket(ticket) {
     const ticketStatus = document.createElement('p');
     const ticketBody = document.createElement('p');
     const closeButton = document.createElement('button');
+    
 
     ticketNr.textContent = "Ticket Nr. #" + ticket.id;
     ticketTitle.textContent = "Title: " + ticket.title;
@@ -453,6 +454,29 @@ function createQueryItem(query) {
     li.append(divInfo, divButtons);
 
     return li;
+}
+
+function useQuery(queryId, message){
+    formData = new FormData();
+    formData.append('id', queryId);
+    fetch('../database/getQueries.php',{
+        method: 'POST',
+        body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+        if(!data.success){
+            message.textContent = err;
+            message.style.color = 'red';
+        } else {
+            localStorage.setItem('dataModel', JSON.stringify(data.data));
+            window.location.href = '../index.php';
+        }
+    })
+    .catch(err => {
+        message.textContent = err;
+        message.style.color = 'red';
+    });
 }
 
 function loadQueries(){
