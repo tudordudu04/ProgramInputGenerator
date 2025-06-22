@@ -1,5 +1,5 @@
 <?php
-    include "decodeUserId.php";
+    include "isAdmin.php";
     header('Content-Type: application/json');
 
     if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
@@ -41,7 +41,7 @@
     }
 
     if(isset($_GET['id']) && $_GET['id'] !== ''){
-        if($ok){
+        if($ok || $isAdmin){
         echo json_encode($friends);
         exit;
         } else {

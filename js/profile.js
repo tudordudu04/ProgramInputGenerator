@@ -12,7 +12,7 @@ fetch('../database/getProfile.php', {
 
 
 function showPanel(panel) {
-    const panels = ['profile', 'friends', 'queries', 'button', 'createTicket', 'reviewTicket', 'users'];
+    const panels = ['profile', 'friends', 'queries', 'createTicket', 'reviewTicket', 'users'];
     panels.forEach(function(name) {
         aux = document.getElementById(name + '-panel');
         if(aux)
@@ -238,9 +238,9 @@ function viewTicket(ticket) {
 
     ticketNr.textContent = "Ticket Nr. #" + ticket.id;
     ticketTitle.textContent = "Title: " + ticket.title;
-    ticketType.textContent = "Title: " + ticket.type;
-    ticketStatus.textContent = "Title: " + ticket.status;
-    ticketBody.textContent = "Title: " + ticket.body;
+    ticketType.textContent = "Type: " + ticket.type;
+    ticketStatus.textContent = "Status: " + ticket.status;
+    ticketBody.textContent = "Body: " + ticket.body;
     closeButton.textContent = "Close";
 
     closeButton.addEventListener("click", () => {
@@ -368,6 +368,7 @@ function renameQuery(id, name, message){
         message.textContent = "Error: " + err;
     })
 }
+
 function deleteQuery(id, message){
     const formData = new FormData();
     formData.append('id', id);
@@ -512,8 +513,6 @@ function editProfile(){
     loadProfileToForm(profileData);
 }
 
-//ar trebui sa verific daca chiar se schimba ceva fata de cum era inainte
-//de update ca sa nu mai bag mesaj de updated succesfully la fiecare save 
 function saveProfile(event){
     const messageDiv = document.getElementById('messageProfileSave');
     const errorDiv = document.getElementById('profileSaveError');

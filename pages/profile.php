@@ -12,7 +12,6 @@
             <button onclick="showPanel('queries')">Saved Queries</button>
             <button onclick="showPanel('createTicket')">Create Support Ticket</button>
             <?php if($isAdmin):?>
-                <button onclick="showPanel('button')">Run Script</button>
                 <button onclick="showPanel('reviewTicket')">Tickets</button>
                 <button onclick="showPanel('users')">User List</button> 
             <?php endif; ?>
@@ -91,7 +90,6 @@
                     </div>
                     <div id="profileDisplayButtons">
                         <button type="button" onclick="editProfile()">Edit</button>
-                        <!-- adauga ceva aici ca sa nu apesi din greseala pe delete :PPP -->
                         <button type="button" onclick="deleteAccount()" >Delete Account</button>
                         <div id="messageProfileSave"></div>
                         <div id="messageProfileDelete"></div>
@@ -148,10 +146,6 @@
                 </ul>   
             </div>
             <?php if($isAdmin):?>
-                <div class="panel" id="button-panel" style="display:none;">
-                    <button onclick="runScript()" style="padding: 6px;">Run Script</button>
-                    <div id="result"></div>
-                </div>
                 <div class="panel" id="reviewTicket-panel" style="display:none;">
                     <div class="list">
                         <h2>Ticket List</h2>

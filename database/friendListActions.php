@@ -28,7 +28,7 @@
         $resultAdd = pg_query_params($conn, $sqlAdd, array($userId, $friendId));
         $sqlRemoveReq = "DELETE FROM friend_requests WHERE id1 = $1 AND id2 = $2";
         $resultRemove = pg_query_params($conn, $sqlRemoveReq, array($friendId, $userId));
-        //se poate intampla unul din queriuri sa mearga si celalalt nu, trebuie rollback
+        
         if ($resultAdd && $resultRemove) {
             echo json_encode([
                 "success" => true,
