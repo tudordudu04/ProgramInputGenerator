@@ -9,7 +9,7 @@
         ]);
         exit;
     }
-    // Aici pune validari mai bune
+    
     if(trim($_POST['hidden'] ?? '') === 'on')
         $hidden = 'TRUE';
     else $hidden = 'FALSE';  
@@ -38,7 +38,6 @@
             WHERE \"id\" = $3";
     $secondResult = pg_query_params($conn, $sqlQuery, array($username, $email, $userId));
 
-    //aici ar trebui sa dau rollback cumva daca nu iese unul din query-uri
     if ($result && $secondResult) {
         echo json_encode([
             "success" => true,

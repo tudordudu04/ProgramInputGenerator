@@ -455,6 +455,29 @@ function createQueryItem(query) {
     return li;
 }
 
+function useQuery(queryId, message){
+    formData = new FormData();
+    formData.append('id', queryId);
+    fetch('../database/getQueries.php',{
+        method: 'POST',
+        body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+        if(!data.success){
+            message.textContent = err;
+            message.style.color = 'red';
+        } else {
+            localStorage.setItem('dataModel', data.data);
+            window.location.href = '../index.php';
+        }
+    })
+    .catch(err => {
+        message.textContent = err;
+        message.style.color = 'red';
+    });
+}
+
 function loadQueries(){
     fetch('../database/getQueries.php')
         .then(res => res.json())
