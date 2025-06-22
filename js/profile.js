@@ -12,7 +12,7 @@ fetch('../database/getProfile.php', {
 
 
 function showPanel(panel) {
-    const panels = ['profile', 'friends', 'queries', 'results', 'button', 'createTicket', 'reviewTicket', 'users'];
+    const panels = ['profile', 'friends', 'queries', 'button', 'createTicket', 'reviewTicket', 'users'];
     panels.forEach(function(name) {
         aux = document.getElementById(name + '-panel');
         if(aux)

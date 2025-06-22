@@ -10,7 +10,6 @@
             <button onclick="showPanel('profile')">Profile</button>
             <button onclick="showPanel('friends')">Friend List</button>
             <button onclick="showPanel('queries')">Saved Queries</button>
-            <button onclick="showPanel('results')">Saved Results</button> <!-- Nu este implementat inca -->
             <button onclick="showPanel('createTicket')">Create Support Ticket</button>
             <?php if($isAdmin):?>
                 <button onclick="showPanel('button')">Run Script</button>

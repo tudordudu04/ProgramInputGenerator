@@ -48,7 +48,7 @@ function reportProfile(){
 }
 
 function showPanel(panel) {
-    const panels = ['friendProfile', 'friendFriends', 'friendQueries', 'friendResults'];
+    const panels = ['friendProfile', 'friendFriends', 'friendQueries'];
     panels.forEach(function(name) {
         document.getElementById(name + '-panel').style.display = (name === panel) ? 'flex' : 'none';
     });
