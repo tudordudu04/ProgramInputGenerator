@@ -24,18 +24,22 @@ dataModel = {
     test: []
 };
 
-const storedModel = localStorage.getItem('dataModel');
-if (storedModel) {
-    try {
-        dataModel.test = storedModel.test;
-        rebuildWorkspaceFromData();
-    } catch (e) {
-        // If parsing fails (corrupt data), reset to default
+document.addEventListener('DOMContentLoaded', function() {
+    const storedModel = localStorage.getItem('dataModel');
+    if (storedModel) {
+        try {
+            dataModel.test = JSON.parse(storedModel).test;
+            localStorage.removeItem('dataModel');
+            rebuildWorkspaceFromData();
+        } catch (e) {
+            dataModel = { test: [] };
+            console.error('Failed to load dataModel from localStorage:', e);
+        }
+    } else {
         dataModel = { test: [] };
     }
-} else {
-    dataModel = { test: [] };
-}
+});
+
 
 // Module templates
 const moduleTemplates = {

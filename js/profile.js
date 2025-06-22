@@ -468,7 +468,7 @@ function useQuery(queryId, message){
             message.textContent = err;
             message.style.color = 'red';
         } else {
-            localStorage.setItem('dataModel', data.data);
+            localStorage.setItem('dataModel', JSON.stringify(data.data));
             window.location.href = '../index.php';
         }
     })
