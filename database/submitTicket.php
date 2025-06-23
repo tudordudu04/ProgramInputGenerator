@@ -27,7 +27,7 @@
         http_response_code(401);
         echo json_encode([
             "success" => false,
-            "message" => "Ticket couldn't be submitted: " + pg_last_error($conn)
+            "message" => "Ticket couldn't be submitted."
         ]);
     }
     
