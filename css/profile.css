@@ -1,21 +1,71 @@
+@font-face {
+    font-family: Jersey;
+    src: url(Jersey25.ttf);
+}
 
+@font-face {
+    font-family: Groovy;
+    src: url(VT323.ttf);
+}
+
+* {
+    scrollbar-width: thin;
+    scrollbar-color: #7dd3a0 #2a2a2a;
+}
+
+*::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+*::-webkit-scrollbar-track {
+    background: #2a2a2a;
+    border-radius: 4px;
+}
+
+*::-webkit-scrollbar-thumb {
+    background: #7dd3a0;
+    border-radius: 4px;
+    border: 1px solid #2a2a2a;
+}
+
+*::-webkit-scrollbar-corner {
+    background: #2a2a2a;
+}
 
 #button-panel{
   display: flex;
   flex-direction: column;
   padding: 50px 180px;
-  color: #fff;
-  border: none;
+  color: #F2F0EF;
+  border: 2px solid #606060;
   border-radius: 6px;
   font-size: 1.05rem;
   max-height: 650px;
   overflow-y: scroll;
+  background: #3a3a3a;
 }
 
 #button-panel button{
-    padding: 6px;
+    padding: 12px 20px;
     margin: 6px;
     cursor: pointer;
+    background: linear-gradient(45deg, #7dd3a0, #8ee5b8);
+    color: #1a1a1a;
+    border: none;
+    border-radius: 6px;
+    font-weight: 600;
+    font-size: 1.2rem;
+    font-family: 'Jersey', Verdana;
+    box-shadow: 0 0 8px rgba(125, 211, 160, 0.4);
+    transition: all 0.2s ease;
+    min-height: 48px;
+}
+
+#button-panel button:hover{
+    background: linear-gradient(45deg, #8ee5b8, #7dd3a0);
+    box-shadow: 0 0 12px rgba(125, 211, 160, 0.6);
+    transform: translateY(-1px);
 }
 
 #result {
@@ -24,9 +74,11 @@
   padding: 12px;
   min-height: 32px;
   font-size: 1rem;
-  color: #222;
+  color: #7dd3a0;
   word-break: break-word;
   white-space: pre-wrap;
+  background: #2a2a2a;
+  border: 1px solid #606060;
 }
 
 body {
@@ -51,9 +103,10 @@ body {
     display: flex;
     min-height: 650px;
     padding: 0;
-    background: transparent;
-    box-shadow: 0 8px 32px rgba(0,0,0,0.07);
-    background: #fff;
+    background: #3a3a3a;
+    box-shadow: 0 0 12px rgba(125, 211, 160, 0.2), inset 0 0 20px rgba(0,0,0,0.15);
+    border: 2px solid #7a7a7a;
+    border-radius: 12px;
 }
 
 #profileDisplayButtons{
@@ -81,13 +134,14 @@ body {
 #createTicket-panel,
 #reviewTicket-panel,
 #users-panel{
-    background: #f7fafc;
+    background: #3a3a3a;
     border-radius: 8px;
     width: 100%;
     margin: 30px auto;
     padding: 24px 20px;
-    box-shadow: 0 4px 18px rgba(44, 62, 80, 0.07);
-    font-family: 'Segoe UI', Arial, sans-serif;
+    box-shadow: 0 0 8px rgba(125, 211, 160, 0.3);
+    font-family: 'Jersey', Verdana;
+    border: 2px solid #606060;
 }
 
 #friendFriends-panel h2,
@@ -97,12 +151,13 @@ body {
 #createTicket-panel h2,
 #reviewTicket-panel h2,
 #users-panel h2{
-    font-size: 1.25em;
-    color: #2d3748;
+    font-size: 1.5rem;
+    color: #7dd3a0;
     margin-bottom: 12px;
-    border-bottom: 1px solid #e2e8f0;
+    border-bottom: 1px solid #606060;
     padding-bottom: 4px;
     text-align: center;
+    text-shadow: 0 0 8px rgba(125, 211, 160, 0.4);
 }
 
 .list{
@@ -123,29 +178,31 @@ body {
     left: 0;
     width: 100vw;
     height: 100vh;
-    background: rgba(0,0,0,0.4);
+    background: rgba(0,0,0,0.8);
     display: flex;
     align-items: center;
     justify-content: center;
     z-index: 9999;
-
 }
 
 .ticketInnerBox{
-    background: white;
+    background: #3a3a3a;
     padding: 2rem;
     border-radius: 8px;
     min-width: 320px;
-    box-shadow: 0 2px 32px rgba(0,0,0,0.2);
+    box-shadow: 0 0 12px rgba(125, 211, 160, 0.4);
     position: relative;
     max-width: 90vw;
     max-height: 90vh;
     overflow-y: auto;
+    border: 2px solid #7dd3a0;
+    color: #F2F0EF;
 }
 
 .ticketButtons{
     display: flex;
     gap: 6px;
+    flex-wrap: wrap;
 }
 
 ul#friendList,
@@ -157,10 +214,10 @@ ul#usersList{
     list-style: none;
     padding: 0;
     margin: 0;
-    background: #fff;
+    background: #2a2a2a;
     border-radius: 6px;
-    border: 1px solid #e2e8f0;
-    box-shadow: 0 1px 4px rgba(44, 62, 80, 0.05);
+    border: 2px solid #606060;
+    box-shadow: 0 0 6px rgba(125, 211, 160, 0.2);
     min-height: 40px;
 }
 
@@ -173,9 +230,9 @@ ul#usersList li{
     display: flex;
     align-items: center;
     padding: 10px 14px;
-    color: #222;
-    border-bottom: 1px solid #f1f1f1;
-    font-size: 1em;
+    color: #F2F0EF;
+    border-bottom: 1px solid #606060;
+    font-size: 1.2rem;
 }
 
 ul#friendList li,
@@ -207,15 +264,19 @@ ul#queriesList button,
 ul#submittedTicketList button,
 ul#reviewTicketList button,
 ul#usersList button{
-    background: linear-gradient(45deg, #4299e1 60%, #3182ce 100%);
-    color: white;
+    background: linear-gradient(45deg, #7dd3a0, #8ee5b8);
+    color: #1a1a1a;
     padding: 6px 14px;
     border-radius: 6px;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 1.1rem;
     cursor: pointer;
     width: 100px;
-    border: 2px solid #4299e1;
+    border: none;
+    box-shadow: 0 0 8px rgba(125, 211, 160, 0.4);
+    transition: all 0.2s ease;
+    font-family: 'Jersey', Verdana;
+    min-height: 44px;
 }
 
 ul#friendList li:last-child,
@@ -233,36 +294,37 @@ ul#queriesList li:hover,
 ul#submittedTicketList li:hover,
 ul#reviewTicketList li:hover,
 ul#usersList li:hover{
-    background: #f0f4fa;
+    background: #4a4a4a;
 }
-
-
 
 .navbar {
     flex: 0 0 20%;
     min-width: 180px;
     max-width: 240px;
-    background: #2d3748;
+    background: linear-gradient(90deg, #2f2f2f, #2a2a2a);
     display: flex;
     flex-direction: column;
     align-items: stretch;
     gap: 0;
     padding: 32px 0 32px 0;
-    box-shadow: 2px 0 12px rgba(44, 62, 80, 0.06);
+    box-shadow: 0 0 8px rgba(125, 211, 160, 0.2);
+    border-right: 2px solid #606060;
 }
 
 .navbar button {
     background: none;
-    color: #e2e8f0;
+    color: #F2F0EF;
     border: none;
     padding: 20px 0;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     font-weight: 600;
     cursor: pointer;
     outline: none;
-    border-bottom: 1px solid #4a5568;
+    border-bottom: 1px solid #606060;
     text-align: left;
     padding-left: 26px;
+    transition: all 0.2s ease;
+    font-family: 'Jersey', Verdana;
 }
 
 .navbar button:last-child {
@@ -270,14 +332,15 @@ ul#usersList li:hover{
 }
 
 .navbar button:hover, .navbar button:focus {
-    background: #4299e1;
-    color: #fff;
+    background: #7dd3a0;
+    color: #1a1a1a;
+    text-shadow: 0 0 4px rgba(125, 211, 160, 0.4);
 }
 
 .workspace {
     flex: 1 1 80%;
-    background: #fff;
-    border-radius: 0 16px 16px 0;
+    background: #3a3a3a;
+    border-radius: 0 12px 12px 0;
     min-height: 540px;
     padding: 0;
     position: relative;
@@ -310,9 +373,10 @@ ul#usersList li:hover{
 
 .left-side h2 {
     font-size: 1.7rem;
-    color: #4a5568;
+    color: #7dd3a0;
     margin-bottom: 18px;
     font-weight: 700;
+    text-shadow: 0 0 8px rgba(125, 211, 160, 0.4);
 }
 
 .settings {
@@ -334,24 +398,28 @@ ul#usersList li:hover{
 .settings label {
     letter-spacing: 1.5px;
     font-size: 2rem;
-    color: #2d3748;
+    color: #F2F0EF;
     font-weight: 600;
     margin-bottom: 2px;
 }
 
 .settings input[type="text"] {
-    border: 1px solid #cbd5e0;
-    border-radius: 5px;
+    border: 2px solid #606060;
+    border-radius: 6px;
     padding: 8px 12px;
-    font-size: 15px;
-    background: #f7fafc;
-    transition: border 0.2s;
+    font-size: 1.3rem;
+    background: #2a2a2a;
+    color: #7dd3a0;
+    transition: all 0.2s ease;
+    font-family: 'Jersey', Verdana;
+    min-height: 44px;
 }
 
 .settings input[type="text"]:focus {
     outline: none;
-    border-color: #4299e1;
-    background: #fff;
+    border-color: #7dd3a0;
+    background: #2f2f2f;
+    box-shadow: 0 0 8px rgba(125, 211, 160, 0.4);
 }
 
 .doubleInput {
@@ -383,10 +451,11 @@ ul#usersList li:hover{
     /* width: 370px; */
     padding: 16px;
     border-radius: 8px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 0 8px rgba(125, 211, 160, 0.3);
     text-align: center;
     position: relative;
-    background: #fff;
+    background: #3a3a3a;
+    border: 2px solid #606060;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -407,6 +476,7 @@ ul#usersList li:hover{
     object-fit: cover;
     margin-bottom: 10px;
     display: block;
+    border: 2px solid #606060;
 }
 
 .card .file-input {
@@ -420,8 +490,8 @@ ul#usersList li:hover{
     position: absolute;
     width: 89%;
     height: 79%;
-    background: rgba(0,0,0,0.4);
-    color: #fff;
+    background: rgba(0,0,0,0.7);
+    color: #7dd3a0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -429,7 +499,8 @@ ul#usersList li:hover{
     opacity: 0;
     transition: opacity 0.2s;
     pointer-events: none;
-    font-size: 16px;
+    font-size: 1.2rem;
+    text-shadow: 0 0 8px rgba(125, 211, 160, 0.4);
 }
 
 .card .image-container:hover .overlay {
@@ -446,51 +517,68 @@ ul#usersList li:hover{
 
 
 .right-side button{
-    background: linear-gradient(45deg, #4299e1 60%, #3182ce 100%);
-    color: white;
+    background: linear-gradient(45deg, #7dd3a0, #8ee5b8);
+    color: #1a1a1a;
     border: none;
     padding: 12px 30px;
     border-radius: 6px;
     font-weight: 600;
-    font-size: 15px;
+    font-size: 1.3rem;
     cursor: pointer;
     width: 100%;
     margin-bottom: 8px;
+    box-shadow: 0 0 8px rgba(125, 211, 160, 0.4);
+    transition: all 0.2s ease;
+    font-family: 'Jersey', Verdana;
+    min-height: 48px;
 }
 
 
 .right-side button:last-of-type {
-    background: linear-gradient(45deg, #f56565 60%, #c53030 100%);
+    background: linear-gradient(45deg, #ff7a5a, #ff8a6a);
+    color: #1a1a1a;
+    box-shadow: 0 0 8px rgba(255, 122, 90, 0.4);
 }
 
-.right-side button:hover,
-ul#queriesList button,
-ul#submittedTicketList button,
-ul#reviewTicketList button,
-ul#usersList button{
-    box-shadow: 0 4px 12px rgba(66, 153, 225, 0.23);
-    transform: translateY(-1px) scale(1.03);
+.right-side button:hover{
+    background: linear-gradient(45deg, #8ee5b8, #7dd3a0);
+    box-shadow: 0 0 12px rgba(125, 211, 160, 0.6);
+    transform: translateY(-1px);
+}
+
+ul#friendList button:hover,
+ul#friendRequestList button:hover,
+ul#queriesList button:hover,
+ul#submittedTicketList button:hover,
+ul#reviewTicketList button:hover,
+ul#usersList button:hover{
+    background: linear-gradient(45deg, #8ee5b8, #7dd3a0);
+    box-shadow: 0 0 12px rgba(125, 211, 160, 0.6);
+    transform: translateY(-1px);
 }
 
 .right-side button:last-of-type:hover {
-    box-shadow: 0 4px 14px rgba(245, 101, 101, 0.16);
+    background: linear-gradient(45deg, #ff8a6a, #ff7a5a);
+    box-shadow: 0 0 12px rgba(255, 122, 90, 0.6);
 }
 
 #supportTicketForm {
-    border-radius: 4px;
-    border: 2px solid #686868;
+    border-radius: 8px;
+    border: 2px solid #606060;
     padding: 28px 20px 20px 20px;
     display: flex;
     flex-direction: column;
     gap: 18px;
     width: 80%;
     margin: 0 auto 30px auto;
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Jersey', Verdana;
+    background: #3a3a3a;
+    box-shadow: 0 0 8px rgba(125, 211, 160, 0.2);
 }
 
 #supportTicketForm label {
-    font-size: 1rem;
-    color: #2d3748;
+    font-size: 1.2rem;
+    color: #F2F0EF;
     font-weight: 500;
     margin-bottom: 2px;
     margin-top: 6px;
@@ -499,17 +587,32 @@ ul#usersList button{
 #supportTicketForm input,
 #supportTicketForm select,
 #supportTicketForm textarea {
-    border: 1px solid rgb(0, 0, 0);
+    border: 2px solid #606060;
     border-radius: 6px;
     padding: 10px 13px;
-    font-size: 1rem;
-    background: #f7fafc;
-    transition: border 0.2s, box-shadow 0.2s;
+    font-size: 1.2rem;
+    background: #2a2a2a;
+    color: #7dd3a0;
+    transition: all 0.2s ease;
     margin-bottom: 4px;
     margin-top: 2px;
+    font-family: 'Jersey', Verdana;
+    min-height: 44px;
     /* resize: vertical; */
 }
 
+#supportTicketForm textarea {
+    min-height: 100px;
+}
+
+#supportTicketForm input:focus,
+#supportTicketForm select:focus,
+#supportTicketForm textarea:focus {
+    outline: none;
+    border-color: #7dd3a0;
+    box-shadow: 0 0 8px rgba(125, 211, 160, 0.4);
+    background: #2f2f2f;
+}
 
 #supportTicketForm select {
     cursor: pointer;
@@ -517,33 +620,36 @@ ul#usersList button{
 }
 
 #supportTicketForm button[type="submit"] {
-    background: linear-gradient(45deg, #4299e1 60%, #3182ce 100%);
-    color: white;
+    background: linear-gradient(45deg, #7dd3a0, #8ee5b8);
+    color: #1a1a1a;
     border: none;
     padding: 12px 0;
-    border-radius: 7px;
+    border-radius: 6px;
     font-weight: 600;
-    font-size: 1.08rem;
+    font-size: 1.3rem;
     cursor: pointer;
     margin-top: 10px;
     width: 100%;
-    transition: box-shadow 0.2s, transform 0.1s;
-    box-shadow: 0 2px 8px rgba(66, 153, 225, 0.1);
+    transition: all 0.2s ease;
+    box-shadow: 0 0 8px rgba(125, 211, 160, 0.4);
+    font-family: 'Jersey', Verdana;
+    min-height: 48px; /* Touch-friendly */
 }
 
 #supportTicketForm button[type="submit"]:hover,
 #supportTicketForm button[type="submit"]:focus {
-    background: linear-gradient(45deg, #3182ce 60%, #4299e1 100%);
-    box-shadow: 0 4px 16px rgba(66, 153, 225, 0.18);
-    transform: translateY(-1px) scale(1.03);
+    background: linear-gradient(45deg, #8ee5b8, #7dd3a0);
+    box-shadow: 0 0 12px rgba(125, 211, 160, 0.6);
+    transform: translateY(-1px);
 }
 
 #messageSubmitTicket {
     min-height: 22px;
-    font-size: 1rem;
-    color: #3182ce;
+    font-size: 1.2rem;
+    color: #7dd3a0;
     margin-top: 4px;
     padding-left: 6px;
+    text-shadow: 0 0 4px rgba(125, 211, 160, 0.4);
 }
 
 @media (max-width: 1000px) {
@@ -574,17 +680,19 @@ ul#usersList button{
         padding: 0;
         overflow-x: auto;
         -webkit-overflow-scrolling: touch;
+        border-right: none;
+        border-bottom: 2px solid #606060;
     }
     
     .navbar button {
         flex: 1;
         min-width: 120px;
         border-bottom: none;
-        border-right: 1px solid #4a5568;
+        border-right: 1px solid #606060;
         padding: 16px 8px;
         text-align: center;
         padding-left: 8px;
-        font-size: 0.9rem;
+        font-size: 1.1rem;
         min-height: 48px;
     }
     
@@ -786,6 +894,15 @@ ul#usersList button{
     ul#usersList button {
         font-size: 12px;
         min-width: 70px;
+        padding: 6px 10px;
+    }
+    
+    .ticketButtons {
+        gap: 4px;
+    }
+    
+    .ticketButtons button {
+        font-size: 12px;
         padding: 6px 10px;
     }
 }
