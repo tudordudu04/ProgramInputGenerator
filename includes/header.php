@@ -19,6 +19,7 @@
                     <li><a href="login.html">LOGIN</a></li>
                     <li><a href="register.html">REGISTER</a></li>
                 <?php endif; ?>
+                <li><a href="documentation/frankenpig.html">ABOUT</a></li>
             </ul>
         </nav>
     </div>

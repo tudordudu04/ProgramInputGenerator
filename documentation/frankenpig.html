@@ -1,21 +1,487 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PIG Documentation</title>
+    <meta charset="utf-8">
+    <title>PIG Documentation - Competitive Programming Input Generator</title>
+    <link rel="stylesheet" href="frankenpig.css">
 </head>
+
 <body>
-    <header>
-        <h1>PIG Documentation</h1>
-    </header>
-    <div>
-        <ol>
-            <li></li>
-            <li></li>
-            <li></li>
-        </ol>
-    </div>
-    <section></section>
+    <article>
+        <h1 >PIG Documentation - Competitive Programming Input Generator</h1>
+
+        <nav aria-label="Table of Contents">
+            <ul>
+                <h2><a href="../index.php">Go Back</a></h1>
+                <li>
+                    <a href="#frontend">1. Frontend</a>
+                    <ul>
+                        <li><a href="#header">1.1 Header and Navigation</a></li>
+                        <li><a href="#generator">1.2 Input Generator Interface</a></li>
+                        <li><a href="#profile">1.3 Profile Management</a></li>
+                        <li><a href="#queries">1.4 Query Storage</a></li>
+                        <li><a href="#friends">1.5 Friend List</a></li>
+                        <li><a href="#tickets">1.6 Ticket System</a></li>
+                        <li><a href="#admin">1.7 Admin Tools</a></li>
+                        <li><a href="#workflow">1.8 Generator Workflow</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#javascript">2. JavaScript</a>
+                    <ul>
+                        <li><a href="#js-intro">2.1 Introduction to the Modular Approach</a></li>
+                        <li><a href="#authentication">2.2 Authentication System</a></li>
+                        <li><a href="#drag-drop">2.3 Drag-and-Drop Generator</a></li>
+                        <li><a href="#data-model">2.4 Data Model Structure</a></li>
+                        <li><a href="#ajax">2.5 AJAX Communication</a></li>
+                        <li><a href="#profile-js">2.6 Profile Management</a></li>
+                        <li><a href="#query-system">2.7 Query Saving/Loading</a></li>
+                        <li><a href="#admin-js">2.8 Admin Functionalities</a></li>
+                        <li><a href="#export">2.9 Export Capabilities</a></li>
+                        <li><a href="#visualization">2.10 Graph Visualization</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#backend">3. Backend</a>
+                    <ul>
+                        <li><a href="#architecture">3.1 Architecture Overview</a></li>
+                        <li><a href="#database">3.2 Database Schema</a></li>
+                        <li><a href="#security">3.3 Security Measures</a></li>
+                        <li><a href="#features">3.4 Key Features</a></li>
+                        <li><a href="#endpoints">3.5 API Endpoints</a></li>
+                        <li><a href="#libraries">3.6 Libraries and GitHub</a></li>
+                    </ul>
+                </li>
+
+                <li>
+                    <a href="#final">4. Final Thoughts</a>
+                </li>
+            </ul>
+        </nav>
+
+        <h2 id="frontend">1. Frontend</h2>
+
+        <article id="header">
+            <h2>1.1 Header and Navigation</h2>
+            <p>The application header provides consistent navigation across all pages:</p>
+            <p>
+                → Logo → returns to main generator<br>
+                → Login/Register buttons for guests<br>
+                → Profile/Logout buttons for authenticated users<br>
+            </p>
+        </article>
+
+        <article id="generator">
+            <h2>1.2 Input Generator Interface</h2>
+            <p>
+                → Palette sidebar: draggable components<br>
+                → Main workspace: drop zone for building generators<br>
+                → Control panel: generate, save, export options<br>
+                → Real-time JSON output panel<br>
+                → Component types available:<br>
+                &emsp;&emsp;→ Repeat (loop container)<br>
+                &emsp;&emsp;→ Fixed Variable (literal values)<br>
+                &emsp;&emsp;→ Random Variable (range-based)<br>
+                &emsp;&emsp;→ Random Array<br>
+                &emsp;&emsp;→ Permutation<br>
+                &emsp;&emsp;→ Maze Matrix<br>
+                &emsp;&emsp;→ Sparse Matrix<br>
+                &emsp;&emsp;→ Random Graph<br>
+                &emsp;&emsp;→ Bipartite Graph<br>
+                &emsp;&emsp;→ Random Tree<br>
+                &emsp;&emsp;→ Directed Acyclic Graph
+            </p>
+        </article>
+
+        <article id="profile">
+            <h2>1.3 Profile Management</h2>
+            <p>
+                → Personal information fields<br>
+                → Account settings<br>
+                → Profile photo upload<br>
+                → Privacy controls (hidden profile option)<br>
+                → Account deletion option<br>
+            </p>
+        </article>
+
+        <article id="queries">
+            <h2>1.4 Query Storage System</h2>
+            <p>
+                → Save generated configurations<br>
+                → Name and organize queries<br>
+                → Load previous configurations<br>
+                → Share queries with friends<br>
+                → Export saved queries
+            </p>
+        </article>
+
+        <article id="friends">
+            <h2>1.5 Friends List</h2>
+            <p>
+                → Lists all friends of the user<br>
+                → Lists all friend requests that the user recieved<br>
+                → Can view the profile of his friends and delete them if he so chooses<br>
+                → Deny or accept friend requests
+            </p>
+        </article>
+
+        <article>
+            <h2>1.6 Ticket System</h2>
+            <p>
+                → Basic support ticket system<br>
+                → A ticket has a title, a reason for submitting the ticket and a body describing the problem<br>
+                → List of submitted tickets with their current status<br>
+            </p>
+        </article>
+
+
+        <article id="admin">
+            <h2>1.7 Admin Panel</h2>
+            <p>
+                → User management: search and delete users<br>
+                → Ticket system: view, close and resolve submitted tickets<br>
+            </p>
+        </article>
+
+        <article>
+            <h2>1.8 Generator Workflow</h2>
+            <p>
+                1. Drag components from palette<br>
+                2. Drop into workspace<br>
+                3. Configure parameters via placed blocks panel<br>
+                4. Nest components for complex structures<br>
+                5. Generate test data<br>
+                6. Generate test, JSON, code and download it or save it to your profile for later use 
+            </p>
+        </article>
+
+        <h2 id="javascript">2. JavaScript</h2>
+
+        <section id="js-intro">
+            <h2>2.1 How the JavaScript is used</h2>
+            <p>
+                We have tried to use a modular design pattern, separating concerns into:
+                input generation, data model management, UI updates, and API communication.
+            </p>
+        </section>
+
+        <section id="authentication">
+            <h2>2.2 Authentication System</h2>
+            <p>
+                <strong>JWT Token Management:</strong><br>
+                The application uses JWT tokens stored in cookies for secure authentication.
+                Tokens contain the user ID and are validated server-side for each protected request.
+            </p>
+            <p>
+                <strong>Google OAuth Integration:</strong><br>
+                Users can authenticate using Google accounts via OAuth 2.0 API.
+                The googleCallback.php endpoint handles OAuth responses and creates/logs in users.
+            </p>
+        </section>
+
+        <section id="drag-drop">
+            <h2>2.3 Program Input Generator</h2>
+            <p>
+                The generator uses HTML5 drag-and-drop API with custom event handlers:
+            </p>
+            <pre><code>
+                // Module counter tracking
+                let moduleCounters = {
+                    FixedVariable: 0,
+                    RandomVariable: 0,
+                    RandomArray: 0,
+                    Repeat: 0,
+                    // ... other module types
+                };
+
+                // Drag event handling
+                element.addEventListener('dragstart', (e) => {
+                    draggedType = e.target.dataset.type;
+                    draggedElement = e.target;
+                });
+
+                // Drop zone accepts dragged modules
+                workspace.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    createModule(draggedType, e.target);
+                });
+            </code></pre>
+        </section>
+
+        <section id="data-model">
+            <h2>2.4 Data Model Structure</h2>
+            <p>
+                The application maintains a hierarchical data model representing the generator configuration:
+            </p>
+            <pre><code>
+                dataModel = {
+                    test: [
+                        {
+                            type: 'Repeat',
+                            count: 10,
+                            children: [
+                                {
+                                    type: 'RandomVariable',
+                                    min: 1,
+                                    max: 100,
+                                    dataType: 'int'
+                                }
+                            ]
+                        }
+                    ]
+                };
+            </code></pre>
+            <p>
+                This model is synchronized with the UI and can be serialized to JSON for saving/loading.
+            </p>
+        </section>
+
+        <section id="ajax">
+            <h2>2.5 AJAX Communication</h2>
+            <p>
+                All backend communication uses fetch API with proper error handling:
+            </p>
+            <pre><code>
+                async function saveQuery() {
+                    const formData = new FormData();
+                    formData.append('jsonData', JSON.stringify(dataModel));
+                    
+                    try {
+                        const response = await fetch('../database/saveQuery.php', {
+                            method: 'POST',
+                            credentials: 'include',
+                            body: formData
+                        });
+                        const result = await response.json();
+                        displayMessage(result.message, result.success);
+                    } catch (error) {
+                        displayMessage('Error saving query', false);
+                    }
+                }
+            </code></pre>
+        </section>
+
+        <section id="profile-js">
+            <h2>2.6 Profile Management</h2>
+            <p>
+                Profile management includes viewing and editing user information, managing friends,
+                and handling admin privileges. The profile.js file handles all the UI changes and profile-related operations.
+            </p>
+        </section>
+
+        <section id="query-system">
+            <h2 >2.7 Query Saving/Loading</h2>
+            <p>
+                Users can save generator configurations as named queries:
+            </p>
+            <ul>
+                <li>Queries stored as JSON in PostgreSQL</li>
+                <li>You can reuse the queries you previously saved</li>
+                <li>Queries can be renamed or deleted</li>
+            </ul>
+        </section>
+
+        <section id="admin-js">
+            <h2>2.8 Admin Functionalities</h2>
+            <p>
+                Admin users have access to additional management features:
+            </p>
+            <ul>
+                <li>User search and management</li>
+                <li>Ticket review and response system</li>
+            </ul>
+        </section>
+
+        <section id="export">
+            <h2>2.9 Export Capabilities</h2>
+            <p>
+                The user can generate the inputs, the JSON that is used to build the query or JavaScript code that generates the input.
+                And then the user can download the output.
+            </p>
+        </section>
+
+        <section id="visualization" >
+            <h2>2.10 Graph Visualization</h2>
+            <p>
+                For graphs with fewer than 10 nodes, the system generates SVG visualizations:
+            </p>
+            <ul>
+                <li>Automatic layout algorithms</li>
+                <li>Edge rendering with weights</li>
+                <li>Directed/undirected support</li>
+                <li>Interactive node positioning</li>
+            </ul>
+        </section>
+
+        <h2 id="backend">3. Backend</h2>
+
+        <section id="architecture">
+            <h2 property="schema:about">3.1 Architecture Overview</h2>
+            <p>
+                The backend follows a service-oriented architecture with PHP handling business logic
+                and PostgreSQL for data persistence. Each PHP file in the database/ directory represents
+                a specific service endpoint.
+            </p>
+
+        </section>
+
+        <section id="database">
+            <h2>3.2 Database Schema</h2>
+            <p>
+                The PostgreSQL database uses the following main tables:
+            </p>
+            <pre><code>
+                -- Users table
+                CREATE TABLE users (
+                    id bigInt GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+                    username character varying(30) NOT NULL CHECK (username <> ''),
+                    password character varying(255) NOT NULL,
+                    email character varying(40) NOT NULL CHECK (email <> ''),
+                    CONSTRAINT unique_username UNIQUE (username),
+                    CONSTRAINT unique_email UNIQUE (email)
+                );
+
+                -- Queries table
+                CREATE TABLE queries (
+                    "ownerId" bigint NOT NULL,
+                    id bigInt GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+                    "jsonData" jsonb NOT NULL,
+                    name character varying(255) DEFAULT 'Default Query Name',
+                    CONSTRAINT fk_ownerId FOREIGN KEY ("ownerId") 
+                        REFERENCES users(id) ON DELETE CASCADE
+                );
+
+                -- Profiles table
+                CREATE TABLE profiles (
+                    id bigInt GENERATED BY DEFAULT AS IDENTITY PRIMARY KEY,
+                    "isAdmin" boolean DEFAULT FALSE,
+                    "hidden" boolean DEFAULT FALSE,
+                    "ownerId" bigint NOT NULL,
+                    "firstName" character varying(30),
+                    "lastName" character varying(40),
+                    "phoneNumber" character varying(12),
+                    address character varying(40),
+                    country character varying(20),
+                    city character varying(20),
+                    "profilePhotoUrl" varchar(255) DEFAULT '../profilePhotos/profil.jpg',
+                    CONSTRAINT fk_ownerId FOREIGN KEY ("ownerId") 
+                        REFERENCES users(id) ON DELETE CASCADE
+                );
+            </code></pre>
+        </section>
+
+        <section id="security">
+            <h2>3.3 Security Measures</h2>
+            <p>
+                <strong>Authentication:</strong><br>
+                → JWT tokens with 7-day expiration<br>
+                → HTTP-only cookies prevent XSS attacks<br>
+                → Password hashing using bcrypt<br>
+                → Google OAuth as alternative auth method
+            </p>
+            <p>
+                <strong>Input Validation:</strong><br>
+                → PostgreSQL parameterized queries prevent SQL injection<br>
+                → htmlspecialchars() for output encoding<br>
+                → Input length limits and type checking<br>
+            </p>
+        </section>
+
+        <section id="features">
+            <h2>3.4 Key Features</h2>
+            <p>
+                <strong>User Management:</strong><br>
+                → Registration with email validation<br>
+                → Profile customization<br>
+                → Friend system with requests<br>
+                → Admin role management
+            </p>
+            <p>
+                <strong>Support System:</strong><br>
+                → Ticket creation for user support<br>
+                → Admin ticket management<br>
+                → Status tracking (open/closed/resolved/report)
+            </p>
+        </section>
+
+        <section id="endpoints">
+            <h2">3.5 API Endpoints</h2>
+            <p>Key API endpoints include:</p>
+            <ul>
+                <li><code>/auth/login.php</code> - User authentication</li>
+                <li><code>/auth/register.php</code> - New user registration</li>
+                <li><code>/auth/logout.php</code> - Session termination</li>
+                <li><code>/database/getProfile.php</code> - Retrieve user profile</li>
+                <li><code>/database/saveProfile.php</code> - Update profile data</li>
+                <li><code>/database/saveQuery.php</code> - Store generator configuration</li>
+                <li><code>/database/getQueries.php</code> - List user queries</li>
+                <li><code>/database/deleteQuery.php</code> - Remove saved query</li>
+                <li><code>/database/getFriends.php</code> - Friend list retrieval</li>
+                <li><code>/database/addFriend.php</code> - Send friend request</li>
+                <li><code>/database/submitTicket.php</code> - Create support ticket</li>
+                <li><code>/database/isAdmin.php</code> - Check admin status</li>
+            </ul>
+        </section>
+
+        <section id="libraries">
+            <h2>3.6 Libraries and GitHub</h2>
+            <p>
+                <strong>Firebase JWT:</strong><br>
+                Used for secure token generation and validation. Installed via Composer.
+            </p>
+            <pre><code>
+                {
+                    "require": {
+                        "firebase/php-jwt": "^6.11"
+                    }
+                }
+            </code></pre>
+            <p>
+                <strong>Automated Deployment:</strong><br>
+                GitHub Actions workflow automates deployment to production server on push to main branch.
+            </p>
+            <pre><code>
+                name: Deploy to server via SSH
+
+                on:
+                push:
+                    branches:
+                    - main
+
+                jobs:
+                deploy:
+                    runs-on: ubuntu-latest
+                    steps:
+                    - name: Checkout code
+                        uses: actions/checkout@v4
+
+                    - name: Deploy to server via SSH
+                        uses: appleboy/ssh-action@v0.1.10
+                        with:
+                        host: ${{ secrets.VM_IP }}
+                        username: ${{ secrets.VM_USERNAME }}
+                        key: ${{ secrets.SERVER_SSH_KEY }}
+                        script: |
+                            cd /var/www/html/WebProjectYear2UAIC
+                            git pull
+            </code></pre>
+        </section>
+
+        <h2 id="final">4. Final Thoughts</h2>
+        <section id="final-section">
+            <p>
+                Overall we think he have succeded in all the things we wanted to achieve with this project even though
+                there are many things we would do differently now if we we're to start over haha.
+            </p>
+
+            <h3>Links:</h3>
+            <p>
+                <a href="https://github.com/miruna-mp3/WebProjectYear2UAIC">GitHub Repository</a><br>
+                <a href="https://www.frankenpig.online">Website</a><br>
+                <a href="">YouTube Presentation Video</a>
+            </p>
+        </section>
+    </article>
 </body>
 </html>
