@@ -1,10 +1,10 @@
 <?php
     $scriptSource = '<script src="js/generator.js"></script>';
-    $additionalCss = '<link rel="alternative stylesheet" href="css/index.css">';
-    include '../includes/header.php';
+    $additionalCss = '<link rel="alternative stylesheet" href="css/index.css">'; 
 ?>
 
 <div class="container">
+    <?php include '../includes/header.php'; ?>
     <div class="main">
         <div class="top-container">
             <div class="palette">

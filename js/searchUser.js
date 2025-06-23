@@ -78,6 +78,7 @@ document.addEventListener('DOMContentLoaded', function() {
         const query = input.value.trim();
         if (query.length === 0) {
             resultsList.innerHTML = '';
+            resultsList.style.display = 'none';
             return;
         }
 
@@ -91,15 +92,18 @@ document.addEventListener('DOMContentLoaded', function() {
         .then(res => res.json())
         .then(results => {
             renderList(resultsList, results, createSearchItem, 'No users found.');
+            resultsList.style.display = 'flex';
         })
         .catch(err => {
             resultsList.innerHTML = '<li>Error loading results</li>' + err;
+            resultsList.style.display = 'flex';
         });
     });
 
     document.addEventListener('click', function(e) {
         if (!input.contains(e.target) && !resultsList.contains(e.target)) {
             resultsList.innerHTML = '';
+            resultsList.style.display = 'none';
         }
     });
 });

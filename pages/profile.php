@@ -1,10 +1,10 @@
 <?php
     $additionalCss = '<link rel="alternative stylesheet" href="css/profile.css">';
     $scriptSource = '<script src="js/profile.js"></script>';
-    include '../includes/header.php';
     include '../database/isAdmin.php';
 ?>
 <div class="container">
+    <?php include '../includes/header.php'; ?>
     <div class="main">
         <div class="navbar">
             <button onclick="showPanel('profile')">Profile</button>
@@ -165,7 +165,5 @@
             <?php endif; ?>
         </div>
     </div>
+    <?php include '../includes/footer.php'; ?>
 </div>
-<?php
-    include '../includes/footer.php';
-?>

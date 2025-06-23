@@ -6,13 +6,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="css/header-footer.css">
     <?php if(isset($_COOKIE['jwt'])): ?> <script src="js/searchUser.js"></script> <?php endif; ?>
+    <script src="js/mobile-menu.js"></script>
     <?php if (!empty($scriptSource)) echo $scriptSource; ?>
     <?php if (!empty($additionalCss)) echo $additionalCss; ?>
 </head>
 <body>
 <header class="site-header">
     <div class="margin">
-        <a href="index.php" class="logo">Program Input Generator</a>
+        <a href="index.php" class="logo">frankenpig.</a>
         <nav>
             <ul class="align">
                 <?php if(isset($_COOKIE['jwt'])): ?>
@@ -23,13 +24,13 @@
                         </form>
                     </li>
                 <?php endif; ?>
-                <li><a href="index.php">Home</a></li>
+                <li><a href="index.php">HOME</a></li>
                 <?php if(isset($_COOKIE['jwt'])): ?>
-                    <li><a href="profile.php">Profile</a></li>
-                    <li><a href="auth/logout.php">Logout</a></li>
+                    <li><a href="profile.php">PROFILE</a></li>
+                    <li><a href="auth/logout.php">LOGOUT</a></li>
                 <?php else: ?>
-                    <li><a href="login.html">Login</a></li>
-                    <li><a href="register.html">Register</a></li>
+                    <li><a href="login.html">LOGIN</a></li>
+                    <li><a href="register.html">REGISTER</a></li>
                 <?php endif; ?>
             </ul>
         </nav>

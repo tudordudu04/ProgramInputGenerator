@@ -1,9 +1,9 @@
 <?php
     $additionalCss = '<link rel="alternative stylesheet" href="css/profile.css">';
-    $scriptSource = '<script src="js/friendProfile.js"></script>';
-    include '../includes/header.php';
+    $scriptSource = '<script src="js/friendProfile.js"></script>'; 
 ?>
 <div class="container">
+    <?php include '../includes/header.php'; ?>
     <div class="main">
         <div class="navbar">
             <button onclick="showPanel('friendProfile')">Profile</button>
@@ -57,8 +57,6 @@
                 </ul>
             </div>
         </div>
-    </div>
+    </div>    
+    <?php include '../includes/footer.php'; ?>
 </div>
-<?php
-    include '../includes/footer.php';
-?>

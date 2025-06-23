@@ -1,29 +1,43 @@
+/* Import fonts to match index.css */
+@font-face {
+    font-family: Jersey;
+    src: url(Jersey25.ttf);
+}
+
+@font-face {
+    font-family: Groovy;
+    src: url(VT323.ttf);
+}
+
 .flexbody {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
     background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-    font-family: 'Segoe UI', Arial, sans-serif;
+    font-family: 'Jersey', 'Segoe UI', Verdana, sans-serif;
     margin: 0;
+    padding: 20px;
 }
 
 .form {
-    background: #fff;
+    background: #3a3a3a;
     padding: 2.5rem 2rem;
     border-radius: 12px;
-    box-shadow: 0 6px 24px rgba(50, 50, 93, 0.12), 0 1.5px 4px rgba(0,0,0,0.07);
-    max-width: 380px;
+    border: 2px solid #7a7a7a;
+    box-shadow: 0 0 12px rgba(125, 211, 160, 0.2), inset 0 0 20px rgba(0,0,0,0.15);
+    max-width: 420px;
     width: 100%;
 }
 
 .form-registration h1,
 .form-login h1 {
     text-align: center;
-    color: #3a3a3a;
+    color: #7dd3a0;
     margin-bottom: 1.5rem;
     font-size: 2rem;
     letter-spacing: 1px;
+    text-shadow: 0 0 8px rgba(125, 211, 160, 0.4);
 }
 
 .justify {
@@ -33,44 +47,55 @@
 }
 
 .justify label {
-    margin-bottom: 0.3rem;
+    margin-bottom: 0.5rem;
     font-weight: 500;
-    color: #555;
+    color: #F2F0EF;
+    font-size: 1rem;
 }
 
 .justify input {
-    padding: 0.6rem 0.8rem;
-    border: 1px solid #c7c7c7;
+    padding: 0.75rem 1rem;
+    border: 2px solid #606060;
     border-radius: 6px;
     font-size: 1rem;
-    background: #f8f8f8;
-    transition: border-color 0.2s;
+    background: #2a2a2a;
+    color: #7dd3a0;
+    transition: all 0.2s ease;
+    min-height: 44px; /* Touch-friendly */
 }
 
 .justify input:focus {
-    border-color: #5e81f4;
+    border-color: #7dd3a0;
     outline: none;
-    background: #fff;
+    background: #2f2f2f;
+    box-shadow: 0 0 8px rgba(125, 211, 160, 0.4);
+}
+
+.justify input::placeholder {
+    color: #888;
 }
 
 button[type="submit"] {
     width: 100%;
-    padding: 0.7rem 0;
+    padding: 0.875rem 0;
     border: none;
     border-radius: 6px;
-    background-color: #598392;
-    color: #fff;
+    background: linear-gradient(45deg, #7dd3a0, #8ee5b8);
+    color: #1a1a1a;
     font-size: 1.1rem;
     font-weight: 600;
     cursor: pointer;
-    margin-top: 0.5rem;
-    box-shadow: 0 2px 8px rgba(94,129,244,0.08);
+    margin-top: 0.75rem;
+    box-shadow: 0 0 8px rgba(125, 211, 160, 0.4);
+    transition: all 0.2s ease;
+    min-height: 48px; /* Touch-friendly */
 }
 
 button[type="submit"]:hover,
 button[type="submit"]:focus {
-    background-color: #4569d4;
-    box-shadow: 0 4px 16px rgba(94,129,244,0.16);
+    background: linear-gradient(45deg, #8ee5b8, #7dd3a0);
+    box-shadow: 0 0 12px rgba(125, 211, 160, 0.6);
+    transform: translateY(-1px);
 }
 
 #message {
@@ -78,4 +103,94 @@ button[type="submit"]:focus {
     text-align: center;
     font-size: 1rem;
     min-height: 1.4em;
+    color: #F2F0EF;
+}
+
+.form a {
+    color: #7dd3a0;
+    text-decoration: none;
+    transition: color 0.2s;
+}
+
+.form a:hover {
+    color: #8ee5b8;
+    text-shadow: 0 0 4px rgba(125, 211, 160, 0.4);
+}
+
+.form p {
+    color: #b8b8b8;
+    text-align: center;
+    margin-top: 1rem;
+}
+
+.google-login {
+    display: block;
+    width: 100%;
+    padding: 0.75rem;
+    margin-top: 1rem;
+    background: #fff;
+    color: #444;
+    border: 2px solid #ddd;
+    border-radius: 6px;
+    text-align: center;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.google-login:hover {
+    background: #f8f8f8;
+    border-color: #ccc;
+    transform: translateY(-1px);
+}
+
+@media (max-width: 768px) {
+    .flexbody {
+        padding: 15px;
+    }
+    
+    .form {
+        padding: 2rem 1.5rem;
+        max-width: 100%;
+    }
+    
+    .form-registration h1,
+    .form-login h1 {
+        font-size: 1.75rem;
+    }
+    
+    .justify input {
+        font-size: 16px;
+    }
+    
+    button[type="submit"] {
+        font-size: 1rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .flexbody {
+        padding: 10px;
+    }
+    
+    .form {
+        padding: 1.5rem 1rem;
+    }
+    
+    .form-registration h1,
+    .form-login h1 {
+        font-size: 1.5rem;
+        margin-bottom: 1rem;
+    }
+    
+    .justify {
+        margin-bottom: 0.875rem;
+    }
+    
+    .justify label {
+        font-size: 0.9rem;
+    }
+    
+    button[type="submit"] {
+        padding: 0.75rem 0;
+    }
 }
