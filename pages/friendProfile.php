@@ -2,6 +2,7 @@
     $additionalCss = '<link rel="alternative stylesheet" href="css/profile.css">';
     $scriptSource = '<script src="js/friendProfile.js"></script>'; 
 ?>
+    <?php include '../includes/markup.php'; ?>
 <div class="container">
     <?php include '../includes/header.php'; ?>
     <div class="main">

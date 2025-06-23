@@ -3,6 +3,7 @@
     $scriptSource = '<script src="js/profile.js"></script>';
     include '../database/isAdmin.php';
 ?>
+    <?php include '../includes/markup.php'; ?>
 <div class="container">
     <?php include '../includes/header.php'; ?>
     <div class="main">

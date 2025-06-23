@@ -2,7 +2,7 @@
     $scriptSource = '<script src="js/generator.js"></script>';
     $additionalCss = '<link rel="alternative stylesheet" href="css/index.css">'; 
 ?>
-
+    <?php include '../includes/markup.php'; ?>
 <div class="container">
     <?php include '../includes/header.php'; ?>
     <div class="main">
