@@ -9,12 +9,43 @@
     src: url(VT323.ttf);
 }
 
+body {
+    font-family: 'Jersey', Verdana;
+    background: 
+        linear-gradient(
+            transparent 0%,
+            rgba(255,255,255,0.02) 50%,
+            transparent 100%
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 2px,
+            rgba(255,255,255,0.05) 2px,
+            rgba(255,255,255,0.05) 4px
+        ),
+        #2f2f2f;
+}
+
 .flexbody {
     min-height: 100vh;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    background: 
+        linear-gradient(
+            transparent 0%,
+            rgba(255,255,255,0.02) 50%,
+            transparent 100%
+        ),
+        repeating-linear-gradient(
+            0deg,
+            transparent 0px,
+            transparent 2px,
+            rgba(255,255,255,0.05) 2px,
+            rgba(255,255,255,0.05) 4px
+        ),
+        #2f2f2f; 
     font-family: 'Jersey', 'Segoe UI', Verdana, sans-serif;
     margin: 0;
     padding: 20px;
