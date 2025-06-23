@@ -11,7 +11,7 @@
     <?php if (!empty($additionalCss)) echo $additionalCss; ?>
 </head>
 <body>
-<header class="site-header">
+<div class="site-header">
     <div class="margin">
         <a href="index.php" class="logo">frankenpig.</a>
         <nav>
@@ -35,4 +35,4 @@
             </ul>
         </nav>
     </div>
-</header>
+</div>
