@@ -124,6 +124,7 @@ body {
     height: 8.5rem;
     overflow: hidden;
     box-shadow: 0 0 8px rgba(125, 211, 160, 0.4);
+    position: relative;
 }
 
 .palette-scroll {
@@ -931,6 +932,19 @@ body {
     color: #065f46;
 }
 
+.palette::before {
+    content: 'double-tap to add';
+    position: absolute;
+    top: 0.25rem;
+    right: 0.5rem;
+    font-size: 1.1rem;
+    color: #000000;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    pointer-events: none;
+    z-index: 9000;
+}
 /* Responsive design */
 @media (max-width: 768px) {
     body {
@@ -946,7 +960,19 @@ body {
         gap: 0.5rem;
         padding: 0.3rem;
     }
-    
+    .palette::before {
+    content: 'double-tap to add';
+    position: absolute;
+    top: 0.25rem;
+    right: 0.5rem;
+    font-size: 0.8rem;
+    color: #000000;
+    background: rgba(255, 255, 255, 0.9);
+    padding: 0.125rem 0.375rem;
+    border-radius: 0.25rem;
+    pointer-events: none;
+    z-index: 9000;
+}
     .palette {
         flex: none;
         width: 100%;
@@ -954,19 +980,6 @@ body {
         position: relative;
     }
     
-    .palette::before {
-        content: 'double-tap to add';
-        position: absolute;
-        top: 0.25rem;
-        right: 0.5rem;
-        font-size: 0.65rem;
-        color: #000000;
-        background: rgba(255, 255, 255, 0.9);
-        padding: 0.125rem 0.375rem;
-        border-radius: 0.25rem;
-        pointer-events: none;
-        z-index: 9000;
-    }
     .controls {
         flex: none;
         width: 100%;
