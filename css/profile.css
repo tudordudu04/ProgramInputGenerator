@@ -99,13 +99,19 @@ body {
         #2f2f2f;
 }
 
+.container{
+    border: 2px solid #7a7a7a;
+    border-radius: 0.75rem;
+    box-shadow: 
+        0 0 12px rgba(125, 211, 160, 0.2),
+        inset 0 0 20px rgba(0,0,0,0.15);
+}
+
 .main {
     display: flex;
     min-height: 650px;
     padding: 0;
     background: #3a3a3a;
-    box-shadow: 0 0 12px rgba(125, 211, 160, 0.2), inset 0 0 20px rgba(0,0,0,0.15);
-    border: 2px solid #7a7a7a;
     border-radius: 12px;
 }
 
@@ -135,13 +141,10 @@ body {
 #reviewTicket-panel,
 #users-panel{
     background: #3a3a3a;
-    border-radius: 8px;
     width: 100%;
     margin: 30px auto;
     padding: 24px 20px;
-    box-shadow: 0 0 8px rgba(125, 211, 160, 0.3);
     font-family: 'Jersey', Verdana;
-    border: 2px solid #606060;
 }
 
 #friendFriends-panel h2,

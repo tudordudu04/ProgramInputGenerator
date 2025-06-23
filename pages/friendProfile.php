@@ -32,7 +32,7 @@
                 <div class="right-side">
                     <div class="card">
                         <div class="image-container">
-                            <img src="" class="image" id="profilePhoto" alt="Profile Photo">
+                            <img src="profilePhotos/placeholder.png" class="image" id="profilePhoto" alt="Profile Photo">
                         </div>
                         <p id="profileName">FirstName LastName</p>
                         <p id="profileEmail">Email</p>

@@ -3,7 +3,7 @@
     $scriptSource = '<script src="js/profile.js"></script>';
     include '../database/isAdmin.php';
 ?>
-    <?php include '../includes/markup.php'; ?>
+<?php include '../includes/markup.php'; ?>
 <div class="container">
     <?php include '../includes/header.php'; ?>
     <div class="main">
@@ -82,7 +82,7 @@
                 <div class="right-side">
                     <div class="card">
                         <div class="image-container">
-                        <img src="" class="image" id="profilePhoto" alt="Profile Photo">
+                        <img src="profilePhotos/placeholder.png" class="image" id="profilePhoto" alt="Profile Photo">
                         <div class="overlay">Change Photo</div>
                         <input type="file" accept="image/*" class="file-input" onchange="saveProfilePhoto(event)">
                         </div>
@@ -125,7 +125,7 @@
                 <h2>Support Tickets</h2>
                 <form id="supportTicketForm" onsubmit="submitTicket(event)">
                     <label for="ticketTitle">Title:</label>
-                    <input type="text" id="ticketTitle" name="ticketTitle" required />
+                    <input type="text" id="ticketTitle" name="ticketTitle" required>
 
                     <label for="ticketReason">Reason:</label>
                     <select id="ticketReason" name="ticketReason" required>
