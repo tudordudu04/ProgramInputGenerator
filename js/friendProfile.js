@@ -59,6 +59,28 @@ function showPanel(panel) {
     }
 }
 
+function useQuery(queryId, message){
+    formData = new FormData();
+    formData.append('id', queryId);
+    fetch('../database/getQueries.php',{
+        method: 'POST',
+        body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+        if(!data.success){
+            message.textContent = err;
+            message.style.color = 'red';
+        } else {
+            localStorage.setItem('dataModel', JSON.stringify(data.data));
+            window.location.href = '../index.php';
+        }
+    })
+    .catch(err => {
+        message.textContent = err;
+        message.style.color = 'red';
+    });
+}
 
 function createFriendItem(friend){
     const li = document.createElement('li');
@@ -122,10 +144,7 @@ function makeButton(label, handler){
     return btn;
 };
 
-//to be implemented
-// function useQuery(){
 
-// }
 
 function goBack(){
     window.location.href = "profile.php";
