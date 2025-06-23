@@ -62,10 +62,6 @@ function deleteAccount(){
     });
 }
 
-// function blockUser(id, message){
-
-// }
-
 function createUserItem(user){
     const li = document.createElement('li');
     const divUsername = document.createElement('div');
@@ -86,6 +82,31 @@ function createUserItem(user){
     li.append(divUsername);
     li.append(divButtons);
     return li;
+}
+
+function userListActions(id, action, message){
+    formData = new FormData();
+    formData.append('userId', id);
+    fetch('../database/deleteAccount.php',{
+        method: 'POST',
+        body: formData
+    })
+    .then(r => r.json())
+    .then(data => {
+        if(data.success){
+            loadUsers();
+            message.textContent = 'Account deleted succesfully';
+            message.style.color = 'green';
+        } else {
+            message.textContent = 'Couldn\'t delete account: ' + data.message;
+            message.style.color = 'red';
+        }
+    })
+    .catch(err => {
+            message.textContent = 'Error: ' + err;
+            message.style.color = 'red';
+    })
+
 }
 
 function loadUsers(){
