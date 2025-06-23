@@ -51,13 +51,15 @@
     font-weight: 500;
     color: #F2F0EF;
     font-size: 1rem;
+    font-size: 1.3rem;
 }
 
 .justify input {
     padding: 0.75rem 1rem;
     border: 2px solid #606060;
+    font-family: 'Jersey'; 
     border-radius: 6px;
-    font-size: 1rem;
+    font-size: 1.3rem;
     background: #2a2a2a;
     color: #7dd3a0;
     transition: all 0.2s ease;
@@ -76,13 +78,14 @@
 }
 
 button[type="submit"] {
+    font-family: 'Jersey';
     width: 100%;
     padding: 0.875rem 0;
     border: none;
     border-radius: 6px;
     background: linear-gradient(45deg, #7dd3a0, #8ee5b8);
     color: #1a1a1a;
-    font-size: 1.1rem;
+    font-size: 1.5rem;
     font-weight: 600;
     cursor: pointer;
     margin-top: 0.75rem;
@@ -125,9 +128,10 @@ button[type="submit"]:focus {
 
 .google-login {
     display: block;
-    width: 100%;
-    padding: 0.75rem;
+    width: 100%; 
     margin-top: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
     background: #fff;
     color: #444;
     border: 2px solid #ddd;

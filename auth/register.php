@@ -1,5 +1,5 @@
 <?php
-    include 'database/db_connection.php';
+    include '../database/db_connection.php';
     header('Content-Type: application/json');
 
     if(isset($_COOKIE['jwt'])) {

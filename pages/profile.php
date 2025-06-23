@@ -10,7 +10,7 @@
             <button onclick="showPanel('profile')">Profile</button>
             <button onclick="showPanel('friends')">Friend List</button>
             <button onclick="showPanel('queries')">Saved Queries</button>
-            <button onclick="showPanel('createTicket')">Create Support Ticket</button>
+            <button onclick="showPanel('createTicket')">Support Tickets</button>
             <?php if($isAdmin):?>
                 <button onclick="showPanel('reviewTicket')">Tickets</button>
                 <button onclick="showPanel('users')">User List</button> 
@@ -20,7 +20,7 @@
             <div class="panel" id="profile-panel">
                 <div class="left-side">
                     <div id="profileDisplay">
-                        <h2>Profile</h2>
+                        <h2>PROFILE</h2>
                         <ul class="settings">
                             <li><strong>Hidden:</strong> <span id="displayHidden"></span></li>
                             <li><strong>Username:</strong> <span id="displayUsername"></span></li>
@@ -121,7 +121,7 @@
                 </ul>
             </div>
             <div class="panel" id="createTicket-panel" style="display:none;">
-                <h2>Create Support Ticket</h2>
+                <h2>Support Tickets</h2>
                 <form id="supportTicketForm" onsubmit="submitTicket(event)">
                     <label for="ticketTitle">Title:</label>
                     <input type="text" id="ticketTitle" name="ticketTitle" required />

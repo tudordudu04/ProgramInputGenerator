@@ -15,7 +15,7 @@
             <div class="panel" id="friendProfile-panel">
                 <div class="left-side">
                     <div id="profileDisplay">
-                        <h2>Profile</h2>
+                        <h2>PROFILE</h2>
                         <ul class="settings">
                             <li><strong>Username:</strong> <span id="displayUsername"></span></li>
                             <li><strong>Email:</strong> <span id="displayEmail"></span></li>
