@@ -62,8 +62,8 @@
         $row = pg_fetch_assoc($checkUserResult);
         $user_id = $row['id'];
     } else {
-        $insertUserQuery = "INSERT INTO users (username, email, password, google_id) VALUES ($1, $2, '', $3) RETURNING id";
-        $insertUserResult = pg_query_params($conn, $insertUserQuery, array($email, $email, $google_id));
+        $insertUserQuery = "INSERT INTO users (username, email, password) VALUES ($1, $2, '') RETURNING id";
+        $insertUserResult = pg_query_params($conn, $insertUserQuery, array($email, $email,));
         if ($insertUserResult) {
             $user_id = pg_fetch_result($insertUserResult, 0, 'id');
         } else {
