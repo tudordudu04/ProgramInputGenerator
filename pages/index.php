@@ -69,7 +69,6 @@
                 <button class="btn" onclick="uploadTest()">upload json</button>
                 <button class="btn" onclick="downloadTest()">download</button>
                 <button class="btn btn-clear" onclick="clearAll()">×</button>
-                <div id="response"></div>
             </div>
         </div>
         
