@@ -1,13 +1,15 @@
 <?php
+    include '../database/db_connection.php';
     require_once "../util/vendor/autoload.php";
     header('Content-Type: application/json');
 
     use Firebase\JWT\Key;
     use Firebase\JWT\JWT;
 
-    $key = "cevacevacevacevacevacevacevacevacevacevacevacevacevacevacevaceva";
+    $dotenv = Dotenv\Dotenv::createImmutable('../');
+    $dotenv->load();
 
-    include '../database/db_connection.php';
+    $key = $_ENV['JWT_SECRET'];
 
     if(isset($_COOKIE['jwt'])) {
         http_response_code(401);

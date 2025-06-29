@@ -88,12 +88,8 @@ CREATE OR REPLACE TRIGGER trg_create_profile
     EXECUTE FUNCTION create_profile_on_user_insert();
     
 INSERT INTO users (username, password, email) VALUES
-('dudu', '$2y$10$G7cLYmgdQ7xCc.HbBUmW6.lCd8ZZfrKRdfgyUFGnZQyAk674qwqYm', 'dudu@mail.com'),
-('user0', '$2y$10$G7cLYmgdQ7xCc.HbBUmW6.lCd8ZZfrKRdfgyUFGnZQyAk674qwqYm', 'user0@mail.com'),
-('user1', '$2y$10$G7cLYmgdQ7xCc.HbBUmW6.lCd8ZZfrKRdfgyUFGnZQyAk674qwqYm', 'user1@mail.com');
+('dudu', '$2y$10$G7cLYmgdQ7xCc.HbBUmW6.lCd8ZZfrKRdfgyUFGnZQyAk674qwqYm', 'dudu@mail.com');
 
-UPDATE profiles SET "firstName" = 'Alice', "isAdmin" = FALSE, "lastName" = 'Popescu', "phoneNumber" = '0700000001', address = 'Str. Lalelelor 1', country = 'Romania', city = 'Bucharest' WHERE "ownerId" = 2;
-UPDATE profiles SET "firstName" = 'Bob', "isAdmin" = FALSE,"lastName" = 'Ionescu', "phoneNumber" = '0700000002', address = 'Str. Lalelelor 2', country = 'Romania', city = 'Cluj' WHERE "ownerId" = 3;
 UPDATE profiles SET "isAdmin" = TRUE WHERE "ownerId" = 1;
 
 ALTER TABLE profiles ENABLE TRIGGER ALL;

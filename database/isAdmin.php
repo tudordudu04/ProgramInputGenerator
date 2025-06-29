@@ -5,10 +5,13 @@
     use Firebase\JWT\Key;
     use Firebase\JWT\JWT;
 
+    $dotenv = Dotenv\Dotenv::createImmutable('../');
+    $dotenv->load();
+
     $isAdmin = false;
 
     if (isset($_COOKIE['jwt'])) {
-        $key = "cevacevacevacevacevacevacevacevacevacevacevacevacevacevacevaceva";
+        $key = $_ENV['JWT_SECRET'];
         $jwt = $_COOKIE['jwt'];
 
         try {

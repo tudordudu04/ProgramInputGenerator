@@ -1,12 +1,17 @@
 <?php
     require_once "../util/vendor/autoload.php";
+    include '../database/db_connection.php';
     use Firebase\JWT\JWT;
 
-    $key = "cevacevacevacevacevacevacevacevacevacevacevacevacevacevacevaceva";
-    include '../database/db_connection.php';
+    $dotenv = Dotenv\Dotenv::createImmutable('../');
+    $dotenv->load();
+
+    $key = $_ENV['JWT_SECRET'];
     session_start();
 
-    $redirect_uri = 'https://localhost:8082/database/googleCallback.php';
+    $client_id = $_ENV['CLIENT_ID'];
+    $client_secret = $_ENV['CLIENT_SECRET'];
+    $redirect_uri = $_ENV['REDIRECT_URI'];
 
     if (!isset($_GET['code'])) {
         http_response_code(401);

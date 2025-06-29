@@ -6,6 +6,8 @@
     use Firebase\JWT\Key;
     use Firebase\JWT\JWT;
 
+    $dotenv = Dotenv\Dotenv::createImmutable('../');
+    $dotenv->load();
 
     if (!isset($_COOKIE['jwt'])) {
         http_response_code(401);
@@ -16,7 +18,7 @@
         exit;
     }
 
-    $key = "cevacevacevacevacevacevacevacevacevacevacevacevacevacevacevaceva";
+    $key = $_ENV['JWT_SECRET'];
     $jwt = $_COOKIE['jwt'];
 
     try {
